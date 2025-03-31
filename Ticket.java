@@ -1,16 +1,13 @@
 import java.util.*;
-
 import javax.imageio.ImageIO;
-//import javax.smartcardio.Card;
-
-
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 public class Ticket {
     private boolean isLong;
     private int pointValue;
     private String firstCity, secondCity;
-    private Image image;
+    private BufferedImage image;
 
     public Ticket(String input){
         String[] in = input.split(" ");
@@ -28,5 +25,7 @@ public class Ticket {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    }
+    } 
+
+    public boolean isLong(){ return isLong; }
 }
