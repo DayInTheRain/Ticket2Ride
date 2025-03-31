@@ -8,6 +8,7 @@ public class T2RFrame extends JFrame{
         super(s);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setSize(WIDTH,HEIGHT);
+    add(new T2RPanel());
     setVisible(true);
     }
 }
