@@ -4,25 +4,19 @@ import java.awt.event.MouseListener;
 
 import javax.swing.*;
 public class T2RPanel extends JPanel implements MouseListener{
+
+
     public T2RPanel()
     {
-
     }
 
     public void paint(Graphics g)
     {
 
-        
-
-
-
-
-        
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-       
     }
 
     @Override
