@@ -28,4 +28,8 @@ public class Ticket {
     } 
 
     public boolean isLong(){ return isLong; }
+    public int getPointValue(){ return pointValue; }
+    public String getFirstCity(){ return firstCity; }
+    public String getSecondCity(){ return secondCity; }
+    public BufferedImage getImage(){ return image; }
 }
