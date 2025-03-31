@@ -10,12 +10,16 @@ public class T2RPanel extends JPanel implements MouseListener{
 
     public T2RPanel()
     {
+        System.out.println();
         System.out.println("testing");
         try {
             trainBG = ImageIO.read(T2RPanel.class.getResource("backgroundImages\\trainBG.png"));
+            System.out.println("train");
         } catch (Exception e) {
             System.out.println("Exception  ");
         }
+
+        addMouseListener(this);
     }
 
     public void paint(Graphics g)
@@ -25,6 +29,10 @@ public class T2RPanel extends JPanel implements MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        System.out.println("mouse clicked");
+        int x = e.getX();
+        int y= e.getY();
+        System.out.println("x: " + x + ". y: " + y);
     }
 
     @Override
