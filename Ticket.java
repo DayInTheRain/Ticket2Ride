@@ -1,7 +1,8 @@
 import java.util.*;
 
 import javax.imageio.ImageIO;
-import javax.smartcardio.Card;
+//import javax.smartcardio.Card;
+
 
 import java.awt.*;
 import java.io.IOException;
