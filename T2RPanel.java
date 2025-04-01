@@ -40,18 +40,18 @@ public class T2RPanel extends JPanel implements MouseListener{
         }
         g.drawRect(0, 0, WIDTH, HEIGHT);
     
-            //g.drawImage(trainBG, 0, 0, getWidth(), getHeight(), null);
+        //g.drawImage(trainBG, 0, 0, getWidth(), getHeight(), null);
 
-            g.drawImage(im, 0, 0, getWidth() - 405, getHeight() - 190 ,null);
+        g.drawImage(im, 0, 0, getWidth() - 405, getHeight() - 190 ,null);
 
-            g.setColor(Color.cyan);
-            for(int x = 0; x < getWidth(); x += 25){
-                    g.drawLine(x, 0, x, getHeight());
-            }
+        g.setColor(Color.cyan);
+        for(int x = 0; x < getWidth(); x += 25){
+                g.drawLine(x, 0, x, getHeight());
+        }
 
-            g.setColor(Color.magenta);
-            for(int y = 0; y < getHeight(); y += 25){
-                g.drawLine(0, y, getWidth(), y);
+        g.setColor(Color.magenta);
+        for(int y = 0; y < getHeight(); y += 25){
+            g.drawLine(0, y, getWidth(), y);
         }
 
 
@@ -88,6 +88,11 @@ public class T2RPanel extends JPanel implements MouseListener{
         }
 
         repaint();
+
+        System.out.println("Coords:");
+        System.out.println(x + ", " + y);
+        System.out.println((x/getWidth()) + " , " + (y/getHeight()));
+        System.out.println();
     }
 
     @Override
