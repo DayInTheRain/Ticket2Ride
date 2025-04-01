@@ -1,8 +1,8 @@
 import java.awt.*;
 import javax.swing.*;
 public class T2RFrame extends JFrame{
-    private int WIDTH = 1200;
-    private int HEIGHT = 480;
+    private int WIDTH = 1625;
+    private int HEIGHT = 880;
     public T2RFrame(String s)
     {
         super(s);
