@@ -1,9 +1,5 @@
 import java.util.*;
-
-import javax.smartcardio.Card;
-
 import static java.lang.System.*;
-
 import java.io.InputStream;
 public class Game {
     private boolean lastRound;
