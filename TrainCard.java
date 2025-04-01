@@ -24,4 +24,12 @@ public class TrainCard {
     public Image getImage(){
         return image;
     }
+
+    public int compareTo(TrainCard tc){
+        if(tc.getColor().equals(getColor())){
+            return 0;
+        } else {
+            return -1;
+        }
+    }
 } //end of class
