@@ -23,7 +23,7 @@ public class Game {
         //Initialize all cards
         try {
 		    // Load card names from the jar resource
-		    InputStream cardStream = getClass().getResourceAsStream("/insert name here");
+		    InputStream cardStream = getClass().getResourceAsStream("/TrainCardText");
 		    Scanner scanner = new Scanner(cardStream);
 		    while (scanner.hasNextLine()) {
 		        String name = scanner.nextLine();
@@ -32,11 +32,12 @@ public class Game {
 		    }
 		    scanner.close();
 
-		    // Load patron names from the jar resource
-		    InputStream ticketStream = getClass().getResourceAsStream("/insert name here");
+		    // Load ticket names from the jar resource
+		    InputStream ticketStream = getClass().getResourceAsStream("/TicketText");
 		    scanner = new Scanner(ticketStream);
 		    while (scanner.hasNextLine()) {
 		        String name = scanner.nextLine();
+                out.println(name);
 		        Ticket nextTicket = new Ticket(name);
                 if(nextTicket.isLong()){
                     longTickets.add(nextTicket);
