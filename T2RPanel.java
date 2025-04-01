@@ -6,7 +6,6 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.JButton;
-import java.awt.FlowLayout;
 public class T2RPanel extends JPanel implements MouseListener{
     BufferedImage trainBG;
     int gameState;
@@ -29,28 +28,45 @@ public class T2RPanel extends JPanel implements MouseListener{
 
     public void paint(Graphics g)
     {
-            g.drawImage(trainBG, 0, 0, getWidth(), getHeight(), null);
+        g.setColor( Color.white);
+       
+        if (gameState ==0){    
+        g.drawImage(trainBG, 0, 0, getWidth(), getHeight(), null);
+        }
+        g.drawRect(0, 0, WIDTH, HEIGHT);
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-       
+       System.out.println("gamestate " + gameState);
         double x = e.getX();
         double y= e.getY();
         System.out.println("x: " + x/getWidth() + ". y: " + y/getHeight());
 
         if(gameState == 0)
         {
+            //start button            
             if (rectangularInBounds(x, y, 0.07686*getWidth(), 0.23818*getWidth(), 0.11337*getHeight(), 0.26077*getHeight()))
             {
                 System.out.println("start game");
+                gameState = 1;
             }
 
-
+              //rules button            
+              if (rectangularInBounds(x, y, 0.07686*getWidth(), 0.23818*getWidth(), 0.34921*getHeight(), 0.49887*getHeight()))
+              {
+                  System.out.println("rules screen");
+                  gameState = -1;
+              }
+            
+            
+            
 
 
 
         }
+
+        repaint();
     }
 
     @Override
