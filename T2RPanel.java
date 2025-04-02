@@ -7,7 +7,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.JButton;
 public class T2RPanel extends JPanel implements MouseListener{
-    BufferedImage trainBG;
+    Image trainBG;
     int gameState;
     Image im;
 
@@ -18,9 +18,10 @@ public class T2RPanel extends JPanel implements MouseListener{
         System.out.println("testing");
         
         try {
-            trainBG = ImageIO.read(T2RPanel.class.getResource("backgroundImages\\trainBG.png"));
+            trainBG = ImageLoader.get("/Images/trainBG.png");
+
             System.out.println("train");
-            trainBG = ImageIO.read(T2RPanel.class.getResource("Images\\trainBG.png"));
+          //  trainBG = ImageIO.read(T2RPanel.class.getResource("Images\\trainBG.png"));
         } catch (Exception e) {
             System.out.println("Exception  ");
         }
@@ -33,18 +34,20 @@ public class T2RPanel extends JPanel implements MouseListener{
 
     public void paint(Graphics g)
     {
-        g.setColor( Color.white);
-       
+        super.paint(g);
+        /* g.setColor( Color.white);
+       g.drawRect(0, 0, getWidth()  , getHeight()); */
         if (gameState ==0){    
         g.drawImage(trainBG, 0, 0, getWidth(), getHeight(), null);
         }
-        g.drawRect(0, 0, WIDTH, HEIGHT);
-    
+       
             //g.drawImage(trainBG, 0, 0, getWidth(), getHeight(), null);
-
+        else if (gameState == 1){
             g.drawImage(im, 0, 0, getWidth() - 405, getHeight() - 190 ,null);
-
-            g.setColor(Color.cyan);
+            g.drawString("Points: ", (int) 0.76196*getWidth(), (int) 0.17630*getHeight());
+        
+            beginningOfTurnDisplay(g);
+        /*    g.setColor(Color.cyan);
             for(int x = 0; x < getWidth(); x += 25){
                     g.drawLine(x, 0, x, getHeight());
             }
@@ -52,9 +55,9 @@ public class T2RPanel extends JPanel implements MouseListener{
             g.setColor(Color.magenta);
             for(int y = 0; y < getHeight(); y += 25){
                 g.drawLine(0, y, getWidth(), y);
-        }
-
-
+                 } */
+            }
+            
     }//end of paint
 
     @Override
@@ -78,18 +81,24 @@ public class T2RPanel extends JPanel implements MouseListener{
               {
                   System.out.println("rules screen");
                   gameState = -1;
+                  repaint();
               }
             
-            
-            
-
-
-
         }
 
         repaint();
     }
 
+    public void beginningOfTurnDisplay(Graphics g)
+    {
+        System.out.println("points");
+        g.drawString("Points: ", (int) 0.76196*getWidth(), (int) 0.17630*getHeight());
+        
+
+
+
+
+    }
     @Override
     public void mousePressed(MouseEvent e) {
        
