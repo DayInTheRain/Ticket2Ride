@@ -87,6 +87,11 @@ public class T2RPanel extends JPanel implements MouseListener{
         }
 
         repaint();
+
+        System.out.println("Coords:");
+        System.out.println(x + ", " + y);
+        System.out.println((x/getWidth()) + " , " + (y/getHeight()));
+        System.out.println();
     }
 
     public void beginningOfTurnDisplay(Graphics g)
