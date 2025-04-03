@@ -38,21 +38,31 @@ public class T2RPanel extends JPanel implements MouseListener, ActionListener{
 
     public void paint(Graphics g)
     {
-       /* g.setColor( Color.white);
+        super.paint(g);
        
         if (gameState ==0){    
         g.drawImage(trainBG, 0, 0, getWidth(), getHeight(), null);
         }
-        g.drawRect(0, 0, WIDTH, HEIGHT);
-    
-        //g.drawImage(trainBG, 0, 0, getWidth(), getHeight(), null);
+       
+            //g.drawImage(trainBG, 0, 0, getWidth(), getHeight(), null);
+        else if (gameState == 1){
+            g.drawImage(im, 0, 0, getWidth() - 405, getHeight() - 190 ,null);
+            g.setColor(Color.black);
+            
+            System.out.println("Widthh__________" + getWidth());
+           
+            g.drawString("Points:", (int) (0.76196*getWidth()), (int) (0.17630*getHeight()));
 
-        g.drawImage(im, 0, 0, getWidth() - 405, getHeight() - 190 ,null);
+            g.drawString("Points:", (int) (0.76196*getWidth()), (int) (0.25239*getHeight()));
 
-        g.setColor(Color.cyan);
-        for(int x = 0; x < getWidth(); x += 25){
-                g.drawLine(x, 0, x, getHeight());
-        }
+            g.drawString("Points:", (int) (0.76196*getWidth()), (int) (0.32848*getHeight()));
+
+
+            beginningOfTurnDisplay(g);
+        /*    g.setColor(Color.cyan);
+            for(int x = 0; x < getWidth(); x += 25){
+                    g.drawLine(x, 0, x, getHeight());
+            }
 
         g.setColor(Color.magenta);
         for(int y = 0; y < getHeight(); y += 25){
@@ -150,6 +160,17 @@ public class T2RPanel extends JPanel implements MouseListener, ActionListener{
         System.out.println();
     }
 
+    public void beginningOfTurnDisplay(Graphics g)
+    {
+        g.setColor(Color.black);
+        System.out.println("points---------------------------------------------------------------");
+        g.drawString("Points aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: ", (int) 0.76196*getWidth(), (int) 0.17630*getHeight());
+        
+
+
+
+
+    }
     @Override
     public void mousePressed(MouseEvent e) {
        
