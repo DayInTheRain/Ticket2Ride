@@ -35,8 +35,7 @@ public class T2RPanel extends JPanel implements MouseListener{
     public void paint(Graphics g)
     {
         super.paint(g);
-        /* g.setColor( Color.white);
-       g.drawRect(0, 0, getWidth()  , getHeight()); */
+       
         if (gameState ==0){    
         g.drawImage(trainBG, 0, 0, getWidth(), getHeight(), null);
         }
@@ -44,8 +43,17 @@ public class T2RPanel extends JPanel implements MouseListener{
             //g.drawImage(trainBG, 0, 0, getWidth(), getHeight(), null);
         else if (gameState == 1){
             g.drawImage(im, 0, 0, getWidth() - 405, getHeight() - 190 ,null);
-            g.drawString("Points: ", (int) 0.76196*getWidth(), (int) 0.17630*getHeight());
-        
+            g.setColor(Color.black);
+            
+            System.out.println("Widthh__________" + getWidth());
+           
+            g.drawString("Points:", (int) (0.76196*getWidth()), (int) (0.17630*getHeight()));
+
+            g.drawString("Points:", (int) (0.76196*getWidth()), (int) (0.25239*getHeight()));
+
+            g.drawString("Points:", (int) (0.76196*getWidth()), (int) (0.32848*getHeight()));
+
+
             beginningOfTurnDisplay(g);
         /*    g.setColor(Color.cyan);
             for(int x = 0; x < getWidth(); x += 25){
@@ -96,8 +104,9 @@ public class T2RPanel extends JPanel implements MouseListener{
 
     public void beginningOfTurnDisplay(Graphics g)
     {
-        System.out.println("points");
-        g.drawString("Points: ", (int) 0.76196*getWidth(), (int) 0.17630*getHeight());
+        g.setColor(Color.black);
+        System.out.println("points---------------------------------------------------------------");
+        g.drawString("Points aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: ", (int) 0.76196*getWidth(), (int) 0.17630*getHeight());
         
 
 
