@@ -41,7 +41,7 @@ public class T2RPanel extends JPanel implements MouseListener, ActionListener{
         super.paint(g);
        
         if (gameState ==0){    
-        g.drawImage(trainBG, 0, 0, getWidth(), getHeight(), null);
+        g.drawImage(im, 0, 0, getWidth(), getHeight(), null);
         }
        
             //g.drawImage(trainBG, 0, 0, getWidth(), getHeight(), null);
@@ -74,7 +74,7 @@ public class T2RPanel extends JPanel implements MouseListener, ActionListener{
     	}
     	if(gameState == -1) {
     		g.drawImage(ImageLoader.get("/Images/rules1.jpg"),0,0,getWidth(), getHeight(),null);
-    	}
+    	}}
     	/*Font font = new Font("Aerial",Font.BOLD,20);
         startbutton = new JButton("Start Game"); 
         rulesbutton = new JButton("Rules"); 
