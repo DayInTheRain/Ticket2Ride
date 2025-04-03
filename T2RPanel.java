@@ -21,18 +21,18 @@ public class T2RPanel extends JPanel implements MouseListener, ActionListener{
         System.out.println();
         System.out.println("testing");
         
-        try {
-            trainBG = ImageIO.read(T2RPanel.class.getResource("backgroundImages\\start screen.jpg"));
-            System.out.println("train");
-            trainBG = ImageIO.read(T2RPanel.class.getResource("Images\\trainBG.png"));
-        } catch (Exception e) {
-            System.out.println("Exception  ");
-        }
+        // try {
+        //     trainBG = ImageIO.read(T2RPanel.class.getResource("backgroundImages\\start screen.jpg"));
+        //     System.out.println("train");
+        //     trainBG = ImageIO.read(T2RPanel.class.getResource("Images\\trainBG.png"));
+        // } catch (Exception e) {
+        //     System.out.println("Exception  ");
+        // }
 
         addMouseListener(this);
        
 
-        im = ImageLoader.get("/Images/start screen.jpg");
+        im = ImageLoader.get("/Images/trainBG.png");
 
     }
 
@@ -41,7 +41,7 @@ public class T2RPanel extends JPanel implements MouseListener, ActionListener{
         super.paint(g);
        
         if (gameState ==0){    
-        g.drawImage(trainBG, 0, 0, getWidth(), getHeight(), null);
+        g.drawImage(im, 0, 0, getWidth(), getHeight(), null);
         }
        
             //g.drawImage(trainBG, 0, 0, getWidth(), getHeight(), null);
@@ -49,7 +49,7 @@ public class T2RPanel extends JPanel implements MouseListener, ActionListener{
             g.drawImage(im, 0, 0, getWidth() - 405, getHeight() - 190 ,null);
             g.setColor(Color.black);
             
-            System.out.println("Widthh__________" + getWidth());
+            System.out.println("Width__________" + getWidth());
            
             g.drawString("Points:", (int) (0.76196*getWidth()), (int) (0.17630*getHeight()));
 
@@ -58,45 +58,16 @@ public class T2RPanel extends JPanel implements MouseListener, ActionListener{
             g.drawString("Points:", (int) (0.76196*getWidth()), (int) (0.32848*getHeight()));
 
 
-            beginningOfTurnDisplay(g);
-        /*    g.setColor(Color.cyan);
-            for(int x = 0; x < getWidth(); x += 25){
-                    g.drawLine(x, 0, x, getHeight());
-            }
-
-        g.setColor(Color.magenta);
-        for(int y = 0; y < getHeight(); y += 25){
-            g.drawLine(0, y, getWidth(), y);
-        }*/
+            //beginningOfTurnDisplay(g);
+       
     	g.drawImage(im, 0, 0, getWidth(), getHeight(), null);
-    	Font font = new Font("Aerial",Font.BOLD,20);
-        startbutton = new JButton("Start Game"); 
-        rulesbutton = new JButton("Rules"); 
-        startbutton.move(225, 400);
-        rulesbutton.move(1100, 400);
-        add(startbutton);
-        add(rulesbutton);
-        startbutton.addMouseListener(this);
-       startbutton.addActionListener(this);
-       rulesbutton.addMouseListener(this);
-       rulesbutton.addActionListener(this);
-       startbutton.setActionCommand("start");
-       rulesbutton.setActionCommand("rules");
-  
-        startbutton.setBackground(Color.BLACK);
-        startbutton.setForeground(Color.white);
-        rulesbutton.setBackground(Color.BLACK);
-        rulesbutton.setForeground(Color.white);
-
-        startbutton.setSize(300, 200);
-        startbutton.setVisible(true);
-        rulesbutton.setSize(300,200);
-        rulesbutton.setVisible(true);
+    	//Font font = new Font("Aerial",Font.BOLD,20);
+       
         
         
            
       
-
+        }
     }//end of paint
 
    
@@ -106,10 +77,13 @@ public class T2RPanel extends JPanel implements MouseListener, ActionListener{
        System.out.println("gamestate " + gameState);
         double x = e.getX();
         double y= e.getY();
-        System.out.println("x: " + x/getWidth() + ". y: " + y/getHeight());
+        System.out.println("Coords:");
+        System.out.println(x + ", " + y);
+        System.out.println((x/getWidth()) + " , " + (y/getHeight()));
+        System.out.println();
         
 
-       /* if(gameState == 0)
+       if(gameState == 0)
         {
             //start button            
             if (rectangularInBounds(x, y, 0.07686*getWidth(), 0.23818*getWidth(), 0.11337*getHeight(), 0.26077*getHeight()))
@@ -130,40 +104,23 @@ public class T2RPanel extends JPanel implements MouseListener, ActionListener{
 
 
 
-        }*/
+        }
        
-        
-       /* startbutton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Button clicked!");
-                // Add your desired action here
-            }
-
-			
-        });
-        */
-      
-
+    
         repaint();
+    }//mouse clicked
 
-        System.out.println("Coords:");
-        System.out.println(x + ", " + y);
-        System.out.println((x/getWidth()) + " , " + (y/getHeight()));
-        System.out.println();
-    }
-
-    public void beginningOfTurnDisplay(Graphics g)
-    {
-        g.setColor(Color.black);
-        System.out.println("points---------------------------------------------------------------");
-        g.drawString("Points aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: ", (int) 0.76196*getWidth(), (int) 0.17630*getHeight());
+    // public void beginningOfTurnDisplay(Graphics g)
+    // {
+    //     g.setColor(Color.black);
+    //     System.out.println("points---------------------------------------------------------------");
+    //     g.drawString("Points aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: ", (int) 0.76196*getWidth(), (int) 0.17630*getHeight());
         
 
 
 
 
-    }
+    // }
     @Override
     public void mousePressed(MouseEvent e) {
        
