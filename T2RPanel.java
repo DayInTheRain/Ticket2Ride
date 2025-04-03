@@ -86,14 +86,14 @@ public class T2RPanel extends JPanel implements MouseListener, ActionListener{
        if(gameState == 0)
         {
             //start button            
-            if (rectangularInBounds(x, y, 0.07686*getWidth(), 0.23818*getWidth(), 0.11337*getHeight(), 0.26077*getHeight()))
+            if (rectangularInBounds(x, y, 0.13846153846*getWidth(),0.32307692307*getWidth(), 0.45714285714*getHeight(), 0.68571428571*getHeight()))
             {
                 System.out.println("start game");
                 gameState = 1;
             }
 
               //rules button            
-              if (rectangularInBounds(x, y, 0.07686*getWidth(), 0.23818*getWidth(), 0.34921*getHeight(), 0.49887*getHeight()))
+              if (rectangularInBounds(x, y, 0.67692307692*getWidth(), 0.86153846153*getWidth(), 0.45714285714*getHeight(),  0.68571428571*getHeight()))
               {
                   System.out.println("rules screen");
                   gameState = -1;
@@ -159,6 +159,8 @@ public class T2RPanel extends JPanel implements MouseListener, ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getActionCommand().equals("start"));{
+			im = ImageLoader.get("/Images/t2r map.png");
+startbutton.setVisible(false);
 		System.out.println("start");}
 		if(e.getActionCommand().equals("rules"));{
 		System.out.println("rules");}
