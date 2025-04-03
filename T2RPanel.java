@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -6,10 +8,12 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.JButton;
-public class T2RPanel extends JPanel implements MouseListener{
-    Image trainBG;
+public class T2RPanel extends JPanel implements MouseListener, ActionListener{
+    BufferedImage trainBG;
     int gameState;
     Image im;
+    JButton startbutton;
+    JButton rulesbutton;
 
     public T2RPanel()
     {
@@ -18,17 +22,17 @@ public class T2RPanel extends JPanel implements MouseListener{
         System.out.println("testing");
         
         try {
-            trainBG = ImageLoader.get("/Images/trainBG.png");
-
+            trainBG = ImageIO.read(T2RPanel.class.getResource("backgroundImages\\start screen.jpg"));
             System.out.println("train");
-          //  trainBG = ImageIO.read(T2RPanel.class.getResource("Images\\trainBG.png"));
+            trainBG = ImageIO.read(T2RPanel.class.getResource("Images\\trainBG.png"));
         } catch (Exception e) {
             System.out.println("Exception  ");
         }
 
         addMouseListener(this);
+       
 
-        im = ImageLoader.get("/Images/t2r map.png");
+        im = ImageLoader.get("/Images/start screen.jpg");
 
     }
 
@@ -60,22 +64,52 @@ public class T2RPanel extends JPanel implements MouseListener{
                     g.drawLine(x, 0, x, getHeight());
             }
 
-            g.setColor(Color.magenta);
-            for(int y = 0; y < getHeight(); y += 25){
-                g.drawLine(0, y, getWidth(), y);
-                 } */
-            }
-            
+        g.setColor(Color.magenta);
+        for(int y = 0; y < getHeight(); y += 25){
+            g.drawLine(0, y, getWidth(), y);
+        }*/
+    	g.drawImage(im, 0, 0, getWidth(), getHeight(), null);
+    	Font font = new Font("Aerial",Font.BOLD,20);
+        startbutton = new JButton("Start Game"); 
+        rulesbutton = new JButton("Rules"); 
+        startbutton.move(225, 400);
+        rulesbutton.move(1100, 400);
+        add(startbutton);
+        add(rulesbutton);
+        startbutton.addMouseListener(this);
+       startbutton.addActionListener(this);
+       rulesbutton.addMouseListener(this);
+       rulesbutton.addActionListener(this);
+       startbutton.setActionCommand("start");
+       rulesbutton.setActionCommand("rules");
+  
+        startbutton.setBackground(Color.BLACK);
+        startbutton.setForeground(Color.white);
+        rulesbutton.setBackground(Color.BLACK);
+        rulesbutton.setForeground(Color.white);
+
+        startbutton.setSize(300, 200);
+        startbutton.setVisible(true);
+        rulesbutton.setSize(300,200);
+        rulesbutton.setVisible(true);
+        
+        
+           
+      
+
     }//end of paint
 
+   
     @Override
     public void mouseClicked(MouseEvent e) {
+    	
        System.out.println("gamestate " + gameState);
         double x = e.getX();
         double y= e.getY();
         System.out.println("x: " + x/getWidth() + ". y: " + y/getHeight());
+        
 
-        if(gameState == 0)
+       /* if(gameState == 0)
         {
             //start button            
             if (rectangularInBounds(x, y, 0.07686*getWidth(), 0.23818*getWidth(), 0.11337*getHeight(), 0.26077*getHeight()))
@@ -89,10 +123,27 @@ public class T2RPanel extends JPanel implements MouseListener{
               {
                   System.out.println("rules screen");
                   gameState = -1;
-                  repaint();
               }
             
-        }
+            
+            
+
+
+
+        }*/
+       
+        
+       /* startbutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Button clicked!");
+                // Add your desired action here
+            }
+
+			
+        });
+        */
+      
 
         repaint();
 
@@ -146,4 +197,14 @@ public class T2RPanel extends JPanel implements MouseListener{
 
 
     }
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getActionCommand().equals("start"));{
+		System.out.println("start");}
+		if(e.getActionCommand().equals("rules"));{
+		System.out.println("rules");}
+		
+	}
 }
