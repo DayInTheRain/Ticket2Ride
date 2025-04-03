@@ -59,7 +59,13 @@ public class T2RPanel extends JPanel implements MouseListener, ActionListener{
             g.drawLine(0, y, getWidth(), y);
         }*/
     	g.drawImage(im, 0, 0, getWidth(), getHeight(), null);
-    	Font font = new Font("Aerial",Font.BOLD,20);
+    	if(gameState == 1) {
+    		g.drawImage(ImageLoader.get("/Images/end screen.jpg"),0,0,getWidth(), getHeight(),null);
+    	}
+    	if(gameState == -1) {
+    		g.drawImage(ImageLoader.get("/Images/rules1.jpg"),0,0,getWidth(), getHeight(),null);
+    	}
+    	/*Font font = new Font("Aerial",Font.BOLD,20);
         startbutton = new JButton("Start Game"); 
         rulesbutton = new JButton("Rules"); 
         startbutton.move(225, 400);
@@ -71,6 +77,7 @@ public class T2RPanel extends JPanel implements MouseListener, ActionListener{
        rulesbutton.addMouseListener(this);
        rulesbutton.addActionListener(this);
        startbutton.setActionCommand("start");
+      
        rulesbutton.setActionCommand("rules");
   
         startbutton.setBackground(Color.BLACK);
@@ -82,7 +89,7 @@ public class T2RPanel extends JPanel implements MouseListener, ActionListener{
         startbutton.setVisible(true);
         rulesbutton.setSize(300,200);
         rulesbutton.setVisible(true);
-        
+      */
         
            
       
@@ -99,17 +106,17 @@ public class T2RPanel extends JPanel implements MouseListener, ActionListener{
         System.out.println("x: " + x/getWidth() + ". y: " + y/getHeight());
         
 
-       /* if(gameState == 0)
+        if(gameState == 0)
         {
             //start button            
-            if (rectangularInBounds(x, y, 0.07686*getWidth(), 0.23818*getWidth(), 0.11337*getHeight(), 0.26077*getHeight()))
+            if (rectangularInBounds(x, y, 0.13846153846*getWidth(),0.32307692307*getWidth(), 0.45714285714*getHeight(), 0.68571428571*getHeight()))
             {
                 System.out.println("start game");
                 gameState = 1;
             }
 
               //rules button            
-              if (rectangularInBounds(x, y, 0.07686*getWidth(), 0.23818*getWidth(), 0.34921*getHeight(), 0.49887*getHeight()))
+              if (rectangularInBounds(x, y, 0.67692307692*getWidth(), 0.86153846153*getWidth(), 0.45714285714*getHeight(),  0.68571428571*getHeight()))
               {
                   System.out.println("rules screen");
                   gameState = -1;
@@ -120,7 +127,7 @@ public class T2RPanel extends JPanel implements MouseListener, ActionListener{
 
 
 
-        }*/
+        }
        
         
        /* startbutton.addActionListener(new ActionListener() {
@@ -181,6 +188,8 @@ public class T2RPanel extends JPanel implements MouseListener, ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getActionCommand().equals("start"));{
+			im = ImageLoader.get("/Images/t2r map.png");
+startbutton.setVisible(false);
 		System.out.println("start");}
 		if(e.getActionCommand().equals("rules"));{
 		System.out.println("rules");}
