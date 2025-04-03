@@ -44,16 +44,6 @@ public class T2RPanel extends JPanel implements MouseListener{
 
         g.drawImage(im, 0, 0, getWidth() - 405, getHeight() - 190 ,null);
 
-        g.setColor(Color.cyan);
-        for(int x = 0; x < getWidth(); x += 25){
-                g.drawLine(x, 0, x, getHeight());
-        }
-
-        g.setColor(Color.magenta);
-        for(int y = 0; y < getHeight(); y += 25){
-            g.drawLine(0, y, getWidth(), y);
-        }
-
 
     }//end of paint
 
