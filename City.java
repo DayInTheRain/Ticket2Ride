@@ -6,6 +6,13 @@ private ArrayList<Railroad> routes;
 private int player;
 private double[] coords = new double[2];
 
+public City(String s){
+	String[] str = s.split("_");
+	this.name = str[0];
+	this.player = 0;
+	this.coords[0] = Double.parseDouble(str[1]);
+	this.coords[1] = Double.parseDouble(str[2]);
+}
 
 public City(String n, ArrayList<Railroad> r, double[] c) {
 	this.name = n;

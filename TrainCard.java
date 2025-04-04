@@ -10,11 +10,13 @@ public class TrainCard {
 
     public TrainCard(String c){
         color = c;
-        try {
-			image = ImageIO.read(Ticket.class.getResource("/TrainCard/" + c + ".jpg"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+        String str = color + ".png";
+        //try {
+			// image = ImageIO.read(Ticket.class.getResource("/Images/TrainCards/" + c + ".png"));
+            image = ImageLoader.get("/Images/TrainCards/" + str);
+		// } catch (IOException e) {
+		// 	e.printStackTrace();
+		// }
     }
 
     public String getColor(){

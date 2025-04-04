@@ -6,6 +6,7 @@ public class Game {
     private ArrayList<Player> player;
     private Deque<TrainCard> trainCards, discard;
     private Deque<Ticket> longTickets, tickets;
+    private MapGraph mapGraph;
 
     public Game(){
         lastRound = false;
@@ -16,25 +17,29 @@ public class Game {
             player.add(new Player(i+1));
         }
 
+        //initialize the map with routes
+        mapGraph = new MapGraph();
+
+        //initialize the decks
         trainCards = new LinkedList<TrainCard>();
         discard = new LinkedList<TrainCard>();
         longTickets = new LinkedList<Ticket>();
         tickets = new LinkedList<Ticket>();
+
         //Initialize all cards
         try {
 		    // Load card names from the jar resource
-		    InputStream cardStream = getClass().getResourceAsStream("/TrainCardText");
-		    Scanner scanner = new Scanner(cardStream);
+		    Scanner scanner = new Scanner(getClass().getResourceAsStream("/TextFile/TrainCardText.txt"));
 		    while (scanner.hasNextLine()) {
 		        String name = scanner.nextLine();
 		        TrainCard nextCard = new TrainCard(name);
 		        trainCards.add(nextCard);
+                out.println("added trainCards to deck");
 		    }
 		    scanner.close();
 
 		    // Load ticket names from the jar resource
-		    InputStream ticketStream = getClass().getResourceAsStream("/TicketText");
-		    scanner = new Scanner(ticketStream);
+		    scanner = new Scanner(getClass().getResourceAsStream("/TextFile/TicketText.txt"));
 		    while (scanner.hasNextLine()) {
 		        String name = scanner.nextLine();
                 out.println(name);
@@ -52,7 +57,24 @@ public class Game {
 		    e.printStackTrace();
 		}
 
-    }
+        try {
+            //Load cities for the jar resource
+            Scanner scanner = new Scanner(getClass().getResourceAsStream("/TextFile/T2R_cities.txt"));
+            while(scanner.hasNextLine()){
+                String name = scanner.nextLine();
+                out.println(name);
+                City nextCity = new City(name);
+                mapGraph.addCity(nextCity.getName(), nextCity);
+            }
+            scanner.close();
+
+        } catch (Exception e) {
+            System.out.println("Error initializing cities and adding them to the mapGraph");
+            e.printStackTrace();
+        }
+
+
+    }//end of constructor
 
     
 
