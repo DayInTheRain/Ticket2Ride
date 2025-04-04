@@ -7,11 +7,11 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.JButton;
-public class T2RPanel extends JPanel implements MouseListener, ActionListener{
-    BufferedImage trainBG;
+public class T2RPanel extends JPanel implements MouseListener{
+    Image trainBG;
+    Image t2r_map;
     int gameState;
-    Image im;
+
     JButton startbutton;
     JButton rulesbutton;
 
@@ -20,19 +20,12 @@ public class T2RPanel extends JPanel implements MouseListener, ActionListener{
         gameState = 0;
         System.out.println();
         System.out.println("testing");
-        
-        // try {
-        //     trainBG = ImageIO.read(T2RPanel.class.getResource("backgroundImages\\start screen.jpg"));
-        //     System.out.println("train");
-        //     trainBG = ImageIO.read(T2RPanel.class.getResource("Images\\trainBG.png"));
-        // } catch (Exception e) {
-        //     System.out.println("Exception  ");
-        // }
-
+       
         addMouseListener(this);
        
 
-        im = ImageLoader.get("/Images/trainBG.png");
+        trainBG = ImageLoader.get("/Images/trainBG.png");
+        t2r_map = ImageLoader.get("/Images/t2r map.png");
 
     }
 
@@ -41,12 +34,12 @@ public class T2RPanel extends JPanel implements MouseListener, ActionListener{
         super.paint(g);
        
         if (gameState ==0){    
-        g.drawImage(im, 0, 0, getWidth(), getHeight(), null);
+        g.drawImage(trainBG, 0, 0, getWidth(), getHeight(), null);
         }
        
             //g.drawImage(trainBG, 0, 0, getWidth(), getHeight(), null);
         else if (gameState == 1){
-            g.drawImage(im, 0, 0, getWidth() - 405, getHeight() - 190 ,null);
+            g.drawImage(t2r_map, 0, 0, (int)(getWidth() * 0.6), (int)(getHeight()  * 0.7) ,null);
             g.setColor(Color.black);
             
             System.out.println("Width__________" + getWidth());
@@ -60,7 +53,7 @@ public class T2RPanel extends JPanel implements MouseListener, ActionListener{
 
             //beginningOfTurnDisplay(g);
        
-    	g.drawImage(im, 0, 0, getWidth(), getHeight(), null);
+    	//g.drawImage(t2r_map, 0, 0, getWidth(), getHeight(), null);
     	//Font font = new Font("Aerial",Font.BOLD,20);
        
         
@@ -68,6 +61,21 @@ public class T2RPanel extends JPanel implements MouseListener, ActionListener{
            
       
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }//end of paint
 
    
@@ -86,7 +94,7 @@ public class T2RPanel extends JPanel implements MouseListener, ActionListener{
        if(gameState == 0)
         {
             //start button            
-            if (rectangularInBounds(x, y, 0.13846153846*getWidth(),0.32307692307*getWidth(), 0.45714285714*getHeight(), 0.68571428571*getHeight()))
+            if (rectangularInBounds(x, y, 0.13846153846*getWidth(),0.32307692307*getWidth(), 0.11483*getHeight(), 0.264354*getHeight()))
             {
                 System.out.println("start game");
                 gameState = 1;
@@ -155,15 +163,5 @@ public class T2RPanel extends JPanel implements MouseListener, ActionListener{
 
     }
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		if(e.getActionCommand().equals("start"));{
-			im = ImageLoader.get("/Images/t2r map.png");
-startbutton.setVisible(false);
-		System.out.println("start");}
-		if(e.getActionCommand().equals("rules"));{
-		System.out.println("rules");}
-		
-	}
+
 }
