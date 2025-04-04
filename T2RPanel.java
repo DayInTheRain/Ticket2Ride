@@ -11,13 +11,14 @@ public class T2RPanel extends JPanel implements MouseListener{
     Image trainBG;
     Image t2r_map;
     int gameState;
-
+    int turnState;
     JButton startbutton;
     JButton rulesbutton;
 
     public T2RPanel()
     {
         gameState = 0;
+        turnState = 0;
         System.out.println();
         System.out.println("testing");
        
@@ -40,26 +41,16 @@ public class T2RPanel extends JPanel implements MouseListener{
             //g.drawImage(trainBG, 0, 0, getWidth(), getHeight(), null);
         else if (gameState == 1){
             g.drawImage(t2r_map, 0, 0, (int)(getWidth() * 0.6), (int)(getHeight()  * 0.7) ,null);
-            g.setColor(Color.black);
-            
-            System.out.println("Width__________" + getWidth());
-           
-            g.drawString("Points:", (int) (0.76196*getWidth()), (int) (0.17630*getHeight()));
-
-            g.drawString("Points:", (int) (0.76196*getWidth()), (int) (0.25239*getHeight()));
-
-            g.drawString("Points:", (int) (0.76196*getWidth()), (int) (0.32848*getHeight()));
-
-
-            //beginningOfTurnDisplay(g);
+           if (turnState ==0)
+        {
+            beginTurnUI(g);
        
-    	//g.drawImage(t2r_map, 0, 0, getWidth(), getHeight(), null);
-    	//Font font = new Font("Aerial",Font.BOLD,20);
-       
-        
-        
-           
-      
+        }
+
+            if (turnState ==1)
+            {
+                claimRouteUI(g);
+            }
         }
 
 
@@ -93,7 +84,8 @@ public class T2RPanel extends JPanel implements MouseListener{
 
        if(gameState == 0)
         {
-            //start button            
+            //start button   
+            if (gameState == 0){        
             if (rectangularInBounds(x, y, 0.13846153846*getWidth(),0.32307692307*getWidth(), 0.11483*getHeight(), 0.264354*getHeight()))
             {
                 System.out.println("start game");
@@ -107,7 +99,13 @@ public class T2RPanel extends JPanel implements MouseListener{
                   gameState = -1;
               }
             
-            
+        }
+
+        if (gameState == 1)
+        {
+
+           
+        }
             
 
 
@@ -163,5 +161,54 @@ public class T2RPanel extends JPanel implements MouseListener{
 
     }
 
+    public void beginTurnUI(Graphics g)
+    {
 
+        g.setColor(Color.black);
+            
+          
+           
+        g.drawString("Points:", (int) (0.76196*getWidth()), (int) (0.17630*getHeight()));
+
+        g.drawString("Points:", (int) (0.76196*getWidth()), (int) (0.25239*getHeight()));
+
+        g.drawString("Points:", (int) (0.76196*getWidth()), (int) (0.32848*getHeight()));
+
+
+        //beginningOfTurnDisplay(g);
+   
+    //g.drawImage(t2r_map, 0, 0, getWidth(), getHeight(), null);
+    //Font font = new Font("Aerial",Font.BOLD,20);
+        g.setColor(Color.orange);
+        g.fillRoundRect((int)(0.70711*getWidth()), (int)(0.500000*getHeight()),(int)( 0.1*getWidth()), (int)(0.05*getHeight()), (int)(0.01*getWidth()), (int)(0.1*getWidth()));
+        g.setColor(Color.black);
+        g.drawString("claim route", (int) (0.73711*getWidth() ), (int) (0.5227272727272727*getHeight()));
+       
+        g.setColor(Color.orange);
+        g.fillRoundRect((int)(0.82711*getWidth()), (int)(0.500000*getHeight()),(int)( 0.1*getWidth()), (int)(0.05*getHeight()), (int)(0.01*getWidth()), (int)(0.1*getWidth()));
+        g.setColor(Color.black);
+        g.drawString("pick train card", (int) (0.82711*getWidth() ), (int) (0.5227272727272727*getHeight()));
+               
+        g.setColor(Color.orange);
+        g.fillRoundRect((int)(0.70711*getWidth()), (int)(0.620000*getHeight()),(int)( 0.1*getWidth()), (int)(0.05*getHeight()), (int)(0.01*getWidth()), (int)(0.1*getWidth()));
+        g.setColor(Color.black);
+        g.drawString("pick ticket card", (int) (0.73711*getWidth() ), (int) (0.640*getHeight()));
+       
+
+        
+        g.setColor(Color.orange);
+        g.fillRoundRect((int)(0.82711*getWidth()), (int)(0.620000*getHeight()),(int)( 0.1*getWidth()), (int)(0.05*getHeight()), (int)(0.01*getWidth()), (int)(0.1*getWidth()));
+        g.setColor(Color.black);
+        g.drawString("build a station", (int) (0.82711*getWidth() ), (int) (0.640*getHeight()));
+               
+
+
+
+
+    }
+
+    public void claimRouteUI(Graphics g)
+    {
+        g.drawString("Claim Route", (int) (0.65942*getWidth()), (int) (0.04785*getHeight()));
+    }
 }
