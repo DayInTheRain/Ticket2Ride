@@ -52,26 +52,7 @@ public class T2RPanel extends JPanel implements MouseListener{
             //g.drawImage(trainBG, 0, 0, getWidth(), getHeight(), null);
         else if (gameState == 1){
             g.drawImage(t2r_map, 0, 0, (int)(getWidth() * 0.6), (int)(getHeight()  * 0.7) ,null);
-            g.setColor(Color.black);
-            
-            System.out.println("Width__________" + getWidth());
-           
-            g.drawString("Points:", (int) (0.76196*getWidth()), (int) (0.17630*getHeight()));
-
-            g.drawString("Points:", (int) (0.76196*getWidth()), (int) (0.25239*getHeight()));
-
-            g.drawString("Points:", (int) (0.76196*getWidth()), (int) (0.32848*getHeight()));
-
-
-            //beginningOfTurnDisplay(g);
        
-    	//g.drawImage(t2r_map, 0, 0, getWidth(), getHeight(), null);
-    	//Font font = new Font("Aerial",Font.BOLD,20);
-       
-        
-        
-           
-      
         }
 
 
@@ -105,7 +86,6 @@ public class T2RPanel extends JPanel implements MouseListener{
 
        if(gameState == 0)
         {
-            //start button            
             if (rectangularInBounds(x, y, 0.13846153846*getWidth(),0.32307692307*getWidth(), 0.11483*getHeight(), 0.264354*getHeight()))
             {
                 System.out.println("start game");
@@ -119,6 +99,10 @@ public class T2RPanel extends JPanel implements MouseListener{
                   gameState = -1;
               }
                    
+            
+        }
+
+        if (gameState == 1)
 
         }
        else if(gameState == -1)  {   	  
@@ -187,5 +171,10 @@ public class T2RPanel extends JPanel implements MouseListener{
 
     }
 
+    public void beginTurnUI(Graphics g)
+    {
 
+        g.setColor(Color.black);
+
+    //g.drawImage(t2r_map, 0, 0, getWidth(), getHeight(), null);
 }
