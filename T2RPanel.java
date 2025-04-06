@@ -1,11 +1,6 @@
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 public class T2RPanel extends JPanel implements MouseListener{
     Image trainBG;
@@ -27,6 +22,8 @@ public class T2RPanel extends JPanel implements MouseListener{
 
         trainBG = ImageLoader.get("/Images/trainBG.png");
         t2r_map = ImageLoader.get("/Images/t2r map.png");
+        //city generator
+
 
     }
 
@@ -101,18 +98,27 @@ public class T2RPanel extends JPanel implements MouseListener{
             
         }
 
-        if (gameState == 1)
-        {
-
-           
-        }
+        
             
 
 
 
         }
        
-    
+        if (gameState == 1)
+        {
+                if (turnState ==0)
+                {
+                    if (rectangularInBounds(x, y, (int)(0.70711*getWidth()), (int)(0.80711*getWidth()), (int)(0.500000*getHeight()),  (int)(0.550000*getHeight())))
+                        {
+                         System.out.println("claim route was clicked");
+                         turnState = 1;
+                    
+                        }
+                }
+        }
+
+
         repaint();
     }//mouse clicked
 
@@ -209,6 +215,16 @@ public class T2RPanel extends JPanel implements MouseListener{
 
     public void claimRouteUI(Graphics g)
     {
+        g.setColor(Color.black);
         g.drawString("Claim Route", (int) (0.65942*getWidth()), (int) (0.04785*getHeight()));
+
+        g.drawString("Click two cities to claim the route that", (int) (0.65942*getWidth()), (int) (0.09785*getHeight()) );
+        g.drawString("connects them", (int) (0.65942*getWidth()), (int) (0.1205*getHeight()) );
+
+        g.drawString("City 1:", (int) (0.65942*getWidth()), (int) (0.1605*getHeight()) );
+
+         g.drawString("City 2:", (int) (0.65942*getWidth()), (int) (0.205*getHeight()) );
     }
+
+   
 }
