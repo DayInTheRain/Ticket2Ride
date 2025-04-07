@@ -1,6 +1,6 @@
 import java.util.*;
 public class Player {
-    private int playerNum, points, trainStations, trains, turnState, turnChoice;
+    private int playerNum, points, trainStations, trains, turnStatus, turnState;
     private HashMap<TrainCard, Integer> trainCards;
     private ArrayList<Ticket> tickets;
     private boolean hasEuropeanExpress;
@@ -11,8 +11,8 @@ public class Player {
         points = 0;
         trainStations = 3;
         trains = 45;
+        turnStatus = 0;
         turnState = 0;
-        turnChoice = -1;
 
         //Initialize all cards (starting at 0)
         trainCards = new HashMap<>();
@@ -39,13 +39,13 @@ public class Player {
     public boolean hasEuropeanExpress(){ return hasEuropeanExpress; }
     public int getNumTrains(){ return trains; }
     public void turnState(int num) {
-    	turnState = num;
+    	turnStatus = num;
     	// if 0 = not player turn
     	//if 1 = player turn
     	// if 2 = player finished turn
     }
     public int getTurnState() {
-    	return turnState;
+    	return turnStatus;
     }
 
     public void addPoints(int num) { points += num; }
@@ -68,13 +68,13 @@ public class Player {
     	}
 
 public void choice(int num) {
-	turnChoice = num;
-	// 0 = claim route
-	// 1 = pick train card
-	// 2 = pick ticket card
-	// 3 = build train Station
+	turnState = num;
+	// 1 = claim route
+	// 2 = pick train card
+	// 3 = pick ticket card
+	// 4 = build train Station
 }
 public int getchoice() {
-	return turnChoice;
+	return turnState;
 }
 }
