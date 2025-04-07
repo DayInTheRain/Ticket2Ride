@@ -1,11 +1,6 @@
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 public class T2RPanel extends JPanel implements MouseListener{
     Image trainBG;
@@ -19,6 +14,7 @@ public class T2RPanel extends JPanel implements MouseListener{
 
     public T2RPanel()
     {
+        Game gameAccess = new Game();
         gameState = 0;
         turnState = 0;
         System.out.println();
@@ -114,8 +110,24 @@ public class T2RPanel extends JPanel implements MouseListener{
             
         }
 
+        
+            
+
+
+
+        }
+       
         if (gameState == 1)
         {
+
+            if (turnState ==0)
+            {
+                if (rectangularInBounds(x, y, (int)(0.70711*getWidth()), (int)(0.80711*getWidth()), (int)(0.500000*getHeight()),  (int)(0.550000*getHeight())))
+                    {
+                     System.out.println("claim route was clicked");
+                     turnState = 1;
+                
+                    }
 
            
         }
@@ -123,7 +135,13 @@ public class T2RPanel extends JPanel implements MouseListener{
 
 
 
+        }else if(gameState == -1)  {   	  
+            if(rectangularInBounds(x,y,0.8744561839651958*getWidth(),0.988755980861244 *getWidth(),0.888755980861244*getHeight(), 0.9760765550239234*getHeight()))
+            { System.out.println("clicked next page");
+            // clicked next page
+            gameState = -2;}
         }
+
        else if(gameState == -1)  {   	  
     	   if(rectangularInBounds(x,y,0.8744561839651958*getWidth(),0.988755980861244 *getWidth(),0.888755980861244*getHeight(), 0.9760765550239234*getHeight()))
     	   { System.out.println("clicked next page");
@@ -140,6 +158,7 @@ public class T2RPanel extends JPanel implements MouseListener{
     	   }
     	  
        }
+
        
     
         repaint();
@@ -238,6 +257,16 @@ public class T2RPanel extends JPanel implements MouseListener{
 
     public void claimRouteUI(Graphics g)
     {
+        g.setColor(Color.black);
         g.drawString("Claim Route", (int) (0.65942*getWidth()), (int) (0.04785*getHeight()));
+
+        g.drawString("Click two cities to claim the route that", (int) (0.65942*getWidth()), (int) (0.09785*getHeight()) );
+        g.drawString("connects them", (int) (0.65942*getWidth()), (int) (0.1205*getHeight()) );
+
+        g.drawString("City 1:", (int) (0.65942*getWidth()), (int) (0.1605*getHeight()) );
+
+         g.drawString("City 2:", (int) (0.65942*getWidth()), (int) (0.205*getHeight()) );
     }
+
+   
 }
