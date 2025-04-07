@@ -49,6 +49,7 @@ public class Game {
 		    e.printStackTrace();
 		}
         cityGenerator();
+        ticketGenerator();
         shuffleDecks();
     }//end of constructor
 
@@ -71,7 +72,7 @@ public class Game {
             out.println("Error adding tickets into deck: GAME CLASS");
         }
     }//ticketGenerator
-
+    
     public void cityGenerator(){
         try {
 		    // Load card names from the jar resource
@@ -90,6 +91,13 @@ public class Game {
 		    e.printStackTrace();
          
 		}
+
+
+
+
+        
+
+
     }//cityGenerator
 
     public void runGame(){
@@ -124,6 +132,8 @@ public class Game {
     public void discardTrainCard(TrainCard card){
         discard.push(card);
     }
+    
+    public ArrayList<Player> getPlayers(){ return players; }
 
 
     public ArrayList<City> getCities()
