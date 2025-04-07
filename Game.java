@@ -1,11 +1,12 @@
-import java.util.*;
-import static java.lang.System.*;
 import java.io.InputStream;
+import static java.lang.System.*;
+import java.util.*;
 public class Game {
     private boolean lastRound;
     private ArrayList<Player> player;
     private Deque<TrainCard> trainCards, discard;
     private Deque<Ticket> longTickets, tickets;
+    private ArrayList<City> cityList;
 
     public Game(){
         lastRound = false;
@@ -51,6 +52,35 @@ public class Game {
 		    System.out.println("Error adding cards to deck: GAME CLASS");
 		    e.printStackTrace();
 		}
+        
+
+    }
+
+    public void cityGenerator()
+    {
+         try {
+		    // Load card names from the jar resource
+		    InputStream cityStream = getClass().getResourceAsStream("/T2R_cities");
+		    Scanner scanner = new Scanner(cityStream);
+		    while (scanner.hasNextLine()) {
+		        String cityInfo = scanner.nextLine();
+                String[] cityQualities = cityInfo.split("_");
+                double[] coordinates = {Double.parseDouble(cityQualities[1]), Double.parseDouble(cityQualities[2])};
+		        City nextCity = new City(cityQualities[0], coordinates);
+		        cityList.add(nextCity);
+		    }
+		    scanner.close();
+
+		
+		    }
+		   
+
+		 catch (Exception e) {
+		    System.out.println("Error adding cards to deck: GAME CLASS");
+		    e.printStackTrace();
+		}
+
+
 
     }
 
