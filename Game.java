@@ -7,11 +7,8 @@ public class Game {
     private Deque<TrainCard> trainCards, discard;
     private Deque<Ticket> longTickets, tickets;
     private MapGraph mapGraph;
-<<<<<<< HEAD
     private int playerTurn;
-=======
     private ArrayList<City> cityList;
->>>>>>> c04dbd58caeab5dd2b715778c19f5c3e894fbbf2
 
     public Game(){
         lastRound = false;
@@ -78,9 +75,7 @@ public class Game {
             e.printStackTrace();
         }
 
-<<<<<<< HEAD
         shuffleDecks();
-=======
     }
 
     public void cityGenerator()
@@ -105,12 +100,12 @@ public class Game {
 		 catch (Exception e) {
 		    System.out.println("Error adding cards to deck: GAME CLASS");
 		    e.printStackTrace();
+         
 		}
 
 
 
         
->>>>>>> c04dbd58caeab5dd2b715778c19f5c3e894fbbf2
 
 
     }//end of constructor
