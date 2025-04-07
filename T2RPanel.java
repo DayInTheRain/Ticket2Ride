@@ -131,10 +131,9 @@ public class T2RPanel extends JPanel implements MouseListener{
     	   gameState = -2;}
        }
        else if(gameState == -2) {
-    	   if(rectangularInBounds(x,y,0.8744561839651958*getWidth(),0.988755980861244 *getWidth(),0.888755980861244*getHeight(), 0.9760765550239234*getHeight())) {
+    	   if(rectangularInBounds(x,y,0.867619639527657*getWidth(),0.988755980861244 *getWidth(),0.868755980861244*getHeight(), 0.9760765550239234*getHeight())) {
     		   System.out.println("go back to home screen");
-    	   gameState = 0;
-            }
+    	   gameState = 0;}
     	   if(rectangularInBounds(x,y,0.7414543194530765*getWidth(),0.8297078931013051 *getWidth(),0.8588516746411483*getHeight(),  0.9389952153110048*getHeight())) {
     		   System.out.println("g previous page");
     		   gameState = -1;

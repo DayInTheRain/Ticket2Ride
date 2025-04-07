@@ -1,15 +1,17 @@
 import java.util.*;
 public class Player {
-    private int playerNum, points, trainStations, trains;
+    private int playerNum, points, trainStations, trains, turnState;
     private HashMap<TrainCard, Integer> trainCards;
     private ArrayList<Ticket> tickets;
     private boolean hasEuropeanExpress;
+    
 
     public Player(int num){
         playerNum = num;
         points = 0;
         trainStations = 3;
         trains = 45;
+        turnState = 0;
 
         //Initialize all cards (starting at 0)
         trainCards = new HashMap<>();
@@ -35,6 +37,33 @@ public class Player {
     public ArrayList<Ticket> getTickets(){ return tickets; }
     public boolean hasEuropeanExpress(){ return hasEuropeanExpress; }
     public int getNumTrains(){ return trains; }
+    public void turnState(int num) {
+    	turnState = num;
+    	// if 0 = not player turn
+    	//if 1 = player turn
+    	// if 2 = player finished turn
+    }
+    public int getTurnState() {
+    	return turnState;
+    }
 
     public void addPoints(int num) { points += num; }
+    public void placeStation() {
+    	trainStations--;
+    }
+    public void placetrains(int num) {
+    	trains -= num;
+    }
+    public void addtickets(ArrayList<Ticket> list) {
+    	for(Ticket x: list) {
+    		tickets.add(x);
+    	}
+    }
+    public void addtrainCards(LinkedList<TrainCard> list) {
+    	for(TrainCard s: list) {
+    		//trainCards.put(s, 1);
+    		trainCards.put(s, trainCards.get(s)+1);
+    		
+    	}
+    }
 }
