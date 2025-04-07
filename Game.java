@@ -4,19 +4,21 @@ import java.util.*;
 
 public class Game {
     private boolean lastRound;
-    private ArrayList<Player> player;
+    private ArrayList<Player> players;
     private Deque<TrainCard> trainCards, discard;
     private Deque<Ticket> longTickets, tickets;
     private MapGraph mapGraph;
+    private int playerTurn;
     private ArrayList<City> cityList;
 
     public Game(){
         lastRound = false;
+        playerTurn = 1;
 
+        players = new ArrayList<Player>();
         //Initialize players
-        player = new ArrayList<Player>();
         for(int i = 0; i < 4; i++){
-            player.add(new Player(i+1));
+            players.add(new Player(i+1));
         }
 
         //initialize the map with routes
@@ -47,7 +49,7 @@ public class Game {
 		    e.printStackTrace();
 		}
         cityGenerator();
-
+        shuffleDecks();
     }//end of constructor
 
     public void ticketGenerator(){
@@ -86,7 +88,41 @@ public class Game {
 		    }catch (Exception e) {
 		    System.out.println("Error creating cities and adding them into arraylist: GAME CLASS");
 		    e.printStackTrace();
+         
 		}
     }//cityGenerator
+
+    public void runGame(){
+        //uncomment cause it works
+        // if(players.get(playerTurn).getTurnState() == 2){
+        //     players.get(playerTurn).turnState(0);
+        //     incrementTurn();
+        // }
+    }
+
+    public void shuffleDecks(){
+        Collections.shuffle((LinkedList<Ticket>) tickets);
+        Collections.shuffle((LinkedList<Ticket>) longTickets);
+        Collections.shuffle((LinkedList<TrainCard>) trainCards);
+    }
+
+    public int getPlayerTurn(){return playerTurn; }
+    public void incrementTurn(){
+        playerTurn += 1;
+        if(playerTurn == 5)
+            playerTurn = 1;
+    }
+    public Ticket drawTicket(){
+        return tickets.pop();
+    }
+    public Ticket drawLongTicket(){
+        return longTickets.pop();
+    }
+    public TrainCard drawTrainCard(){
+        return trainCards.pop();
+    }
+    public void discardTrainCard(TrainCard card){
+        discard.push(card);
+    }
 
 }//end of class
