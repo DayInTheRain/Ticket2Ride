@@ -1,6 +1,7 @@
 import java.io.InputStream;
 import static java.lang.System.*;
 import java.util.*;
+
 public class Game {
     private boolean lastRound;
     private ArrayList<Player> player;
@@ -12,14 +13,15 @@ public class Game {
     public Game(){
         lastRound = false;
 
-        player = new ArrayList<Player>();
         //Initialize players
+        player = new ArrayList<Player>();
         for(int i = 0; i < 4; i++){
             player.add(new Player(i+1));
         }
 
         //initialize the map with routes
         mapGraph = new MapGraph();
+        cityList = new ArrayList<City>();
 
         //initialize the decks
         trainCards = new LinkedList<TrainCard>();
@@ -39,8 +41,18 @@ public class Game {
 		    }
 		    scanner.close();
 
-		    // Load ticket names from the jar resource
-		    scanner = new Scanner(getClass().getResourceAsStream("/TextFiles/TicketText.txt"));
+		    
+		} catch (Exception e) {
+		    System.out.println("Error adding cards to deck: GAME CLASS");
+		    e.printStackTrace();
+		}
+        cityGenerator();
+
+    }//end of constructor
+
+    public void ticketGenerator(){
+        try{
+            Scanner scanner = new Scanner(getClass().getResourceAsStream("/TextFiles/TicketText.txt"));
 		    while (scanner.hasNextLine()) {
 		        String name = scanner.nextLine();
                 out.println(name);
@@ -53,61 +65,28 @@ public class Game {
 		    }
 		    scanner.close();
 
-		} catch (Exception e) {
-		    System.out.println("Error adding cards to deck: GAME CLASS");
-		    e.printStackTrace();
-		}
-        try {
-            //Load cities for the jar resource
-            Scanner scanner = new Scanner(getClass().getResourceAsStream("/TextFiles/T2R_cities.txt"));
-            while(scanner.hasNextLine()){
-                String name = scanner.nextLine();
-                out.println(name);
-                City nextCity = new City(name);
-                mapGraph.addCity(nextCity.getName(), nextCity);
-            }
-            scanner.close();
-
-        } catch (Exception e) {
-            System.out.println("Error initializing cities and adding them to the mapGraph");
-            e.printStackTrace();
+        }catch(Exception e){
+            out.println("Error adding tickets into deck: GAME CLASS");
         }
+    }//ticketGenerator
 
-    }
-
-    public void cityGenerator()
-    {
-         try {
+    public void cityGenerator(){
+        try {
 		    // Load card names from the jar resource
-		    InputStream cityStream = getClass().getResourceAsStream("/T2R_cities");
+		    InputStream cityStream = getClass().getResourceAsStream("/TextFiles/T2R_cities.txt");
 		    Scanner scanner = new Scanner(cityStream);
 		    while (scanner.hasNextLine()) {
 		        String cityInfo = scanner.nextLine();
-                String[] cityQualities = cityInfo.split("_");
-                double[] coordinates = {Double.parseDouble(cityQualities[1]), Double.parseDouble(cityQualities[2])};
-		        City nextCity = new City(cityQualities[0], coordinates);
+                City nextCity = new City(cityInfo);
+                System.out.println(nextCity);
 		        cityList.add(nextCity);
 		    }
 		    scanner.close();
 
-		
-		    }
-		   
-
-		 catch (Exception e) {
-		    System.out.println("Error adding cards to deck: GAME CLASS");
+		    }catch (Exception e) {
+		    System.out.println("Error creating cities and adding them into arraylist: GAME CLASS");
 		    e.printStackTrace();
 		}
+    }//cityGenerator
 
-
-
-        
-
-
-    }//end of constructor
-
-    
-
-
-
-}
+}//end of class
