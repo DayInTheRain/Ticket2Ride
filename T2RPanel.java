@@ -153,7 +153,7 @@ public class T2RPanel extends JPanel implements MouseListener{
         }
        
     
-        // repaint();
+        repaint();
     }//mouse clicked
 
     // public void beginningOfTurnDisplay(Graphics g)
