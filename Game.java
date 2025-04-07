@@ -76,7 +76,7 @@ public class Game {
         }
 
         shuffleDecks();
-    }
+    }//end of constructor
 
     public void cityGenerator()
     {
@@ -108,7 +108,7 @@ public class Game {
         
 
 
-    }//end of constructor
+    }
 
     public void runGame(){
         //uncomment cause it works

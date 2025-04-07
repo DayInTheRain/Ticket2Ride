@@ -11,10 +11,11 @@ public class T2RPanel extends JPanel implements MouseListener{
     int turnState;
     JButton startbutton;
     JButton rulesbutton;
+    Game gameAccess;
 
     public T2RPanel()
     {
-        Game gameAccess = new Game();
+        gameAccess = new Game();
         gameState = 0;
         turnState = 0;
         System.out.println();
@@ -49,6 +50,7 @@ public class T2RPanel extends JPanel implements MouseListener{
             //g.drawImage(trainBG, 0, 0, getWidth(), getHeight(), null);
         else if (gameState == 1){
             g.drawImage(t2r_map, 0, 0, (int)(getWidth() * 0.6), (int)(getHeight()  * 0.7) ,null);
+            paintPlayerHand(g);
            if (turnState ==0)
         {
             beginTurnUI(g);
@@ -76,6 +78,11 @@ public class T2RPanel extends JPanel implements MouseListener{
 
 
     }//end of paint
+
+    public void paintPlayerHand(Graphics g){
+        g.drawString("Player " + gameAccess.getPlayerTurn(), (int)(0.006836544437538844*getWidth()), (int)(0.7284688995215312*getHeight()));
+        //g.drawImage(gameAccess, ALLBITS, ABORT, rulesbutton)
+    }
 
    
     @Override
