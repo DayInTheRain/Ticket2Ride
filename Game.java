@@ -125,4 +125,10 @@ public class Game {
         discard.push(card);
     }
 
+
+    public ArrayList<City> getCities()
+    {
+        return cityList;
+    }
+
 }//end of class
