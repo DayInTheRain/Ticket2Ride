@@ -7,7 +7,7 @@ private int player;
 private double[] coords = new double[2];
 
 public City(String s){
-	String[] str = s.split("_");
+	String[] str = s.split(" ");
 	this.name = str[0];
 	this.player = 0;
 	this.coords[0] = Double.parseDouble(str[1]);
@@ -44,7 +44,9 @@ public int getStation() {
 	return player;
 }
 
-
+public String toString(){
+	return "" + name + " - " + coords[0]  + ", " + coords[1] + " - player: " + player;
+}
 
 //public void placeStation(Player p) {
 //	stationID = p.getPlayerNum();

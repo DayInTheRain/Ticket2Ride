@@ -72,18 +72,9 @@ public class Game {
             out.println("Error adding tickets into deck: GAME CLASS");
         }
     }//ticketGenerator
-
-<<<<<<< HEAD
-        shuffleDecks();
-    }//end of constructor
-
-    public void cityGenerator()
-    {
-         try {
-=======
+    
     public void cityGenerator(){
         try {
->>>>>>> a91820a77bdd30a863476ff7c75348156aa9b52b
 		    // Load card names from the jar resource
 		    InputStream cityStream = getClass().getResourceAsStream("/TextFiles/T2R_cities.txt");
 		    Scanner scanner = new Scanner(cityStream);
@@ -100,17 +91,14 @@ public class Game {
 		    e.printStackTrace();
          
 		}
-<<<<<<< HEAD
+
 
 
 
         
 
 
-    }
-=======
     }//cityGenerator
->>>>>>> a91820a77bdd30a863476ff7c75348156aa9b52b
 
     public void runGame(){
         //uncomment cause it works
