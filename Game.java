@@ -57,7 +57,21 @@ public class Game {
 		    System.out.println("Error adding cards to deck: GAME CLASS");
 		    e.printStackTrace();
 		}
-        
+        try {
+            //Load cities for the jar resource
+            Scanner scanner = new Scanner(getClass().getResourceAsStream("/TextFile/T2R_cities.txt"));
+            while(scanner.hasNextLine()){
+                String name = scanner.nextLine();
+                out.println(name);
+                City nextCity = new City(name);
+                mapGraph.addCity(nextCity.getName(), nextCity);
+            }
+            scanner.close();
+
+        } catch (Exception e) {
+            System.out.println("Error initializing cities and adding them to the mapGraph");
+            e.printStackTrace();
+        }
 
     }
 
@@ -87,21 +101,7 @@ public class Game {
 
 
 
-        try {
-            //Load cities for the jar resource
-            Scanner scanner = new Scanner(getClass().getResourceAsStream("/TextFile/T2R_cities.txt"));
-            while(scanner.hasNextLine()){
-                String name = scanner.nextLine();
-                out.println(name);
-                City nextCity = new City(name);
-                mapGraph.addCity(nextCity.getName(), nextCity);
-            }
-            scanner.close();
-
-        } catch (Exception e) {
-            System.out.println("Error initializing cities and adding them to the mapGraph");
-            e.printStackTrace();
-        }
+        
 
 
     }//end of constructor
