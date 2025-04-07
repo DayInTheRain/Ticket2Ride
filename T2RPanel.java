@@ -81,7 +81,7 @@ public class T2RPanel extends JPanel implements MouseListener{
 
     public void paintPlayerHand(Graphics g){
         g.drawString("Player " + gameAccess.getPlayerTurn(), (int)(0.006836544437538844*getWidth()), (int)(0.7284688995215312*getHeight()));
-        //g.drawImage(gameAccess, ALLBITS, ABORT, rulesbutton)
+        g.drawImage(gameAccess.drawTrainCard().getImage(), (int)(0.0074580484773151025*getWidth()), (int)(0.7284688995215312*getHeight()), getWidth()/10, getHeight()/10, null);
     }
 
    
