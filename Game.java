@@ -49,6 +49,7 @@ public class Game {
 		    e.printStackTrace();
 		}
         cityGenerator();
+        ticketGenerator();
         shuffleDecks();
     }//end of constructor
 
