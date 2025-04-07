@@ -132,5 +132,7 @@ public class Game {
     public void discardTrainCard(TrainCard card){
         discard.push(card);
     }
+    
+    public ArrayList<Player> getPlayers(){ return players; }
 
 }//end of class
