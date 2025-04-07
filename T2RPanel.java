@@ -5,6 +5,8 @@ import javax.swing.*;
 public class T2RPanel extends JPanel implements MouseListener{
     Image trainBG;
     Image t2r_map;
+    Image rules1;
+    Image rules2;
     int gameState;
     int turnState;
     JButton startbutton;
@@ -23,8 +25,8 @@ public class T2RPanel extends JPanel implements MouseListener{
 
         trainBG = ImageLoader.get("/Images/trainBG.png");
         t2r_map = ImageLoader.get("/Images/t2r map.png");
-        //city generator
-
+        rules1 = ImageLoader.get("/Images/rules1.jpg");
+        rules2 = ImageLoader.get("/Images/rules2.jpg");
 
     }
 
@@ -35,6 +37,14 @@ public class T2RPanel extends JPanel implements MouseListener{
         if (gameState ==0){    
         g.drawImage(trainBG, 0, 0, getWidth(), getHeight(), null);
         }
+        
+        else if(gameState == -1) {
+        	g.drawImage(rules1, 0, 0, getWidth(), getHeight(), null);
+        }
+        else if(gameState == -2) {
+        	g.drawImage(rules2, 0, 0, getWidth(), getHeight(), null);
+        }
+        
        
             //g.drawImage(trainBG, 0, 0, getWidth(), getHeight(), null);
         else if (gameState == 1){
@@ -91,11 +101,12 @@ public class T2RPanel extends JPanel implements MouseListener{
             }
 
               //rules button            
-              if (rectangularInBounds(x, y, 0.67692307692*getWidth(), 0.86153846153*getWidth(), 0.45714285714*getHeight(),  0.68571428571*getHeight()))
+              if (rectangularInBounds(x, y,  0.13846153846*getWidth(), 0.32307692307*getWidth(), 0.34285714285*getHeight(),  0.51234434*getHeight()))
               {
                   System.out.println("rules screen");
                   gameState = -1;
               }
+                   
             
         }
 
@@ -108,19 +119,41 @@ public class T2RPanel extends JPanel implements MouseListener{
        
         if (gameState == 1)
         {
-                if (turnState ==0)
-                {
-                    if (rectangularInBounds(x, y, (int)(0.70711*getWidth()), (int)(0.80711*getWidth()), (int)(0.500000*getHeight()),  (int)(0.550000*getHeight())))
-                        {
-                         System.out.println("claim route was clicked");
-                         turnState = 1;
-                    
-                        }
-                }
+
+            if (turnState ==0)
+            {
+                if (rectangularInBounds(x, y, (int)(0.70711*getWidth()), (int)(0.80711*getWidth()), (int)(0.500000*getHeight()),  (int)(0.550000*getHeight())))
+                    {
+                     System.out.println("claim route was clicked");
+                     turnState = 1;
+                
+                    }
+
+           
         }
+            
 
 
-        repaint();
+
+        }else if(gameState == -1)  {   	  
+            if(rectangularInBounds(x,y,0.8744561839651958*getWidth(),0.988755980861244 *getWidth(),0.888755980861244*getHeight(), 0.9760765550239234*getHeight()))
+            { System.out.println("clicked next page");
+            // clicked next page
+            gameState = -2;}
+        }
+        else if(gameState == -2) {
+            if(rectangularInBounds(x,y,0.8744561839651958*getWidth(),0.988755980861244 *getWidth(),0.888755980861244*getHeight(), 0.9760765550239234*getHeight())) {
+                System.out.println("go back to home screen");
+            gameState = 0;}
+            if(rectangularInBounds(x,y,0.7414543194530765*getWidth(),0.8297078931013051 *getWidth(),0.8588516746411483*getHeight(),  0.9389952153110048*getHeight())) {
+                System.out.println("g previous page");
+                gameState = -1;
+            }
+           
+        }
+       
+    
+        // repaint();
     }//mouse clicked
 
     // public void beginningOfTurnDisplay(Graphics g)

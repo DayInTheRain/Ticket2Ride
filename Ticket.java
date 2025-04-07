@@ -7,7 +7,7 @@ public class Ticket {
     private boolean isLong;
     private int pointValue;
     private String firstCity, secondCity;
-    private BufferedImage image;
+    private Image image;
 
     public Ticket(String input){
         String[] in = input.split(" ");
@@ -20,16 +20,23 @@ public class Ticket {
         firstCity = in[2];
         secondCity = in[3];
         
-        try {
-			image = ImageIO.read(Ticket.class.getResource("/Tickets/" + input + ".jpg"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+        if(isLong()){
+            image = ImageLoader.get("/Images/LongTickets/" + input + ".jpg");
+        }else{
+            image = ImageLoader.get("/Images/RegularTickets/" + input + ".jpg");
+        }
+
+        // try {
+		// 	image = ImageIO.read(Ticket.class.getResource("/Tickets/" + input + ".jpg"));
+            
+		// } catch (IOException e) {
+		// 	e.printStackTrace();
+		// }
     } 
 
     public boolean isLong(){ return isLong; }
     public int getPointValue(){ return pointValue; }
     public String getFirstCity(){ return firstCity; }
     public String getSecondCity(){ return secondCity; }
-    public BufferedImage getImage(){ return image; }
+    public Image getImage(){ return image; }
 }
