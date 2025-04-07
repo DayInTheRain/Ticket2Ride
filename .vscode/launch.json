@@ -5,6 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "MainTesting",
+            "request": "launch",
+            "mainClass": "MainTesting",
+            "projectName": "Ticket2Ride"
+        },
+        {
             "type": "jdk",
             "request": "launch",
             "name": "Launch Java App"

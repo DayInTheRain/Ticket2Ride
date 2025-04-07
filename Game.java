@@ -30,7 +30,7 @@ public class Game {
         //Initialize all cards
         try {
 		    // Load card names from the jar resource
-		    Scanner scanner = new Scanner(getClass().getResourceAsStream("/TextFile/TrainCardText.txt"));
+		    Scanner scanner = new Scanner(getClass().getResourceAsStream("/TextFiles/TrainCardText.txt"));
 		    while (scanner.hasNextLine()) {
 		        String name = scanner.nextLine();
 		        TrainCard nextCard = new TrainCard(name);
@@ -40,7 +40,7 @@ public class Game {
 		    scanner.close();
 
 		    // Load ticket names from the jar resource
-		    scanner = new Scanner(getClass().getResourceAsStream("/TextFile/TicketText.txt"));
+		    scanner = new Scanner(getClass().getResourceAsStream("/TextFiles/TicketText.txt"));
 		    while (scanner.hasNextLine()) {
 		        String name = scanner.nextLine();
                 out.println(name);
@@ -59,7 +59,7 @@ public class Game {
 		}
         try {
             //Load cities for the jar resource
-            Scanner scanner = new Scanner(getClass().getResourceAsStream("/TextFile/T2R_cities.txt"));
+            Scanner scanner = new Scanner(getClass().getResourceAsStream("/TextFiles/T2R_cities.txt"));
             while(scanner.hasNextLine()){
                 String name = scanner.nextLine();
                 out.println(name);
