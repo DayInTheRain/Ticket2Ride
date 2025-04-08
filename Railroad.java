@@ -9,6 +9,11 @@ public class Railroad {
 	private String firstCity;
 	private String secondCity;
 	private String railroadID;
+
+	public Railroad(String s){
+		this.railroadID = s;
+		
+	}
 	
 	public Railroad(boolean d, int numt, int numw, String c, boolean t, String fc, String sc, String rail) {
 		isDouble = d;
