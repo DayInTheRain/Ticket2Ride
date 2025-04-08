@@ -101,11 +101,11 @@ public class T2RPanel extends JPanel implements MouseListener{
         {
             //start button   
             if (gameState == 0){        
-            if (rectangularInBounds(x, y, 0.13846153846*getWidth(),0.32307692307*getWidth(), 0.11483*getHeight(), 0.264354*getHeight()))
-            {
-                System.out.println("start game");
-                gameState = 1;
-            }
+                if (rectangularInBounds(x, y, 0.13846153846*getWidth(),0.32307692307*getWidth(), 0.11483*getHeight(), 0.264354*getHeight()))
+                {
+                    System.out.println("start game");
+                    gameState = 1;
+                }
 
               //rules button            
               if (rectangularInBounds(x, y,  0.13846153846*getWidth(), 0.32307692307*getWidth(), 0.34285714285*getHeight(),  0.51234434*getHeight()))
@@ -113,16 +113,9 @@ public class T2RPanel extends JPanel implements MouseListener{
                   System.out.println("rules screen");
                   gameState = -1;
               }
-                   
-            
-        }
-
-        
-            
-
-
-
-        }
+            }  
+  
+        }//gamestate == 0
        
         if (gameState == 1)
         {
@@ -135,53 +128,29 @@ public class T2RPanel extends JPanel implements MouseListener{
                      turnState = 1;
                 
                     }
-
-           
-        }
-            
-
-
+        }//gamestate == 1
 
         }else if(gameState == -1)  {   	  
             if(rectangularInBounds(x,y,0.8744561839651958*getWidth(),0.988755980861244 *getWidth(),0.888755980861244*getHeight(), 0.9760765550239234*getHeight()))
             { System.out.println("clicked next page");
             // clicked next page
             gameState = -2;}
-        }
+        }//gamestate == -1
 
-       else if(gameState == -1)  {   	  
-    	   if(rectangularInBounds(x,y,0.8744561839651958*getWidth(),0.988755980861244 *getWidth(),0.888755980861244*getHeight(), 0.9760765550239234*getHeight()))
-    	   { System.out.println("clicked next page");
-    	   // clicked next page
-    	   gameState = -2;}
-       }
        else if(gameState == -2) {
     	   if(rectangularInBounds(x,y,0.867619639527657*getWidth(),0.988755980861244 *getWidth(),0.868755980861244*getHeight(), 0.9760765550239234*getHeight())) {
-    		   System.out.println("go back to home screen");
-    	   gameState = 0;}
+    		    System.out.println("go back to home screen");
+    	        gameState = 0;
+        }
     	   if(rectangularInBounds(x,y,0.7414543194530765*getWidth(),0.8297078931013051 *getWidth(),0.8588516746411483*getHeight(),  0.9389952153110048*getHeight())) {
     		   System.out.println("g previous page");
     		   gameState = -1;
     	   }
     	  
        }
-
-       
-    
         repaint();
     }//mouse clicked
-
-    // public void beginningOfTurnDisplay(Graphics g)
-    // {
-    //     g.setColor(Color.black);
-    //     System.out.println("points---------------------------------------------------------------");
-    //     g.drawString("Points aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: ", (int) 0.76196*getWidth(), (int) 0.17630*getHeight());
-        
-
-
-
-
-    // }
+     
     @Override
     public void mousePressed(MouseEvent e) {
        
@@ -220,9 +189,7 @@ public class T2RPanel extends JPanel implements MouseListener{
     {
 
         g.setColor(Color.black);
-            
-          
-           
+                       
         g.drawString("Points:", (int) (0.76196*getWidth()), (int) (0.17630*getHeight()));
 
         g.drawString("Points:", (int) (0.76196*getWidth()), (int) (0.25239*getHeight()));
@@ -248,18 +215,11 @@ public class T2RPanel extends JPanel implements MouseListener{
         g.fillRoundRect((int)(0.70711*getWidth()), (int)(0.620000*getHeight()),(int)( 0.1*getWidth()), (int)(0.05*getHeight()), (int)(0.01*getWidth()), (int)(0.1*getWidth()));
         g.setColor(Color.black);
         g.drawString("pick ticket card", (int) (0.73711*getWidth() ), (int) (0.640*getHeight()));
-       
-
-        
+               
         g.setColor(Color.orange);
         g.fillRoundRect((int)(0.82711*getWidth()), (int)(0.620000*getHeight()),(int)( 0.1*getWidth()), (int)(0.05*getHeight()), (int)(0.01*getWidth()), (int)(0.1*getWidth()));
         g.setColor(Color.black);
         g.drawString("build a station", (int) (0.82711*getWidth() ), (int) (0.640*getHeight()));
-               
-
-
-
-
     }
 
     public void claimRouteUI(Graphics g)
@@ -278,7 +238,6 @@ public class T2RPanel extends JPanel implements MouseListener{
 
     public void CityDetector(double  x, double  y)
     {
-
         for (City c: gameAccess.getCities())
         {
             //City c = gameAccess.getCities().get(0);
@@ -294,17 +253,8 @@ public class T2RPanel extends JPanel implements MouseListener{
                 System.out.println("City detected: " + c.getName());
                 return;
             }
-
-
-
-
-
         }
-
-
-
-
-    }
+    }//cityDetector
 
    
 }
