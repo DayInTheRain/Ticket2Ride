@@ -11,7 +11,7 @@ public class T2RPanel extends JPanel implements MouseListener{
     int turnState;
     JButton startbutton;
     JButton rulesbutton;
-    Game gameAccess;    Game gameAccess;
+    Game gameAccess;  
 
     public T2RPanel()
     {
@@ -281,14 +281,14 @@ public class T2RPanel extends JPanel implements MouseListener{
 
         for (City c: gameAccess.getCities())
         {
-
-            double scaledCityX = c.getCoords()[0] * getWidth(); 
-            double scaledCityY = c.getCoords()[1] * getHeight();
+            //City c = gameAccess.getCities().get(0);
+            double scaledCityX = c.getCoords()[0] * getWidth() * 0.6 * 205 / 154.792222; 
+            double scaledCityY = c.getCoords()[1] * getHeight() * 0.7 * 172 / 133.694;
 
             double distance = Math.sqrt(Math.pow(scaledCityX - x, 2) + Math.pow(scaledCityY - y, 2));
+            /*  System.out.println(distance + " : distance from " + c.getName());
+            System.out.println("ScaledX: " + scaledCityX + " and X: " + x + "and ScaledY " + scaledCityY + "and Y: " + y); */
             
-            System.out.println(distance + " : distance from " + c.getName());
-            System.out.println("ScaledX: " + scaledCityX + " and X: " + x + "and ScaledY " + scaledCityY + "and Y: " + y);
             if (distance < 10)
             {
                 System.out.println("City detected: " + c.getName());
