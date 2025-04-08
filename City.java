@@ -37,6 +37,10 @@ public City(String n, double[] c) {
 public String getName() {
 	return name;
 }
+
+public double[] getCoords() {
+	return coords;
+}
 public ArrayList<Railroad> getRoutes(){
 	return routes;
 }

@@ -11,10 +11,11 @@ public class T2RPanel extends JPanel implements MouseListener{
     int turnState;
     JButton startbutton;
     JButton rulesbutton;
+    Game gameAccess;  
 
     public T2RPanel()
     {
-        Game gameAccess = new Game();
+        gameAccess = new Game();
         gameState = 0;
         turnState = 0;
         System.out.println();
@@ -49,6 +50,7 @@ public class T2RPanel extends JPanel implements MouseListener{
             //g.drawImage(trainBG, 0, 0, getWidth(), getHeight(), null);
         else if (gameState == 1){
             g.drawImage(t2r_map, 0, 0, (int)(getWidth() * 0.6), (int)(getHeight()  * 0.7) ,null);
+            paintPlayerHand(g);
            if (turnState ==0)
         {
             beginTurnUI(g);
@@ -76,6 +78,11 @@ public class T2RPanel extends JPanel implements MouseListener{
 
 
     }//end of paint
+
+    public void paintPlayerHand(Graphics g){
+        g.drawString("Player " + gameAccess.getPlayerTurn(), (int)(0.006836544437538844*getWidth()), (int)(0.7284688995215312*getHeight()));
+        g.drawImage(gameAccess.drawTrainCard().getImage(), (int)(0.0074580484773151025*getWidth()), (int)(0.7284688995215312*getHeight()), getWidth()/10, getHeight()/10, null);
+    }
 
    
     @Override
@@ -119,7 +126,7 @@ public class T2RPanel extends JPanel implements MouseListener{
        
         if (gameState == 1)
         {
-
+            CityDetector(x , y );
             if (turnState ==0)
             {
                 if (rectangularInBounds(x, y, (int)(0.70711*getWidth()), (int)(0.80711*getWidth()), (int)(0.500000*getHeight()),  (int)(0.550000*getHeight())))
@@ -266,6 +273,37 @@ public class T2RPanel extends JPanel implements MouseListener{
         g.drawString("City 1:", (int) (0.65942*getWidth()), (int) (0.1605*getHeight()) );
 
          g.drawString("City 2:", (int) (0.65942*getWidth()), (int) (0.205*getHeight()) );
+    }
+
+
+    public void CityDetector(double  x, double  y)
+    {
+
+        for (City c: gameAccess.getCities())
+        {
+            //City c = gameAccess.getCities().get(0);
+            double scaledCityX = c.getCoords()[0] * getWidth() * 0.6 * 205 / 154.792222; 
+            double scaledCityY = c.getCoords()[1] * getHeight() * 0.7 * 172 / 133.694;
+
+            double distance = Math.sqrt(Math.pow(scaledCityX - x, 2) + Math.pow(scaledCityY - y, 2));
+            /*  System.out.println(distance + " : distance from " + c.getName());
+            System.out.println("ScaledX: " + scaledCityX + " and X: " + x + "and ScaledY " + scaledCityY + "and Y: " + y); */
+            
+            if (distance < 10)
+            {
+                System.out.println("City detected: " + c.getName());
+                return;
+            }
+
+
+
+
+
+        }
+
+
+
+
     }
 
    

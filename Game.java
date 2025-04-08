@@ -5,6 +5,7 @@ import java.util.*;
 public class Game {
     private boolean lastRound;
     private ArrayList<Player> players;
+    private ArrayList<TrainCard> trainCardFiles;
     private Deque<TrainCard> trainCards, discard;
     private Deque<Ticket> longTickets, tickets;
     private MapGraph mapGraph;
@@ -46,7 +47,16 @@ public class Game {
 		    while (scanner.hasNextLine()) {
 		        String name = scanner.nextLine();
 		        TrainCard nextCard = new TrainCard(name);
-		        trainCards.add(nextCard);
+                if(nextCard.getColor().equals("wild")){
+                    for(int i = 0; i < 14; i++){
+                        trainCards.add(nextCard);
+                    }
+                } else {
+                    for (int i = 0; i < 12; i++){
+                        trainCards.add(nextCard);
+                    }
+                }
+                trainCardFiles.add(nextCard);
                 out.println("added trainCards to deck");
 		    }
 		    scanner.close();
@@ -78,7 +88,7 @@ public class Game {
             out.println("Error adding tickets into deck: GAME CLASS");
         }
     }//ticketGenerator
-
+    
     public void cityGenerator(){
         try {
             System.out.println("cityGenerator called");
@@ -98,6 +108,13 @@ public class Game {
 		    e.printStackTrace();
          
 		}
+
+
+
+
+        
+
+
     }//cityGenerator
 
     public void runGame(){
@@ -131,6 +148,15 @@ public class Game {
     }
     public void discardTrainCard(TrainCard card){
         discard.push(card);
+    }
+    
+    public ArrayList<Player> getPlayers(){ return players; }
+    public ArrayList<TrainCard> getTCFiles(){ return trainCardFiles; }
+
+
+    public ArrayList<City> getCities()
+    {
+        return cityList;
     }
 
 }//end of class
