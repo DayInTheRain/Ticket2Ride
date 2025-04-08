@@ -9,15 +9,18 @@ public class T2RPanel extends JPanel implements MouseListener{
     Image rules2;
     int gameState;
     int turnState;
+    int claimRouteState;
     JButton startbutton;
     JButton rulesbutton;
     Game gameAccess;  
-
+    City city1;
+    City city2;
     public T2RPanel()
     {
         gameAccess = new Game();
         gameState = 0;
         turnState = 0;
+        claimRouteState = 0;
         System.out.println();
         System.out.println("testing");
        
@@ -28,6 +31,8 @@ public class T2RPanel extends JPanel implements MouseListener{
         t2r_map = ImageLoader.get("/Images/t2r map.png");
         rules1 = ImageLoader.get("/Images/rules1.jpg");
         rules2 = ImageLoader.get("/Images/rules2.jpg");
+        city1 = null;
+        city2 = null;
 
     }
 
@@ -137,12 +142,51 @@ public class T2RPanel extends JPanel implements MouseListener{
                     }
 
            
-        }
+             }
+
+             else if (turnState == 1)
+             {
+                if (rectangularInBounds(x,y, (int) (0.8442*getWidth()), (int) (0.8942*getWidth()), (int) (0.0431*getHeight()), (int) (0.0931*getHeight()))) // if (reset button clicked)
+                {
+                    System.out.println("clear button clicked");
+                    claimRouteState = 0;
+                    city1 = null;
+                    city2 = null;
+                    return;
+                }
+                if (claimRouteState == 0)
+                {
+                 city1 = CityDetector(x, y);
+                     if (city1 != null)
+                    {
+                    claimRouteState = 1;
+
+                     }
+                }
+
+                else if (claimRouteState == 1)
+                {
+                    city2 = CityDetector(x, y);
+                    if (city2 != null)
+                    {
+                        claimRouteState = 2;
+
+
+                    }
+
+
+
+                }
+
+
+
+             }
             
 
 
 
-        }else if(gameState == -1)  {   	  
+        }
+        else if(gameState == -1)  {   	  
             if(rectangularInBounds(x,y,0.8744561839651958*getWidth(),0.988755980861244 *getWidth(),0.888755980861244*getHeight(), 0.9760765550239234*getHeight()))
             { System.out.println("clicked next page");
             // clicked next page
@@ -272,11 +316,23 @@ public class T2RPanel extends JPanel implements MouseListener{
 
         g.drawString("City 1:", (int) (0.65942*getWidth()), (int) (0.1605*getHeight()) );
 
+        if (city1 != null)
+        {
+            g.drawString( city1.getName(),(int) (0.68942*getWidth()), (int) (0.1605*getHeight()) );
+        }
+
          g.drawString("City 2:", (int) (0.65942*getWidth()), (int) (0.205*getHeight()) );
+
+         if (city2 != null)
+         {
+            g.drawString( city2.getName(),(int) (0.68942*getWidth()), (int) (0.205*getHeight()) );        
+         }
+
+         g.drawRect((int) (0.8442*getWidth()), (int) (0.0431*getHeight()), (int) (getWidth()*0.05), (int) (getHeight()*0.05)); //draws clear button
     }
 
 
-    public void CityDetector(double  x, double  y)
+    public City CityDetector(double  x, double  y)
     {
 
         for (City c: gameAccess.getCities())
@@ -292,7 +348,7 @@ public class T2RPanel extends JPanel implements MouseListener{
             if (distance < 10)
             {
                 System.out.println("City detected: " + c.getName());
-                return;
+                return c;
             }
 
 
@@ -303,7 +359,7 @@ public class T2RPanel extends JPanel implements MouseListener{
 
 
 
-
+        return null;
     }
 
    
