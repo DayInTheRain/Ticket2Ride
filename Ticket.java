@@ -1,8 +1,4 @@
-import java.util.*;
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 public class Ticket {
     private boolean isLong;
     private int pointValue;

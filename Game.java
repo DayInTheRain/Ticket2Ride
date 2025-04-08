@@ -31,8 +31,17 @@ public class Game {
         discard = new LinkedList<TrainCard>();
         longTickets = new LinkedList<Ticket>();
         tickets = new LinkedList<Ticket>();
+        trainCardFiles = new ArrayList<>();
 
         //Initialize all cards
+        trainCardGenerator();
+        ticketGenerator();
+        cityGenerator();
+
+        shuffleDecks();
+    }//end of constructor
+
+    public void trainCardGenerator(){
         try {
 		    // Load card names from the jar resource
 		    Scanner scanner = new Scanner(getClass().getResourceAsStream("/TextFiles/TrainCardText.txt"));
@@ -58,17 +67,14 @@ public class Game {
 		    System.out.println("Error adding cards to deck: GAME CLASS");
 		    e.printStackTrace();
 		}
-        cityGenerator();
-        ticketGenerator();
-        shuffleDecks();
-    }//end of constructor
+    }
 
     public void ticketGenerator(){
         try{
             Scanner scanner = new Scanner(getClass().getResourceAsStream("/TextFiles/TicketText.txt"));
 		    while (scanner.hasNextLine()) {
 		        String name = scanner.nextLine();
-                out.println(name);
+                System.out.println(name);
 		        Ticket nextTicket = new Ticket(name);
                 if(nextTicket.isLong()){
                     longTickets.add(nextTicket);
@@ -78,6 +84,7 @@ public class Game {
 		    }
 		    scanner.close();
 
+
         }catch(Exception e){
             out.println("Error adding tickets into deck: GAME CLASS");
         }
@@ -85,6 +92,7 @@ public class Game {
     
     public void cityGenerator(){
         try {
+            System.out.println("cityGenerator called");
 		    // Load card names from the jar resource
 		    InputStream cityStream = getClass().getResourceAsStream("/TextFiles/T2R_cities.txt");
 		    Scanner scanner = new Scanner(cityStream);

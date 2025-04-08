@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "T2RRunner",
+            "request": "launch",
+            "mainClass": "T2RRunner",
+            "projectName": "Ticket2Ride"
+        },
+        {
+            "type": "java",
             "name": "MainTesting",
             "request": "launch",
             "mainClass": "MainTesting",
