@@ -31,6 +31,7 @@ public class Game {
         discard = new LinkedList<TrainCard>();
         longTickets = new LinkedList<Ticket>();
         tickets = new LinkedList<Ticket>();
+        trainCardFiles = new ArrayList<>();
 
         //Initialize all cards
         try {

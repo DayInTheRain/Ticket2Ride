@@ -11,13 +11,16 @@ public class T2RPanel extends JPanel implements MouseListener{
     int turnState;
     JButton startbutton;
     JButton rulesbutton;
-    Game gameAccess;   
+    Game gameAccess;  
+    Font origionalFont;
+ 
 
     public T2RPanel()
     {
         gameAccess = new Game();
         gameState = 0;
         turnState = 0;
+        origionalFont = new Font("Monospaced", Font.PLAIN, Math.abs((int)( 0.18947416762342135*getHeight() -  0.16991963260619977*getHeight()))); //sets the standard font for printing things
         System.out.println();
         System.out.println("testing");
        
@@ -50,7 +53,7 @@ public class T2RPanel extends JPanel implements MouseListener{
             //g.drawImage(trainBG, 0, 0, getWidth(), getHeight(), null);
         else if (gameState == 1){
             g.drawImage(t2r_map, 0, 0, (int)(getWidth() * 0.6), (int)(getHeight()  * 0.7) ,null);
-            paintPlayerHand(g);
+            paintPlayerHand(g); //paints the player whos turn it is
            if (turnState ==0)
         {
             beginTurnUI(g);
@@ -80,9 +83,20 @@ public class T2RPanel extends JPanel implements MouseListener{
     }//end of paint
 
     public void paintPlayerHand(Graphics g){
-        g.drawString("Player " + gameAccess.getPlayerTurn(), (int)(0.006836544437538844*getWidth()), (int)(0.7284688995215312*getHeight()));
-        g.drawImage(gameAccess.drawTrainCard().getImage(), (int)(0.0074580484773151025*getWidth()), (int)(0.7284688995215312*getHeight()), getWidth()/10, getHeight()/10, null);
-    }
+        Font origionalFont = new Font("Monospaced", Font.PLAIN, Math.abs((int)( 0.18947416762342135*getHeight() -  0.16991963260619977*getHeight())));
+        Font font = new Font("Monospaced", Font.BOLD, Math.abs((int)( 0.784688995215311*getHeight() - 0.7488038277511961*getHeight())));
+        g.setFont(font);
+        g.drawString("Player " + gameAccess.getPlayerTurn(), (int)(0.0074580484773151025*getWidth()), (int)(0.7284688995215312*getHeight()));
+        
+        //prints all the card images
+        int cardWidth = Math.abs((int)(0.0764449968924798*getWidth() - 0.0074580484773151025*getWidth()));
+        int cardHeight = Math.abs((int)( 0.9856459330143541*getHeight() -  0.7476076555023924*getHeight()));
+        for(int i = 0; i < gameAccess.getTCFiles().size(); i++){
+            g.drawImage(gameAccess.getTCFiles().get(i).getImage(), (int)(0.0074580484773151025*getWidth()) + cardWidth*i, (int)( 0.7476076555023924*getHeight()), cardWidth, cardHeight, null);
+        }
+
+        g.setFont(origionalFont);
+    }//end of paintPlayerHand
 
    
     @Override
@@ -237,24 +251,24 @@ public class T2RPanel extends JPanel implements MouseListener{
         g.setColor(Color.orange);
         g.fillRoundRect((int)(0.70711*getWidth()), (int)(0.500000*getHeight()),(int)( 0.1*getWidth()), (int)(0.05*getHeight()), (int)(0.01*getWidth()), (int)(0.1*getWidth()));
         g.setColor(Color.black);
-        g.drawString("claim route", (int) (0.73711*getWidth() ), (int) (0.5227272727272727*getHeight()));
+        g.drawString("claim route", (int) (0.713486*getWidth() ), (int) (0.5227272727272727*getHeight()));
        
         g.setColor(Color.orange);
         g.fillRoundRect((int)(0.82711*getWidth()), (int)(0.500000*getHeight()),(int)( 0.1*getWidth()), (int)(0.05*getHeight()), (int)(0.01*getWidth()), (int)(0.1*getWidth()));
         g.setColor(Color.black);
-        g.drawString("pick train card", (int) (0.82711*getWidth() ), (int) (0.5227272727272727*getHeight()));
+        g.drawString("pick train card", (int) (0.83711*getWidth() ), (int) (0.5227272727272727*getHeight()));
                
         g.setColor(Color.orange);
         g.fillRoundRect((int)(0.70711*getWidth()), (int)(0.620000*getHeight()),(int)( 0.1*getWidth()), (int)(0.05*getHeight()), (int)(0.01*getWidth()), (int)(0.1*getWidth()));
         g.setColor(Color.black);
-        g.drawString("pick ticket card", (int) (0.73711*getWidth() ), (int) (0.640*getHeight()));
+        g.drawString("pick ticket card", (int) (0.713486*getWidth() ), (int) (0.640*getHeight()));
        
 
         
         g.setColor(Color.orange);
         g.fillRoundRect((int)(0.82711*getWidth()), (int)(0.620000*getHeight()),(int)( 0.1*getWidth()), (int)(0.05*getHeight()), (int)(0.01*getWidth()), (int)(0.1*getWidth()));
         g.setColor(Color.black);
-        g.drawString("build a station", (int) (0.82711*getWidth() ), (int) (0.640*getHeight()));
+        g.drawString("build a station", (int) (0.83711*getWidth() ), (int) (0.640*getHeight()));
                
 
 
