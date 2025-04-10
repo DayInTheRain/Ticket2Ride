@@ -9,6 +9,13 @@
             "name": "T2RRunner",
             "request": "launch",
             "mainClass": "T2RRunner",
+            "projectName": "Ticket2Ride_8c623fe5"
+        },
+        {
+            "type": "java",
+            "name": "T2RRunner",
+            "request": "launch",
+            "mainClass": "T2RRunner",
             "projectName": "Ticket2Ride"
         },
         {
