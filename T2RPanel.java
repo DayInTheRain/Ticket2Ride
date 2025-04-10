@@ -102,6 +102,12 @@ public class T2RPanel extends JPanel implements MouseListener{
             g.setColor(Color.WHITE);
             g.drawString("" + gameAccess.getPlayers().get(gameAccess.getPlayerTurn()).getTrainCards().get(gameAccess.getTCFiles().get(i).getColor()), (int)(0.03356121814791796*getWidth() + (cardWidth*i)), (int)(0.8983253588516746*getHeight()));
         }
+        g.drawImage(gameAccess.getTicketBack(), (int)(0.0074580484773151025*getWidth()) + cardWidth*gameAccess.getTCFiles().size(), (int)( 0.7476076555023924*getHeight()), cardWidth, cardHeight, null);
+        g.setColor(Color.BLACK);
+        g.drawString("click", (int)(0.634041640770665*getWidth()), (int)(0.84688995215311*getHeight()));
+        g.drawString("to", (int)(0.6514437538844002*getWidth()), (int)(0.8851674641148325*getHeight()));
+        g.drawString("view", (int)(0.6401491609695463*getWidth()), (int)( 0.930622009569378*getHeight()));
+
 
         g.setFont(origionalFont);
     }//end of paintPlayerHand
@@ -150,6 +156,10 @@ public class T2RPanel extends JPanel implements MouseListener{
                      turnState = 1;
                 
                     }
+
+                if(rectangularInBounds(x, y, (int)(0.00745*getWidth()), (int)(0.00745*getWidth()) + Math.abs((int)(0.07644*getWidth() - 0.00745*getWidth())), (int)( 0.74760*getHeight()), (int)( 0.74760*getHeight()) + Math.abs((int)( 0.98564*getHeight() -  0.74760*getHeight())))){
+                    System.out.println("view tickets was clicked");
+                }//does not work
 
            
              }
