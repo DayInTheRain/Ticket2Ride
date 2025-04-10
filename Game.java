@@ -39,6 +39,7 @@ public class Game {
         cityGenerator();
 
         shuffleDecks();
+        dealoutstartcards();
     }//end of constructor
 
     public void trainCardGenerator(){
@@ -131,6 +132,17 @@ public class Game {
         Collections.shuffle((LinkedList<Ticket>) longTickets);
         Collections.shuffle((LinkedList<TrainCard>) trainCards);
     }
+    
+    public void dealoutstartcards() {
+    	for(Player x:players) {
+    		LinkedList<TrainCard> list = new LinkedList<>();
+    		for(int i = 0; i< 4; i++) {
+    			list.add(trainCards.pop());    			
+    		}
+    		x.addtrainCards(list);
+    		System.out.println(list);
+    	}
+    }
 
     public int getPlayerTurn(){return playerTurn; }
     public void incrementTurn(){
@@ -145,7 +157,17 @@ public class Game {
         return longTickets.pop();
     }
     public TrainCard drawTrainCard(){
+    	if(trainCards.isEmpty()) {
+    		redoDeck();
+    	}
         return trainCards.pop();
+    }
+    public void redoDeck() {
+    	for(TrainCard x: discard) {
+    		trainCards.push(x);
+    		discard.pop();
+    	}
+    Collections.shuffle((LinkedList<TrainCard>) trainCards);
     }
     public void discardTrainCard(TrainCard card){
         discard.push(card);
