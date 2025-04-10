@@ -39,7 +39,7 @@ public class Game {
         cityGenerator();
 
         shuffleDecks();
-        dealoutstartcards();
+        dealStartCards();
     }//end of constructor
 
     public void trainCardGenerator(){
@@ -133,7 +133,7 @@ public class Game {
         Collections.shuffle((LinkedList<TrainCard>) trainCards);
     }
     
-    public void dealoutstartcards() {
+    public void dealStartCards() {
     	for(Player x:players) {
     		LinkedList<TrainCard> list = new LinkedList<>();
     		for(int i = 0; i< 4; i++) {
