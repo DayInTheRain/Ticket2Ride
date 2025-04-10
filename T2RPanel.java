@@ -10,11 +10,16 @@ public class T2RPanel extends JPanel implements MouseListener{
     int gameState;
     int turnState;
     int claimRouteState;
+    int pickTicketState;
     JButton startbutton;
     JButton rulesbutton;
     Game gameAccess;  
     City city1;
     City city2;
+    Ticket DestinationTicket1;
+    Ticket DestinationTicket2;
+    Ticket DestinationTicket3;
+
 
     Font origionalFont;
 
@@ -25,6 +30,7 @@ public class T2RPanel extends JPanel implements MouseListener{
         turnState = 0;
         origionalFont = new Font("Monospaced", Font.PLAIN, Math.abs((int)( 0.18947416762342135*getHeight() -  0.16991963260619977*getHeight()))); //sets the standard font for printing things
         claimRouteState = 0;
+        pickTicketState = 0;
         System.out.println();
         System.out.println("testing");
        
@@ -37,7 +43,10 @@ public class T2RPanel extends JPanel implements MouseListener{
         rules2 = ImageLoader.get("/Images/rules2.jpg");
         city1 = null;
         city2 = null;
-
+        DestinationTicket1 = null;
+        DestinationTicket2 = null;
+        DestinationTicket3 = null;
+    
     }
 
     public void paint(Graphics g)
@@ -167,6 +176,9 @@ public class T2RPanel extends JPanel implements MouseListener{
                 {
                   System.out.println("pick destination ticket clicked");
                   turnState = 2;
+                  DestinationTicket1 = gameAccess.drawTicket();
+                  DestinationTicket2 = gameAccess.drawTicket();
+                  DestinationTicket3 = gameAccess.drawTicket();
                 }
             
               }
@@ -206,6 +218,16 @@ public class T2RPanel extends JPanel implements MouseListener{
 
 
                 }
+             }
+
+             else if (turnState == 2)
+             {
+                if (rectangularInBounds(x, y, (int) (0.2001243 * getWidth()), (int) (0.33685 * getWidth()), (int) (0.29784 * getHeight()), (int)(0.4593*getWidth())))
+                {
+                    System.out.println("first DT clicked");
+                }
+
+
 
 
 
@@ -350,6 +372,11 @@ public class T2RPanel extends JPanel implements MouseListener{
         System.out.println("picking ticket ui good");
         g.setColor((Color.white));
         g.fillRect(getWidth()/10, getHeight()/10, (int)(getWidth()*0.8), (int)(getHeight()*0.8));
+        g.setColor(Color.black);
+        g.drawString("Pick at least one ticket to keep", (int)(0.30640149*getWidth()), (int)(0.16507 * getHeight()));
+        g.drawImage(DestinationTicket1.getImage(), (int) (getWidth() * 0.2), (int) (getHeight()*0.3), null);
+        g.drawImage(DestinationTicket2.getImage(), (int) (getWidth() * 0.6), (int) (getHeight()*0.3), null);
+        g.drawImage(DestinationTicket3.getImage(), (int) (getWidth() * 0.4), (int) (getHeight()*0.6), null);
     }
 
 
