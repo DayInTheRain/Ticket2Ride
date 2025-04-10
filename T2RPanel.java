@@ -99,6 +99,8 @@ public class T2RPanel extends JPanel implements MouseListener{
         int cardHeight = Math.abs((int)( 0.9856459330143541*getHeight() -  0.7476076555023924*getHeight()));
         for(int i = 0; i < gameAccess.getTCFiles().size(); i++){
             g.drawImage(gameAccess.getTCFiles().get(i).getImage(), (int)(0.0074580484773151025*getWidth()) + cardWidth*i, (int)( 0.7476076555023924*getHeight()), cardWidth, cardHeight, null);
+            g.setColor(Color.WHITE);
+            g.drawString("" + gameAccess.getPlayers().get(gameAccess.getPlayerTurn()).getTrainCards().get(gameAccess.getTCFiles().get(i).getColor()), (int)(0.03356121814791796*getWidth() + (cardWidth*i)), (int)(0.8983253588516746*getHeight()));
         }
 
         g.setFont(origionalFont);
