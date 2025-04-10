@@ -70,6 +70,11 @@ public class T2RPanel extends JPanel implements MouseListener{
             {
                 claimRouteUI(g);
             }
+
+            else if ( turnState == 2)
+            {
+                pickTicketUI(g);
+            }
         }
 
 
@@ -135,13 +140,15 @@ public class T2RPanel extends JPanel implements MouseListener{
                   System.out.println("rules screen");
                   gameState = -1;
               }
+
+            
             }  
   
         }//gamestate == 0
        
         if (gameState == 1)
         {
-            CityDetector(x , y );
+           
             if (turnState ==0)
             {
                 if (rectangularInBounds(x, y, (int)(0.70711*getWidth()), (int)(0.80711*getWidth()), (int)(0.500000*getHeight()),  (int)(0.550000*getHeight())))
@@ -154,6 +161,16 @@ public class T2RPanel extends JPanel implements MouseListener{
            
              }
 
+             if (turnState ==0)
+             {
+                if (rectangularInBounds(x, y, 0.7116221*getWidth(), 0.801118 * getWidth(), 0.622009 * getHeight(), 0.66985 * getWidth()))
+                {
+                  System.out.println("pick destination ticket clicked");
+                  turnState = 2;
+                }
+            
+              }
+
              else if (turnState == 1)
              {
                 if (rectangularInBounds(x,y, (int) (0.8442*getWidth()), (int) (0.8942*getWidth()), (int) (0.0431*getHeight()), (int) (0.0931*getHeight()))) // if (reset button clicked)
@@ -162,6 +179,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                     claimRouteState = 0;
                     city1 = null;
                     city2 = null;
+                    repaint();
                     return;
                 }
                 if (claimRouteState == 0)
@@ -177,6 +195,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                 else if (claimRouteState == 1)
                 {
                     city2 = CityDetector(x, y);
+                    
                     if (city2 != null)
                     {
                         claimRouteState = 2;
@@ -308,6 +327,9 @@ public class T2RPanel extends JPanel implements MouseListener{
         if (city1 != null)
         {
             g.drawString( city1.getName(),(int) (0.68942*getWidth()), (int) (0.1605*getHeight()) );
+            g.setColor(Color.green);
+            g.fillOval( (int) (city1.getCoords()[0] * getWidth() * 0.6 * 205 / 154.792222) - (int)(getWidth()*0.025)/2, (int)(city1.getCoords()[1] * getHeight() * 0.7 * 172 / 133.694) - (int)(getHeight()* 0.04)/2, (int)(getWidth()*0.025), (int)(getHeight()* 0.04) );
+            g.setColor(Color.black);
         }
 
          g.drawString("City 2:", (int) (0.65942*getWidth()), (int) (0.205*getHeight()) );
@@ -315,9 +337,19 @@ public class T2RPanel extends JPanel implements MouseListener{
          if (city2 != null)
          {
             g.drawString( city2.getName(),(int) (0.68942*getWidth()), (int) (0.205*getHeight()) );        
-         }
+            g.setColor(Color.green);
+            g.fillOval( (int) (city2.getCoords()[0] * getWidth() * 0.6 * 205 / 154.792222) - (int)(getWidth()*0.025)/2, (int)(city2.getCoords()[1] * getHeight() * 0.7 * 172 / 133.694) - (int)(getHeight()* 0.04)/2, (int)(getWidth()*0.025), (int)(getHeight()* 0.04) );
+            g.setColor(Color.black);
+        }
 
          g.drawRect((int) (0.8442*getWidth()), (int) (0.0431*getHeight()), (int) (getWidth()*0.05), (int) (getHeight()*0.05)); //draws clear button
+    }
+
+    public void pickTicketUI(Graphics g)
+    {
+        System.out.println("picking ticket ui good");
+        g.setColor((Color.white));
+        g.fillRect(getWidth()/10, getHeight()/10, (int)(getWidth()*0.8), (int)(getHeight()*0.8));
     }
 
 
@@ -350,5 +382,4 @@ public class T2RPanel extends JPanel implements MouseListener{
         return null;
     }
 
-   
 }
