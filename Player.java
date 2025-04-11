@@ -1,7 +1,7 @@
 import java.util.*;
 public class Player {
     private int playerNum, points, trainStations, trains, turnStatus, turnState;
-    private HashMap<TrainCard, Integer> trainCards;
+    private HashMap<String, Integer> trainCards;
     private ArrayList<Ticket> tickets;
     private boolean hasEuropeanExpress;
     
@@ -16,15 +16,15 @@ public class Player {
 
         //Initialize all cards (starting at 0)
         trainCards = new HashMap<>();
-        trainCards.put(new TrainCard("red"), 0);
-        trainCards.put(new TrainCard("orange"), 0);
-        trainCards.put(new TrainCard("yellow"), 0);
-        trainCards.put(new TrainCard("green"), 0);
-        trainCards.put(new TrainCard("blue"), 0);
-        trainCards.put(new TrainCard("pink"), 0);
-        trainCards.put(new TrainCard("black"), 0);
-        trainCards.put(new TrainCard("white"), 0);
-        trainCards.put(new TrainCard("wild"), 0);
+        trainCards.put(("red"), 0);
+        trainCards.put(("orange"), 0);
+        trainCards.put(("yellow"), 0);
+        trainCards.put(("green"), 0);
+        trainCards.put(("blue"), 0);
+        trainCards.put(("pink"), 0);
+        trainCards.put(("black"), 0);
+        trainCards.put(("white"), 0);
+        trainCards.put(("wild"), 0);
         
 
         tickets = null; //Change this to some sort of generate cards method
@@ -34,7 +34,7 @@ public class Player {
     public int getPlayerNum(){ return playerNum; }
     public int getPoints(){ return points; }
     public int getNumTrainStations(){ return trainStations; }
-    public HashMap<TrainCard, Integer> getTrainCards(){ return trainCards; }
+    public HashMap<String, Integer> getTrainCards(){ return trainCards; }
     public ArrayList<Ticket> getTickets(){ return tickets; }
     public boolean hasEuropeanExpress(){ return hasEuropeanExpress; }
     public int getNumTrains(){ return trains; }
@@ -63,7 +63,7 @@ public class Player {
     public void addtrainCards(LinkedList<TrainCard> list) {
     	for(TrainCard s: list) {
     		//trainCards.put(s, 1);
-    		trainCards.put(s, trainCards.get(s)+1);
+    		trainCards.put(s.getColor(), trainCards.get(s.getColor())+1);
     	}	
     	}
 

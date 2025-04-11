@@ -10,11 +10,16 @@ public class T2RPanel extends JPanel implements MouseListener{
     int gameState;
     int turnState;
     int claimRouteState;
+    int pickTicketState;
     JButton startbutton;
     JButton rulesbutton;
     Game gameAccess;  
     City city1;
     City city2;
+    Ticket DestinationTicket1;
+    Ticket DestinationTicket2;
+    Ticket DestinationTicket3;
+
 
     Font origionalFont;
 
@@ -25,6 +30,7 @@ public class T2RPanel extends JPanel implements MouseListener{
         turnState = 0;
         origionalFont = new Font("Monospaced", Font.PLAIN, Math.abs((int)( 0.18947416762342135*getHeight() -  0.16991963260619977*getHeight()))); //sets the standard font for printing things
         claimRouteState = 0;
+        pickTicketState = 0;
         System.out.println();
         System.out.println("testing");
        
@@ -37,7 +43,10 @@ public class T2RPanel extends JPanel implements MouseListener{
         rules2 = ImageLoader.get("/Images/rules2.jpg");
         city1 = null;
         city2 = null;
-
+        DestinationTicket1 = null;
+        DestinationTicket2 = null;
+        DestinationTicket3 = null;
+    
     }
 
     public void paint(Graphics g)
@@ -70,6 +79,11 @@ public class T2RPanel extends JPanel implements MouseListener{
             {
                 claimRouteUI(g);
             }
+
+            else if ( turnState == 2)
+            {
+                pickTicketUI(g);
+            }
         }
 
 
@@ -99,7 +113,15 @@ public class T2RPanel extends JPanel implements MouseListener{
         int cardHeight = Math.abs((int)( 0.9856459330143541*getHeight() -  0.7476076555023924*getHeight()));
         for(int i = 0; i < gameAccess.getTCFiles().size(); i++){
             g.drawImage(gameAccess.getTCFiles().get(i).getImage(), (int)(0.0074580484773151025*getWidth()) + cardWidth*i, (int)( 0.7476076555023924*getHeight()), cardWidth, cardHeight, null);
+            g.setColor(Color.WHITE);
+            g.drawString("" + gameAccess.getPlayers().get(gameAccess.getPlayerTurn()).getTrainCards().get(gameAccess.getTCFiles().get(i).getColor()), (int)(0.03356121814791796*getWidth() + (cardWidth*i)), (int)(0.8983253588516746*getHeight()));
         }
+        g.drawImage(gameAccess.getTicketBack(), (int)(0.0074580484773151025*getWidth()) + cardWidth*gameAccess.getTCFiles().size(), (int)( 0.7476076555023924*getHeight()), cardWidth, cardHeight, null);
+        g.setColor(Color.BLACK);
+        g.drawString("click", (int)(0.634041640770665*getWidth()), (int)(0.84688995215311*getHeight()));
+        g.drawString("to", (int)(0.6514437538844002*getWidth()), (int)(0.8851674641148325*getHeight()));
+        g.drawString("view", (int)(0.6401491609695463*getWidth()), (int)( 0.930622009569378*getHeight()));
+
 
         g.setFont(origionalFont);
     }//end of paintPlayerHand
@@ -133,13 +155,15 @@ public class T2RPanel extends JPanel implements MouseListener{
                   System.out.println("rules screen");
                   gameState = -1;
               }
+
+            
             }  
   
         }//gamestate == 0
        
         if (gameState == 1)
         {
-            CityDetector(x , y );
+           
             if (turnState ==0)
             {
                 if (rectangularInBounds(x, y, (int)(0.70711*getWidth()), (int)(0.80711*getWidth()), (int)(0.500000*getHeight()),  (int)(0.550000*getHeight())))
@@ -149,8 +173,25 @@ public class T2RPanel extends JPanel implements MouseListener{
                 
                     }
 
+                if(rectangularInBounds(x, y, (int)(0.00745*getWidth()), (int)(0.00745*getWidth()) + Math.abs((int)(0.07644*getWidth() - 0.00745*getWidth())), (int)( 0.74760*getHeight()), (int)( 0.74760*getHeight()) + Math.abs((int)( 0.98564*getHeight() -  0.74760*getHeight())))){
+                    System.out.println("view tickets was clicked");
+                }//does not work
+
            
              }
+
+             if (turnState ==0)
+             {
+                if (rectangularInBounds(x, y, 0.7116221*getWidth(), 0.801118 * getWidth(), 0.622009 * getHeight(), 0.66985 * getWidth()))
+                {
+                  System.out.println("pick destination ticket clicked");
+                  turnState = 2;
+                  DestinationTicket1 = gameAccess.drawTicket();
+                  DestinationTicket2 = gameAccess.drawTicket();
+                  DestinationTicket3 = gameAccess.drawTicket();
+                }
+            
+              }
 
              else if (turnState == 1)
              {
@@ -160,6 +201,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                     claimRouteState = 0;
                     city1 = null;
                     city2 = null;
+                    repaint();
                     return;
                 }
                 if (claimRouteState == 0)
@@ -175,6 +217,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                 else if (claimRouteState == 1)
                 {
                     city2 = CityDetector(x, y);
+                    
                     if (city2 != null)
                     {
                         claimRouteState = 2;
@@ -185,7 +228,24 @@ public class T2RPanel extends JPanel implements MouseListener{
 
 
                 }
+             }
 
+             else if (turnState == 2)
+             {
+                if (rectangularInBounds(x, y, (int) (0.2001243 * getWidth()), (int) (0.33685 * getWidth()), (int) (0.29784 * getHeight()), (int)(0.4593*getWidth())))
+                {
+                    System.out.println("left DT clicked");
+                }
+
+                else if (rectangularInBounds(x, y, (int) (0.599751 * getWidth()), (int) (0.735239 * getWidth()), (int) (0.29904 * getHeight()), (int)(0.4629186*getWidth())))
+                {
+                    System.out.println("right DT clicked");
+                }
+
+                else if (rectangularInBounds(x, y, (int) (0.3996 * getWidth()), (int) (0.54008 * getWidth()), (int) (0.599282 * getHeight()), (int)(0.7655502*getWidth())))
+                {
+                    System.out.println("bottom DT clicked");
+                }
 
 
              }
@@ -306,6 +366,9 @@ public class T2RPanel extends JPanel implements MouseListener{
         if (city1 != null)
         {
             g.drawString( city1.getName(),(int) (0.68942*getWidth()), (int) (0.1605*getHeight()) );
+            g.setColor(Color.green);
+            g.fillOval( (int) (city1.getCoords()[0] * getWidth() * 0.6 * 205 / 154.792222) - (int)(getWidth()*0.025)/2, (int)(city1.getCoords()[1] * getHeight() * 0.7 * 172 / 133.694) - (int)(getHeight()* 0.04)/2, (int)(getWidth()*0.025), (int)(getHeight()* 0.04) );
+            g.setColor(Color.black);
         }
 
          g.drawString("City 2:", (int) (0.65942*getWidth()), (int) (0.205*getHeight()) );
@@ -313,9 +376,24 @@ public class T2RPanel extends JPanel implements MouseListener{
          if (city2 != null)
          {
             g.drawString( city2.getName(),(int) (0.68942*getWidth()), (int) (0.205*getHeight()) );        
-         }
+            g.setColor(Color.green);
+            g.fillOval( (int) (city2.getCoords()[0] * getWidth() * 0.6 * 205 / 154.792222) - (int)(getWidth()*0.025)/2, (int)(city2.getCoords()[1] * getHeight() * 0.7 * 172 / 133.694) - (int)(getHeight()* 0.04)/2, (int)(getWidth()*0.025), (int)(getHeight()* 0.04) );
+            g.setColor(Color.black);
+        }
 
          g.drawRect((int) (0.8442*getWidth()), (int) (0.0431*getHeight()), (int) (getWidth()*0.05), (int) (getHeight()*0.05)); //draws clear button
+    }
+
+    public void pickTicketUI(Graphics g)
+    {
+        System.out.println("picking ticket ui good");
+        g.setColor((Color.white));
+        g.fillRect(getWidth()/10, getHeight()/10, (int)(getWidth()*0.8), (int)(getHeight()*0.8));
+        g.setColor(Color.black);
+        g.drawString("Pick at least one ticket to keep", (int)(0.30640149*getWidth()), (int)(0.16507 * getHeight()));
+        g.drawImage(DestinationTicket1.getImage(), (int) (getWidth() * 0.2), (int) (getHeight()*0.3), null);
+        g.drawImage(DestinationTicket2.getImage(), (int) (getWidth() * 0.6), (int) (getHeight()*0.3), null);
+        g.drawImage(DestinationTicket3.getImage(), (int) (getWidth() * 0.4), (int) (getHeight()*0.6), null);
     }
 
 
@@ -348,5 +426,4 @@ public class T2RPanel extends JPanel implements MouseListener{
         return null;
     }
 
-   
 }

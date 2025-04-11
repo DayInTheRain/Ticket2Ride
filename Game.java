@@ -1,5 +1,8 @@
 import java.io.InputStream;
 import static java.lang.System.*;
+
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.util.*;
 
 public class Game {
@@ -11,6 +14,7 @@ public class Game {
     private MapGraph mapGraph;
     private int playerTurn;
     private ArrayList<City> cityList;
+    private Image trainCardBack, europeanExpressCard, ticketBack;
 
     public Game(){
         lastRound = false;
@@ -37,9 +41,21 @@ public class Game {
         trainCardGenerator();
         ticketGenerator();
         cityGenerator();
+        cardBackGenerator();
 
         shuffleDecks();
+        dealStartCards();
     }//end of constructor
+
+    public void cardBackGenerator(){
+        trainCardBack = ImageLoader.get("/Images/CardBacks/TrainCardBack.jpg");
+        ticketBack = ImageLoader.get("/Images/CardBacks/TicketBack.jpg");
+        europeanExpressCard = ImageLoader.get("/Images/CardBacks/EuropeanExpress.jpg");
+    }
+    public Image getTrainCardBack() {return trainCardBack;}
+    public Image getTicketBack() {return ticketBack;}
+    public Image getEuropeanExpress() {return europeanExpressCard;}
+
 
     public void trainCardGenerator(){
         try {
@@ -131,6 +147,17 @@ public class Game {
         Collections.shuffle((LinkedList<Ticket>) longTickets);
         Collections.shuffle((LinkedList<TrainCard>) trainCards);
     }
+    
+    public void dealStartCards() {
+    	for(Player x:players) {
+    		LinkedList<TrainCard> list = new LinkedList<>();
+    		for(int i = 0; i< 4; i++) {
+    			list.add(trainCards.pop());    			
+    		}
+    		x.addtrainCards(list);
+    		System.out.println(list);
+    	}
+    }
 
     public int getPlayerTurn(){return playerTurn; }
     public void incrementTurn(){
@@ -145,7 +172,17 @@ public class Game {
         return longTickets.pop();
     }
     public TrainCard drawTrainCard(){
+    	if(trainCards.isEmpty()) {
+    		redoDeck();
+    	}
         return trainCards.pop();
+    }
+    public void redoDeck() {
+    	for(TrainCard x: discard) {
+    		trainCards.push(x);
+    		discard.pop();
+    	}
+    Collections.shuffle((LinkedList<TrainCard>) trainCards);
     }
     public void discardTrainCard(TrainCard card){
         discard.push(card);
