@@ -234,11 +234,18 @@ public class T2RPanel extends JPanel implements MouseListener{
              {
                 if (rectangularInBounds(x, y, (int) (0.2001243 * getWidth()), (int) (0.33685 * getWidth()), (int) (0.29784 * getHeight()), (int)(0.4593*getWidth())))
                 {
-                    System.out.println("first DT clicked");
+                    System.out.println("left DT clicked");
                 }
 
+                else if (rectangularInBounds(x, y, (int) (0.599751 * getWidth()), (int) (0.735239 * getWidth()), (int) (0.29904 * getHeight()), (int)(0.4629186*getWidth())))
+                {
+                    System.out.println("right DT clicked");
+                }
 
-
+                else if (rectangularInBounds(x, y, (int) (0.3996 * getWidth()), (int) (0.54008 * getWidth()), (int) (0.599282 * getHeight()), (int)(0.7655502*getWidth())))
+                {
+                    System.out.println("bottom DT clicked");
+                }
 
 
              }
