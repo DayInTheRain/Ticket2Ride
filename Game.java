@@ -14,6 +14,7 @@ public class Game {
     private MapGraph mapGraph;
     private int playerTurn;
     private ArrayList<City> cityList;
+    private ArrayList<Railroad> railroadList;
     private Image trainCardBack, europeanExpressCard, ticketBack;
 
     public Game(){
@@ -51,7 +52,8 @@ public class Game {
         trainCardBack = ImageLoader.get("/Images/CardBacks/TrainCardBack.jpg");
         ticketBack = ImageLoader.get("/Images/CardBacks/TicketBack.jpg");
         europeanExpressCard = ImageLoader.get("/Images/CardBacks/EuropeanExpress.jpg");
-    }
+    }//cardBackGenerator
+
     public Image getTrainCardBack() {return trainCardBack;}
     public Image getTicketBack() {return ticketBack;}
     public Image getEuropeanExpress() {return europeanExpressCard;}
@@ -83,7 +85,7 @@ public class Game {
 		    System.out.println("Error adding cards to deck: GAME CLASS");
 		    e.printStackTrace();
 		}
-    }
+    }//trainCardGenerator
 
     public void ticketGenerator(){
         try{
@@ -125,14 +127,25 @@ public class Game {
 		    e.printStackTrace();
          
 		}
-
-
-
-
-        
-
-
     }//cityGenerator
+
+    public void railroadGenerator(){
+        try {
+            System.out.println("railroadGenerator called");
+            InputStream railroadStream = getClass().getResourceAsStream("/TextFiles/T2R_railroads.txt");
+            Scanner scanner = new Scanner(railroadStream);
+            while(scanner.hasNextLine()){
+                String railroadInfo = scanner.nextLine();
+                Railroad nextRailroad = new Railroad(railroadInfo);
+                System.out.println(nextRailroad);
+                railroadList.add(nextRailroad);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error creating railroads and adding them into arraylist: GAME CLASS");
+		    e.printStackTrace();
+        }
+    }//railroadGenerator
 
     public void runGame(){
         //uncomment cause it works
@@ -140,13 +153,13 @@ public class Game {
         //     players.get(playerTurn).turnState(0);
         //     incrementTurn();
         // }
-    }
+    }//runGame
 
     public void shuffleDecks(){
         Collections.shuffle((LinkedList<Ticket>) tickets);
         Collections.shuffle((LinkedList<Ticket>) longTickets);
         Collections.shuffle((LinkedList<TrainCard>) trainCards);
-    }
+    }//shuffleDecks
     
     public void dealStartCards() {
     	for(Player x:players) {
@@ -157,37 +170,43 @@ public class Game {
     		x.addtrainCards(list);
     		System.out.println(list);
     	}
-    }
+    }//dealStartCards
 
     public int getPlayerTurn(){return playerTurn; }
+
     public void incrementTurn(){
         playerTurn += 1;
         if(playerTurn == 5)
             playerTurn = 1;
-    }
+    }//incrementTurn
+     
     public Ticket drawTicket(){
         return tickets.pop();
     }
+     
     public Ticket drawLongTicket(){
         return longTickets.pop();
-    }
+    }//drawTicket
+
     public TrainCard drawTrainCard(){
     	if(trainCards.isEmpty()) {
     		redoDeck();
     	}
         return trainCards.pop();
-    }
+    }//drawTrainCard
+
     public void redoDeck() {
     	for(TrainCard x: discard) {
     		trainCards.push(x);
     		discard.pop();
     	}
     Collections.shuffle((LinkedList<TrainCard>) trainCards);
-    }
+    }//redoDeck
+
     public void discardTrainCard(TrainCard card){
         discard.push(card);
-    }
-    
+    }//discardTrainCard
+
     public ArrayList<Player> getPlayers(){ return players; }
     public ArrayList<TrainCard> getTCFiles(){ return trainCardFiles; }
 
@@ -195,6 +214,6 @@ public class Game {
     public ArrayList<City> getCities()
     {
         return cityList;
-    }
+    }//getCities
 
 }//end of class
