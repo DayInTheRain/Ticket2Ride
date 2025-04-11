@@ -55,10 +55,8 @@ public class Player {
     public void placetrains(int num) {
     	trains -= num;
     }
-    public void addtickets(ArrayList<Ticket> list) {
-    	for(Ticket x: list) {
+    public void addtickets(Ticket x) {
     		tickets.add(x);
-    	}
     }
     public void addtrainCards(LinkedList<TrainCard> list) {
     	for(TrainCard s: list) {
