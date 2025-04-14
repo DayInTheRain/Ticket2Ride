@@ -12,9 +12,13 @@ public class Railroad {
 	private double[] coords;
 
 	public Railroad(String s){
+		this.coords = new double[2];
+
+		//System.out.println(s);
 		this.railroadID = s;
 
 		String[] info = s.split(" ");
+	
 		this.firstCity = info[0];
 		this.secondCity = info[1];
 		this.color = info[2];
@@ -38,6 +42,14 @@ public class Railroad {
 		player = null;
 	}
 	
+	public String getFirst(){
+		return firstCity;
+	}
+
+	public String getSecond(){
+		return secondCity;
+	}
+
 	public boolean isDouble() {
 		return isDouble;
 	}
@@ -67,6 +79,14 @@ public class Railroad {
 
 	public double[] getCoords(){
 		return coords;
+	}
+
+	public String toString(){
+		return railroadID;
+	}
+
+	public String getID(){
+		return railroadID;
 	}
 	
 }//end of the class

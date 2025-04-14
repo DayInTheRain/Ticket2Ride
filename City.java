@@ -12,6 +12,7 @@ public City(String s){
 	this.stationID = 0;
 	this.coords[0] = Double.parseDouble(str[1]);
 	this.coords[1] = Double.parseDouble(str[2]);
+	routes = new ArrayList<>();
 }
 
 public City(String n, ArrayList<Railroad> r, double[] c) {
@@ -20,6 +21,7 @@ public City(String n, ArrayList<Railroad> r, double[] c) {
 	this.stationID = 0;
 	this.coords[0] = c[0];
 	this.coords[1] = c[1];
+	routes = new ArrayList<>();
 	// station id starts at 0 when no one has it;
 }
 
@@ -30,9 +32,20 @@ public City(String n, double[] c) {
 	this.stationID = 0;
 	this.coords[0] = c[0];
 	this.coords[1] = c[1];
+	routes = new ArrayList<>();
 	// station id starts at 0 when no one has it;
 }
 
+public void addRoute(Railroad r){
+
+	for(Railroad added : routes){
+		if(added.getID().equals(r.getID())){
+			return;
+		}
+	}
+	
+	routes.add(r);
+}
 
 public String getName() {
 	return name;

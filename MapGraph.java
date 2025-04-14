@@ -10,6 +10,33 @@ public class MapGraph {
 		railroads = new HashMap<String, Railroad>();
 	}
 
+	public MapGraph(ArrayList<City> c, ArrayList<Railroad> r){
+		for(City ci : c){
+			cities.put(ci.getName(), ci);
+			System.out.println(ci + " was added to mapGraph");
+		}
+
+		for(Railroad ra : r){
+			railroads.put(ra.getID(), ra);
+			System.out.println(ra + " was added to mapGraph");
+		}
+
+		connectGraph();
+	}
+
+	private void connectGraph(){
+		Iterator<Railroad> iter = railroads.values().iterator();
+
+		while(iter.hasNext()){
+			Railroad r = iter.next();
+
+			City foundCity = cities.get(r.getFirst());
+			foundCity.addRoute(r);
+			foundCity = cities.get(r.getSecond());
+			foundCity.addRoute(r);
+		}
+	}//connectGraph
+
 	public void addCity(String key, City c){
 		if(cities.get(key) == null){
 			cities.put(key, c);

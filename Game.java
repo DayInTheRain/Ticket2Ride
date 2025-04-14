@@ -28,8 +28,8 @@ public class Game {
         }
 
         //initialize the map with routes
-        mapGraph = new MapGraph();
         cityList = new ArrayList<City>();
+        railroadList = new ArrayList<Railroad>();
 
         //initialize the decks
         trainCards = new LinkedList<TrainCard>();
@@ -41,11 +41,17 @@ public class Game {
         //Initialize all cards
         trainCardGenerator();
         ticketGenerator();
-        cityGenerator();
         cardBackGenerator();
+
+        //initialize cities and railroad
+        cityGenerator();
+        railroadGenerator();
 
         shuffleDecks();
         dealStartCards();
+
+        //initialize mapGraph
+        mapGraph = new MapGraph(cityList, railroadList);
     }//end of constructor
 
     public void cardBackGenerator(){
@@ -134,12 +140,18 @@ public class Game {
             System.out.println("railroadGenerator called");
             InputStream railroadStream = getClass().getResourceAsStream("/TextFiles/T2R_railroads.txt");
             Scanner scanner = new Scanner(railroadStream);
+            int count = 0;
+
             while(scanner.hasNextLine()){
                 String railroadInfo = scanner.nextLine();
                 Railroad nextRailroad = new Railroad(railroadInfo);
                 System.out.println(nextRailroad);
                 railroadList.add(nextRailroad);
+                count++;
             }
+
+            System.out.println(count + " railroads loaded");
+            scanner.close();
 
         } catch (Exception e) {
             System.out.println("Error creating railroads and adding them into arraylist: GAME CLASS");
