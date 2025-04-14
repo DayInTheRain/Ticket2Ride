@@ -30,6 +30,13 @@ public class Ticket {
 		// }
     } 
 
+    public int compareTo(Ticket t){
+        if(t.getFirstCity().equals(getFirstCity()) && t.getSecondCity().equals(getSecondCity())){
+            return 0;
+        }
+        return t.getFirstCity().compareTo(getFirstCity());
+    }
+
     public boolean isLong(){ return isLong; }
     public int getPointValue(){ return pointValue; }
     public String getFirstCity(){ return firstCity; }
