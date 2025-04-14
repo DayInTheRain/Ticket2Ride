@@ -278,8 +278,7 @@ public class T2RPanel extends JPanel implements MouseListener{
            
              }
 
-<<<<<<< HEAD
-=======
+
              if (turnState ==0)
              {
                 if (rectangularInBounds(x, y, 0.711622125543816*getWidth(), 0.8017402113113735 * getWidth(),  0.6208133971291866 * getHeight(), 0.6650717703349283 * getHeight()))
@@ -293,7 +292,6 @@ public class T2RPanel extends JPanel implements MouseListener{
             
               }
 
->>>>>>> e08004a713b2ce7f9cb789a784bdcfc104ec20c5
              else if (turnState == 1)
              {
                 if (rectangularInBounds(x,y, (int) (0.8442*getWidth()), (int) (0.8942*getWidth()), (int) (0.0431*getHeight()), (int) (0.0931*getHeight()))) // if (reset button clicked)
