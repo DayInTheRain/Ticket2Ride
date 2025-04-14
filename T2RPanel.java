@@ -27,15 +27,12 @@ public class T2RPanel extends JPanel implements MouseListener{
     Ticket DestinationTicket1;
     Ticket DestinationTicket2;
     Ticket DestinationTicket3;
-<<<<<<< HEAD
     Boolean viewingTickets;
 
     ArrayList<Ticket> ticketsOnScreen;
-=======
     boolean DestinationTicket1Selected;
     boolean DestinationTicket2Selected;
     boolean DestinationTicket3Selected;
->>>>>>> a9d41e0fcdd0f3d31adc75b2bbb42a24162ec0a5
 
 
     Font origionalFont;
