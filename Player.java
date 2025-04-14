@@ -27,7 +27,7 @@ public class Player {
         trainCards.put(("wild"), 0);
         
 
-        tickets = null; //Change this to some sort of generate cards method
+        tickets = new ArrayList<>();
         hasEuropeanExpress = false;
     }
 
@@ -55,7 +55,16 @@ public class Player {
     public void placetrains(int num) {
     	trains -= num;
     }
+    public boolean checkTickets(Ticket t){
+        for(int i = 0; i < tickets.size(); i++){
+            if(tickets.get(i).compareTo(t) == 0){
+                return false;
+            }
+        }
+        return true;
+    }
     public void addtickets(Ticket x) {
+        if(checkTickets(x))
     		tickets.add(x);
     }
     public void addtrainCards(LinkedList<TrainCard> list) {

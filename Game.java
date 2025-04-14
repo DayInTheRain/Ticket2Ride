@@ -193,11 +193,15 @@ public class Game {
     }//incrementTurn
      
     public Ticket drawTicket(){
-        return tickets.pop();
+        if(tickets.size() > 0)
+            return tickets.pop();
+        return null;
     }
      
     public Ticket drawLongTicket(){
-        return longTickets.pop();
+        if(longTickets.size() > 0)
+            return longTickets.pop();
+        return null;
     }//drawTicket
 
     public TrainCard drawTrainCard(){
