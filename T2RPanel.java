@@ -27,7 +27,6 @@ public class T2RPanel extends JPanel implements MouseListener{
     Ticket DestinationTicket1;
     Ticket DestinationTicket2;
     Ticket DestinationTicket3;
-
     Boolean viewingTickets;
     ArrayList<Ticket> ticketsOnScreen;
     boolean DestinationTicket1Selected;
@@ -190,7 +189,8 @@ public class T2RPanel extends JPanel implements MouseListener{
                 {
                     System.out.println("start game");
                     gameState = 1;
-                    turnState = -10;
+                    //turnState = -10;
+                    //repaint();
                 }
 
               //rules button            
