@@ -238,7 +238,7 @@ public class T2RPanel extends JPanel implements MouseListener{
 
              if (turnState ==0)
              {
-                if (rectangularInBounds(x, y, 0.7116221*getWidth(), 0.801118 * getWidth(), 0.622009 * getHeight(), 0.66985 * getWidth()))
+                if (rectangularInBounds(x, y, 0.711622125543816*getWidth(), 0.8017402113113735 * getWidth(),  0.6208133971291866 * getHeight(), 0.6650717703349283 * getHeight()))
                 {
                   System.out.println("pick destination ticket clicked");
                   turnState = 2;
