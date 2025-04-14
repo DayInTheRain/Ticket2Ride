@@ -45,6 +45,7 @@ public class Game {
 
         shuffleDecks();
         dealStartCards();
+        
     }//end of constructor
 
     public void cardBackGenerator(){
