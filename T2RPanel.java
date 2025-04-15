@@ -9,6 +9,7 @@ public class T2RPanel extends JPanel implements MouseListener{
     Image t2r_map;
     Image rules1;
     Image rules2;
+    Image station, train;
     int gameState;
     int turnState;
     
@@ -59,6 +60,8 @@ public class T2RPanel extends JPanel implements MouseListener{
         t2r_map = ImageLoader.get("/Images/t2r map.png");
         rules1 = ImageLoader.get("/Images/rules1.jpg");
         rules2 = ImageLoader.get("/Images/rules2.jpg");
+        station = ImageLoader.get("/Images/station.png");
+        train = ImageLoader.get("/Images/train.png");
         city1 = null;
         city2 = null;
         DestinationTicket1 = null;
@@ -164,6 +167,7 @@ public class T2RPanel extends JPanel implements MouseListener{
     }//screen where they can see their tickets
 
     public void paintPlayerHand(Graphics g){
+    
         Font origionalFont = new Font("Monospaced", Font.PLAIN, Math.abs((int)( 0.18947416762342135*getHeight() -  0.16991963260619977*getHeight())));
         Font font = new Font("Monospaced", Font.BOLD, Math.abs((int)( 0.784688995215311*getHeight() - 0.7488038277511961*getHeight())));
         g.setFont(font);
@@ -182,8 +186,9 @@ public class T2RPanel extends JPanel implements MouseListener{
         g.drawString("click", (int)(0.634041640770665*getWidth()), (int)(0.84688995215311*getHeight()));
         g.drawString("to", (int)(0.6514437538844002*getWidth()), (int)(0.8851674641148325*getHeight()));
         g.drawString("view", (int)(0.6401491609695463*getWidth()), (int)( 0.930622009569378*getHeight()));
-
-        
+        g.drawImage(train,(int)0.7085146053449347*getWidth(),(int)0.7559808612440191*getHeight(),(int)0.7694220012430081*getWidth(),(int)0.8313397129186603*getHeight(),null);
+        g.drawImage(station, (int)0.7085146053449347*getWidth(),(int)0.7559808612440191*getHeight(),(int)0.7694220012430081*getWidth(),(int)0.8313397129186603*getHeight(),null);
+        	//doesn't work
         g.setFont(origionalFont);
     }//end of paintPlayerHand
 
@@ -267,7 +272,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                 
                     }
 
-                    if (rectangularInBounds(x, y, 0.7116221*getWidth(), 0.801118 * getWidth(), 0.622009 * getHeight(), 0.66985 * getWidth()))
+                    if (rectangularInBounds(x, y, 0.7116221*getWidth(), 0.801118 * getWidth(), 0.622009 * getHeight(), 0.66985 * getHeight()))
                     {
                       System.out.println("pick destination ticket clicked");
                       turnState = 2;
