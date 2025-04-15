@@ -51,7 +51,7 @@ public class Game {
         dealStartCards();
 
         //initialize mapGraph
-        mapGraph = new MapGraph(cityList, railroadList);
+        //mapGraph = new MapGraph(cityList, railroadList);
     }//end of constructor
 
     private void cardBackGenerator(){

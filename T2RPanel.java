@@ -130,8 +130,8 @@ public class T2RPanel extends JPanel implements MouseListener{
 
         g.setColor(Color.BLACK);
         String toPrint = "";
-        for(int i = 0; i < gameAccess.getPlayers().get(gameAccess.getPlayerTurn()).getTickets().size(); i++){
-            toPrint += gameAccess.getPlayers().get(gameAccess.getPlayerTurn()).getTickets().get(i).getFirstCity() + " " + gameAccess.getPlayers().get(gameAccess.getPlayerTurn()).getTickets().get(i).getSecondCity() + ", ";
+        for(int i = 0; i < gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getTickets().size(); i++){
+            toPrint += gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getTickets().get(i).getFirstCity() + " " + gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getTickets().get(i).getSecondCity() + ", ";
         }
         g.drawString("Player " + gameAccess.getPlayerTurn() + ": " + toPrint, (int)(0.35301*getWidth()), (int)(0.15909*getHeight()));
 
@@ -142,7 +142,7 @@ public class T2RPanel extends JPanel implements MouseListener{
         for(int i = 0; i < 4; i++){
             if(ticketsOnScreen.get(i) != null)
                 g.drawImage(ticketsOnScreen.get(i).getImage(), (int)(0.017402*getWidth()) + cardWidth*i, (int)( 0.240430*getHeight()), cardWidth, cardHeight, null);
-            if(!gameAccess.getPlayers().get(gameAccess.getPlayerTurn()).checkTickets(ticketsOnScreen.get(i))){
+            if(!gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).checkTickets(ticketsOnScreen.get(i))){
                 g.setColor(Color.GREEN);
                 g.drawRect((int)(0.017402*getWidth()) + cardWidth*i, (int)( 0.240430*getHeight()), cardWidth, cardHeight);
             }
@@ -156,12 +156,31 @@ public class T2RPanel extends JPanel implements MouseListener{
     }//choosing tickets at the beginning
 
     public void paintViewingTickets(Graphics g){
+        //background
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, getWidth(), getHeight());
 
-        ArrayList<Ticket> tickets = gameAccess.getPlayers().get(gameAccess.getPlayerTurn()).getTickets();
-        g.drawImage(tickets.get(0).getImage(), (int)(0.4139216904909882*getWidth()), (int)(0.29545454545454547*getHeight()), (int)(0.600994406463642*getWidth()), (int)(0.757177033492823*getHeight()), null);
+        //draws the ticket
+        ArrayList<Ticket> tickets = gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getTickets();
+        g.drawImage(tickets.get(0).getImage(), (int)(0.29272*getWidth()), (int)(0.20574*getHeight()), (int)((0.68924-0.29272)*getWidth()), (int)((0.75239-0.20574)*getHeight()), null);
+        
+        //next card
+        g.setColor(Color.LIGHT_GRAY);
+        g.fillRect((int)(0.73834*getWidth()), (int)(0.41387*getHeight()), (int)((0.81106-0.73834)*getWidth()), (int)((0.555020-0.41387)*getHeight()));
+        g.setColor(Color.black);
+        g.drawString("next ticket", (int)(0.75201*getWidth()), (int)(0.49521*getHeight()));
+
+        //exit
+        g.setColor(Color.LIGHT_GRAY);
+        g.fillRect((int)(0.92977*getWidth()), (int)(0.88875*getHeight()), (int)(getWidth()), (int)(getHeight()));
+        g.setColor(Color.black);
+        g.drawString("back to game", (int)(0.94465*getWidth()), (int)(0.95380*getHeight()));
+        
     }//screen where they can see their tickets
+
+    public void incrementTicket(boolean f){
+        gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).rotateTickets(f);
+    }//helper method for viewing tickets
 
     public void paintPlayerHand(Graphics g){
         Font origionalFont = new Font("Monospaced", Font.PLAIN, Math.abs((int)( 0.18947416762342135*getHeight() -  0.16991963260619977*getHeight())));
@@ -175,7 +194,7 @@ public class T2RPanel extends JPanel implements MouseListener{
         for(int i = 0; i < gameAccess.getTCFiles().size(); i++){
             g.drawImage(gameAccess.getTCFiles().get(i).getImage(), (int)(0.0074580484773151025*getWidth()) + cardWidth*i, (int)( 0.7476076555023924*getHeight()), cardWidth, cardHeight, null);
             g.setColor(Color.WHITE);
-            g.drawString("" + gameAccess.getPlayers().get(gameAccess.getPlayerTurn()).getTrainCards().get(gameAccess.getTCFiles().get(i).getColor()), (int)(0.03356121814791796*getWidth() + (cardWidth*i)), (int)(0.8983253588516746*getHeight()));
+            g.drawString("" + gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getTrainCards().get(gameAccess.getTCFiles().get(i).getColor()), (int)(0.03356121814791796*getWidth() + (cardWidth*i)), (int)(0.8983253588516746*getHeight()));
         }
         g.drawImage(gameAccess.getTicketBack(), (int)(0.0074580484773151025*getWidth()) + cardWidth*gameAccess.getTCFiles().size(), (int)( 0.7476076555023924*getHeight()), cardWidth, cardHeight, null);
         g.setColor(Color.BLACK);
@@ -233,6 +252,14 @@ public class T2RPanel extends JPanel implements MouseListener{
                 viewingTickets = true;
                 repaint();
             }
+            if(viewingTickets){
+                if(rectangularInBounds(x, y, (int)(0.73834*getWidth()), (int)(0.81106*getWidth()), (int)( 0.41387*getHeight()), (int)( 0.55502*getHeight()))){
+                    incrementTicket(true);
+                }
+                if(rectangularInBounds(x, y, (int)(0.92977*getWidth()), (int)(getWidth()), (int)( 0.88875*getHeight()), (int)(getHeight()))){
+                    viewingTickets = false;
+                }
+            }
 
             //choosing tickets
             double cardWidth = ((0.23430 - 0.01615)*getWidth());
@@ -240,18 +267,21 @@ public class T2RPanel extends JPanel implements MouseListener{
                 for(int i = 0; i < 4; i++){
                     if (rectangularInBounds(x, y,  0.01615*getWidth() + (i*cardWidth), 0.23430*getWidth() + (i*cardWidth), 0.23684*getHeight(),  0.57655*getHeight()))
                     {
-                        gameAccess.getPlayers().get(gameAccess.getPlayerTurn()).addtickets(ticketsOnScreen.get(i));
-                        for(Ticket t: gameAccess.getPlayers().get(gameAccess.getPlayerTurn()).getTickets()){
+                        gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).addtickets(ticketsOnScreen.get(i));
+                        for(Ticket t: gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getTickets()){
                             System.out.println(t.getFirstCity() + t.getSecondCity());
                         }
                     }
                 }
 
-                if (rectangularInBounds(x, y,  0.88377*getWidth(), getWidth(), 0.85047*getHeight(),  getHeight())){
+                if (rectangularInBounds(x, y,  0.88377*getWidth(), getWidth(), 0.85047*getHeight(),  getHeight()) && gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getTickets().size() >= 2){
+                    if(gameAccess.getPlayerTurn() == 4){
+                        turnState = 0;
+                    }
                     gameAccess.incrementTurn();
                     generateTicketsOnScreen();
                 }
-            }//still incomplete
+            }
 
             
 
