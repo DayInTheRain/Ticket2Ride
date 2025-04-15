@@ -1,36 +1,43 @@
-import java.util.*;
+import java.io.InputStream;
 import static java.lang.System.*;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.*;
 
-//syncing issues, lovely.
-
+//hello there
 public class Game {
     private boolean lastRound;
-    private ArrayList<Player> player;
+    private ArrayList<Player> players;
+    private ArrayList<TrainCard> trainCardFiles;
     private Deque<TrainCard> trainCards, discard;
     private Deque<Ticket> longTickets, tickets;
     private MapGraph mapGraph;
+    private int playerTurn;
+    private ArrayList<City> cityList;
+    private ArrayList<Railroad> railroadList;
+    private Image trainCardBack, europeanExpressCard, ticketBack;
 
     public Game(){
         lastRound = false;
+        playerTurn = 1;
 
-        player = new ArrayList<Player>();
+        players = new ArrayList<Player>();
         //Initialize players
         for(int i = 0; i < 4; i++){
-            player.add(new Player(i+1));
+            players.add(new Player(i+1));
         }
 
         //initialize the map with routes
-        mapGraph = new MapGraph();
+        cityList = new ArrayList<City>();
+        railroadList = new ArrayList<Railroad>();
 
         //initialize the decks
         trainCards = new LinkedList<TrainCard>();
         discard = new LinkedList<TrainCard>();
         longTickets = new LinkedList<Ticket>();
         tickets = new LinkedList<Ticket>();
+        trainCardFiles = new ArrayList<>();
 
         //Initialize all cards
         trainCardGenerator();
@@ -62,11 +69,20 @@ public class Game {
     private void trainCardGenerator(){
         try {
 		    // Load card names from the jar resource
-		    Scanner scanner = new Scanner(getClass().getResourceAsStream("/TextFile/TrainCardText.txt"));
+		    Scanner scanner = new Scanner(getClass().getResourceAsStream("/TextFiles/TrainCardText.txt"));
 		    while (scanner.hasNextLine()) {
 		        String name = scanner.nextLine();
 		        TrainCard nextCard = new TrainCard(name);
-		        trainCards.add(nextCard);
+                if(nextCard.getColor().equals("wild")){
+                    for(int i = 0; i < 14; i++){
+                        trainCards.add(nextCard);
+                    }
+                } else {
+                    for (int i = 0; i < 12; i++){
+                        trainCards.add(nextCard);
+                    }
+                }
+                trainCardFiles.add(nextCard);
                 out.println("added trainCards to deck");
 		    }
 		    scanner.close();
@@ -83,7 +99,7 @@ public class Game {
             Scanner scanner = new Scanner(getClass().getResourceAsStream("/TextFiles/TicketText.txt"));
 		    while (scanner.hasNextLine()) {
 		        String name = scanner.nextLine();
-                out.println(name);
+                System.out.println(name);
 		        Ticket nextTicket = new Ticket(name);
                 if(nextTicket.isLong()){
                     longTickets.add(nextTicket);
@@ -116,7 +132,9 @@ public class Game {
 		    }catch (Exception e) {
 		    System.out.println("Error creating cities and adding them into arraylist: GAME CLASS");
 		    e.printStackTrace();
+         
 		}
+    }//cityGenerator
 
     private void railroadGenerator(){
         try {
@@ -126,16 +144,19 @@ public class Game {
             int count = 0;
 
             while(scanner.hasNextLine()){
-                String name = scanner.nextLine();
-                out.println(name);
-                City nextCity = new City(name);
-                mapGraph.addCity(nextCity.getName(), nextCity);
+                String railroadInfo = scanner.nextLine();
+                Railroad nextRailroad = new Railroad(railroadInfo);
+                System.out.println(nextRailroad);
+                railroadList.add(nextRailroad);
+                count++;
             }
+
+            System.out.println(count + " railroads loaded");
             scanner.close();
 
         } catch (Exception e) {
-            System.out.println("Error initializing cities and adding them to the mapGraph");
-            e.printStackTrace();
+            System.out.println("Error creating railroads and adding them into arraylist: GAME CLASS");
+		    e.printStackTrace();
         }
     }//railroadGenerator
 
