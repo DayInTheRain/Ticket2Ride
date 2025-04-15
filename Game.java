@@ -51,7 +51,7 @@ public class Game {
         dealStartCards();
 
         //initialize mapGraph
-        mapGraph = new MapGraph(cityList, railroadList);
+      //  mapGraph = new MapGraph(cityList, railroadList);
     }//end of constructor
 
     public void cardBackGenerator(){
@@ -232,4 +232,8 @@ public class Game {
         return cityList;
     }//getCities
 
+        public ArrayList<Railroad> getRailroads()
+        {
+            return railroadList;
+        }
 }//end of class

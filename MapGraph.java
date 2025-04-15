@@ -12,6 +12,7 @@ public class MapGraph {
 
 	public MapGraph(ArrayList<City> c, ArrayList<Railroad> r){
 		for(City ci : c){
+			
 			cities.put(ci.getName(), ci);
 			System.out.println(ci + " was added to mapGraph");
 		}
