@@ -156,12 +156,31 @@ public class T2RPanel extends JPanel implements MouseListener{
     }//choosing tickets at the beginning
 
     public void paintViewingTickets(Graphics g){
+        //background
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, getWidth(), getHeight());
 
+        //draws the ticket
         ArrayList<Ticket> tickets = gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getTickets();
-        g.drawImage(tickets.get(0).getImage(), (int)(0.4139216904909882*getWidth()), (int)(0.29545454545454547*getHeight()), (int)(0.600994406463642*getWidth()), (int)(0.757177033492823*getHeight()), null);
+        g.drawImage(tickets.get(0).getImage(), (int)(0.29272*getWidth()), (int)(0.20574*getHeight()), (int)((0.68924-0.29272)*getWidth()), (int)((0.75239-0.20574)*getHeight()), null);
+        
+        //next card
+        g.setColor(Color.LIGHT_GRAY);
+        g.fillRect((int)(0.73834*getWidth()), (int)(0.41387*getHeight()), (int)((0.81106-0.73834)*getWidth()), (int)((0.555020-0.41387)*getHeight()));
+        g.setColor(Color.black);
+        g.drawString("next ticket", (int)(0.75201*getWidth()), (int)(0.49521*getHeight()));
+
+        //exit
+        g.setColor(Color.LIGHT_GRAY);
+        g.fillRect((int)(0.92977*getWidth()), (int)(0.88875*getHeight()), (int)(getWidth()), (int)(getHeight()));
+        g.setColor(Color.black);
+        g.drawString("back to game", (int)(0.94465*getWidth()), (int)(0.95380*getHeight()));
+        
     }//screen where they can see their tickets
+
+    public void incrementTicket(boolean f){
+        gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).rotateTickets(f);
+    }//helper method for viewing tickets
 
     public void paintPlayerHand(Graphics g){
         Font origionalFont = new Font("Monospaced", Font.PLAIN, Math.abs((int)( 0.18947416762342135*getHeight() -  0.16991963260619977*getHeight())));
@@ -233,6 +252,14 @@ public class T2RPanel extends JPanel implements MouseListener{
                 viewingTickets = true;
                 repaint();
             }
+            if(viewingTickets){
+                if(rectangularInBounds(x, y, (int)(0.73834*getWidth()), (int)(0.81106*getWidth()), (int)( 0.41387*getHeight()), (int)( 0.55502*getHeight()))){
+                    incrementTicket(true);
+                }
+                if(rectangularInBounds(x, y, (int)(0.92977*getWidth()), (int)(getWidth()), (int)( 0.88875*getHeight()), (int)(getHeight()))){
+                    viewingTickets = false;
+                }
+            }
 
             //choosing tickets
             double cardWidth = ((0.23430 - 0.01615)*getWidth());
@@ -254,7 +281,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                     gameAccess.incrementTurn();
                     generateTicketsOnScreen();
                 }
-            }//still incomplete
+            }
 
             
 
