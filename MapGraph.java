@@ -15,6 +15,7 @@ public class MapGraph {
 		railroads = new HashMap<String, Railroad>();
 
 		for(City ci : c){
+			
 			cities.put(ci.getName(), ci);
 			System.out.println(ci + " was added to mapGraph");
 		}
