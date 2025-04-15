@@ -54,7 +54,7 @@ public class Game {
         mapGraph = new MapGraph(cityList, railroadList);
     }//end of constructor
 
-    public void cardBackGenerator(){
+    private void cardBackGenerator(){
         trainCardBack = ImageLoader.get("/Images/CardBacks/TrainCardBack.jpg");
         ticketBack = ImageLoader.get("/Images/CardBacks/TicketBack.jpg");
         europeanExpressCard = ImageLoader.get("/Images/CardBacks/EuropeanExpress.jpg");
@@ -65,7 +65,7 @@ public class Game {
     public Image getEuropeanExpress() {return europeanExpressCard;}
 
 
-    public void trainCardGenerator(){
+    private void trainCardGenerator(){
         try {
 		    // Load card names from the jar resource
 		    Scanner scanner = new Scanner(getClass().getResourceAsStream("/TextFiles/TrainCardText.txt"));
@@ -93,7 +93,7 @@ public class Game {
 		}
     }//trainCardGenerator
 
-    public void ticketGenerator(){
+    private void ticketGenerator(){
         try{
             Scanner scanner = new Scanner(getClass().getResourceAsStream("/TextFiles/TicketText.txt"));
 		    while (scanner.hasNextLine()) {
@@ -114,7 +114,7 @@ public class Game {
         }
     }//ticketGenerator
     
-    public void cityGenerator(){
+    private void cityGenerator(){
         try {
             System.out.println("cityGenerator called");
 		    // Load card names from the jar resource
@@ -135,7 +135,7 @@ public class Game {
 		}
     }//cityGenerator
 
-    public void railroadGenerator(){
+    private void railroadGenerator(){
         try {
             System.out.println("railroadGenerator called");
             InputStream railroadStream = getClass().getResourceAsStream("/TextFiles/T2R_railroads.txt");
@@ -231,5 +231,9 @@ public class Game {
     {
         return cityList;
     }//getCities
+
+    public MapGraph getMap(){
+        return mapGraph;
+    }
 
 }//end of class
