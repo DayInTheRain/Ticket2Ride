@@ -5,8 +5,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.*;
 
-//syncing issues, lovely.
-
+//hello there
 public class Game {
     private boolean lastRound;
     private ArrayList<Player> player;
