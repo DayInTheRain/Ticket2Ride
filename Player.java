@@ -67,6 +67,13 @@ public class Player {
         if(checkTickets(x))
     		tickets.add(x);
     }
+    public void rotateTickets(boolean forwards){
+        if(forwards){
+            tickets.add(tickets.remove(0));
+        } else {
+            tickets.add(0, tickets.remove(tickets.size()-1));
+        }
+    }
     public void addtrainCards(LinkedList<TrainCard> list) {
     	for(TrainCard s: list) {
     		//trainCards.put(s, 1);
