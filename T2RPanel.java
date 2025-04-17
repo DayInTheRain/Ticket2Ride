@@ -252,8 +252,17 @@ public class T2RPanel extends JPanel implements MouseListener{
             }  
   
         }//gamestate == 0
+
+        if(viewingTickets){
+            if(rectangularInBounds(x, y, (int)(0.73834*getWidth()), (int)(0.81106*getWidth()), (int)( 0.41387*getHeight()), (int)( 0.55502*getHeight()))){
+                incrementTicket(true);
+            }
+            if(rectangularInBounds(x, y, (int)(0.92977*getWidth()), (int)(getWidth()), (int)( 0.88875*getHeight()), (int)(getHeight()))){
+                viewingTickets = false;
+            }
+        }//viewing tickets for any gamestate
        
-        if (gameState == 1)
+        if (gameState == 1 && !viewingTickets)
         {
 
             //if user clicks to view tickets
@@ -262,14 +271,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                 viewingTickets = true;
                 repaint();
             }
-            if(viewingTickets){
-                if(rectangularInBounds(x, y, (int)(0.73834*getWidth()), (int)(0.81106*getWidth()), (int)( 0.41387*getHeight()), (int)( 0.55502*getHeight()))){
-                    incrementTicket(true);
-                }
-                if(rectangularInBounds(x, y, (int)(0.92977*getWidth()), (int)(getWidth()), (int)( 0.88875*getHeight()), (int)(getHeight()))){
-                    viewingTickets = false;
-                }
-            }
+            
 
             //choosing tickets
             double cardWidth = ((0.23430 - 0.01615)*getWidth());
