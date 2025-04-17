@@ -579,16 +579,16 @@ public class T2RPanel extends JPanel implements MouseListener{
             String combineCityNames = alphaFirst.getName() + " " + alphaSecond.getName();
 
            System.out.println(combineCityNames);
-            // for (Railroad r : gameAccess.getRailroads())
-            // {
-            //     String railRoad = r.getFirst() + " " + r.getSecond();
-            //     if (railRoad.equals(combineCityNames))
-            //     {
-            //         System.out.println("Match detected");
-            //     }
+            for (Railroad r : gameAccess.getRailroads())
+            {
+                String railRoad = r.getFirst() + " " + r.getSecond();
+                if (railRoad.equals(combineCityNames))
+                {
+                    System.out.println("Match detected");
+                }
 
 
-            // }
+            }
 
 
 
