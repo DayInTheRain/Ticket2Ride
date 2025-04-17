@@ -25,14 +25,14 @@ public class T2RPanel extends JPanel implements MouseListener{
 
     //pickTicket IVs
     int pickTicketState;
-    Ticket DestinationTicket1;
-    Ticket DestinationTicket2;
-    Ticket DestinationTicket3;
+    Ticket destinationTicket1;
+    Ticket destinationTicket2;
+    Ticket destinationTicket3;
     Boolean viewingTickets;
     ArrayList<Ticket> ticketsOnScreen;
-    boolean DestinationTicket1Selected;
-    boolean DestinationTicket2Selected;
-    boolean DestinationTicket3Selected;
+    boolean destinationTicket1Selected;
+    boolean destinationTicket2Selected;
+    boolean destinationTicket3Selected;
     
 
 
@@ -67,13 +67,13 @@ public class T2RPanel extends JPanel implements MouseListener{
         train = ImageLoader.get("/Images/train.png");
         city1 = null;
         city2 = null;
-        DestinationTicket1 = null;
-        DestinationTicket2 = null;
-        DestinationTicket3 = null;
+        destinationTicket1 = null;
+        destinationTicket2 = null;
+        destinationTicket3 = null;
         
-        boolean DestinationTicket1Selected = false;
-        boolean DestinationTicket2Selected = false;
-        boolean DestinationTicket3Selected = false;
+        boolean destinationTicket1Selected = false;
+        boolean destinationTicket2Selected = false;
+        boolean destinationTicket3Selected = false;
     }
 
     public void generateTicketsOnScreen(){
@@ -237,7 +237,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                 {
                     System.out.println("start game");
                     gameState = 1;
-              //      turnState = -10;
+                    turnState = -10;
                     repaint();
                 }
 
@@ -277,7 +277,11 @@ public class T2RPanel extends JPanel implements MouseListener{
                 for(int i = 0; i < 4; i++){
                     if (rectangularInBounds(x, y,  0.01615*getWidth() + (i*cardWidth), 0.23430*getWidth() + (i*cardWidth), 0.23684*getHeight(),  0.57655*getHeight()))
                     {
-                        gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).addtickets(ticketsOnScreen.get(i));
+                        if(!gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).checkTickets(ticketsOnScreen.get(i))){
+                            gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).removeTicket(ticketsOnScreen.get(i));
+                        } else {
+                            gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).addtickets(ticketsOnScreen.get(i));
+                        }
                         for(Ticket t: gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getTickets()){
                             System.out.println(t.getFirstCity() + t.getSecondCity());
                         }
@@ -304,33 +308,19 @@ public class T2RPanel extends JPanel implements MouseListener{
                 
                     }
 
-                    if (rectangularInBounds(x, y, 0.7116221*getWidth(), 0.801118 * getWidth(), 0.622009 * getHeight(), 0.66985 * getHeight()))
+                if (rectangularInBounds(x, y, 0.7116221*getWidth(), 0.801118 * getWidth(), 0.622009 * getHeight(), 0.66985 * getHeight()))//if click destination ticket
                     {
                       System.out.println("pick destination ticket clicked");
                       turnState = 2;
-                      DestinationTicket1 = gameAccess.drawTicket();
-                      DestinationTicket2 = gameAccess.drawTicket();
-                      DestinationTicket3 = gameAccess.drawTicket();
+                      destinationTicket1 = gameAccess.drawTicket();
+                      destinationTicket2 = gameAccess.drawTicket();
+                      destinationTicket3 = gameAccess.drawTicket();
                     }
 
                 
 
            
              }
-
-
-             if (turnState ==0)
-             {
-                if (rectangularInBounds(x, y, 0.711622125543816*getWidth(), 0.8017402113113735 * getWidth(),  0.6208133971291866 * getHeight(), 0.6650717703349283 * getHeight()))
-                {
-                  System.out.println("pick destination ticket clicked");
-                  turnState = 2;
-                  DestinationTicket1 = gameAccess.drawTicket();
-                  DestinationTicket2 = gameAccess.drawTicket();
-                  DestinationTicket3 = gameAccess.drawTicket();
-                }
-            
-              }
 
              else if (turnState == 1)
              {
@@ -378,12 +368,12 @@ public class T2RPanel extends JPanel implements MouseListener{
                 }
              }
 
-             else if (turnState == 2)
+             else if (turnState == 2)//destination ticket
              {
                 if (rectangularInBounds(x, y, (int) (0.2001243 * getWidth()), (int) (0.33685 * getWidth()), (int) (0.29784 * getHeight()), (int)(0.4593*getHeight())))
                 {
                     System.out.println("left DT clicked");
-                    DestinationTicket1Selected = ! DestinationTicket1Selected;
+                    destinationTicket1Selected = ! destinationTicket1Selected;
                     
                     
                 }
@@ -391,7 +381,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                 else if (rectangularInBounds(x, y, (int) (0.599751 * getWidth()), (int) (0.735239 * getWidth()), (int) (0.29904 * getHeight()), (int)(0.4629186*getHeight())))
                 {
                     System.out.println("right DT clicked");
-                    DestinationTicket2Selected = ! DestinationTicket2Selected;
+                    destinationTicket2Selected = ! destinationTicket2Selected;
 
                   
                 }
@@ -399,7 +389,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                 else if (rectangularInBounds(x, y, (int) (0.3996 * getWidth()), (int) (0.54008 * getWidth()), (int) (0.599282 * getHeight()), (int)(0.7655502*getHeight())))
                 {
                     System.out.println("bottom DT clicked");
-                    DestinationTicket3Selected = ! DestinationTicket3Selected;
+                    destinationTicket3Selected = ! destinationTicket3Selected;
 
                    
                 }
@@ -408,7 +398,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                 {
                     System.out.println("End turn clicked");
 
-                    if ((!DestinationTicket1Selected) && (!DestinationTicket2Selected) && (!DestinationTicket3Selected))
+                    if ((!destinationTicket1Selected) && (!destinationTicket2Selected) && (!destinationTicket3Selected))
                     {
                         System.out.println("select a card first");
                        
@@ -417,7 +407,16 @@ public class T2RPanel extends JPanel implements MouseListener{
                     else 
                     {
                         System.out.println("pickTicket turn ended");
+                        if(destinationTicket1Selected)
+                            gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).addtickets(destinationTicket1);
+                        if(destinationTicket2Selected)
+                            gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).addtickets(destinationTicket2);
+                        if(destinationTicket3Selected)
+                            gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).addtickets(destinationTicket3);
                         turnState = 0;
+                        destinationTicket1Selected = false;
+                        destinationTicket2Selected = false;
+                        destinationTicket3Selected = false;
                     }
                 }
 
@@ -607,13 +606,13 @@ public class T2RPanel extends JPanel implements MouseListener{
         g.drawString("Pick at least one ticket to keep. You must select at least one ticket.", (int)(0.30640149*getWidth()), (int)(0.16507 * getHeight()));
         g.drawRect((int)(0.738020833 * getWidth()) , (int) (0.7413962635201573 * getHeight()), (int) (0.16 * getWidth()), (int) (0.16 * getHeight()));
         g.drawString("End Turn", (int) (0.763206 * getWidth()), (int) (getHeight() * 0.76794));
-        g.drawImage(DestinationTicket1.getImage(), (int) (getWidth() * 0.2), (int) (getHeight()*0.3), null);
-        g.drawImage(DestinationTicket2.getImage(), (int) (getWidth() * 0.6), (int) (getHeight()*0.3), null);
-        g.drawImage(DestinationTicket3.getImage(), (int) (getWidth() * 0.4), (int) (getHeight()*0.6), null);
+        g.drawImage(destinationTicket1.getImage(), (int) (getWidth() * 0.2), (int) (getHeight()*0.3), null);
+        g.drawImage(destinationTicket2.getImage(), (int) (getWidth() * 0.6), (int) (getHeight()*0.3), null);
+        g.drawImage(destinationTicket3.getImage(), (int) (getWidth() * 0.4), (int) (getHeight()*0.6), null);
 
        
         
-            if (DestinationTicket1Selected)
+            if (destinationTicket1Selected)
             {
                 g.setColor(Color.green);
                 g.drawRect( (int) (getWidth() * 0.2), (int) (getHeight()*0.3), (int)(getWidth() * 0.144), (int) (getHeight() * 0.16));
@@ -622,7 +621,7 @@ public class T2RPanel extends JPanel implements MouseListener{
 
             }
 
-             if (DestinationTicket2Selected)
+             if (destinationTicket2Selected)
             {
                 g.setColor(Color.green);
                 g.drawRect( (int) (getWidth() * 0.6), (int) (getHeight()*0.3), (int)(getWidth() * 0.14), (int) (getHeight() * 0.16));
@@ -632,7 +631,7 @@ public class T2RPanel extends JPanel implements MouseListener{
 
             }
 
-             if (DestinationTicket3Selected)
+             if (destinationTicket3Selected)
             {
                 g.setColor(Color.green);
                 g.drawRect( (int) (getWidth() * 0.4), (int) (getHeight()*0.6), (int)(getWidth() * 0.14), (int) (getHeight() * 0.16));
