@@ -209,9 +209,10 @@ public class T2RPanel extends JPanel implements MouseListener{
         g.drawString("click", (int)(0.634041640770665*getWidth()), (int)(0.84688995215311*getHeight()));
         g.drawString("to", (int)(0.6514437538844002*getWidth()), (int)(0.8851674641148325*getHeight()));
         g.drawString("view", (int)(0.6401491609695463*getWidth()), (int)( 0.930622009569378*getHeight()));
-        g.drawImage(train,(int)0.7085146053449347*getWidth(),(int)0.7559808612440191*getHeight(),(int)0.7694220012430081*getWidth(),(int)0.8313397129186603*getHeight(),null);
-        g.drawImage(station, (int)0.7085146053449347*getWidth(),(int)0.7559808612440191*getHeight(),(int)0.7694220012430081*getWidth(),(int)0.8313397129186603*getHeight(),null);
-        	//doesn't work
+        g.drawImage(train,(int)(0.7085146053449347*getWidth()),(int)(0.7559808612440191*getHeight()),(int)((0.7588564325668117-0.688514605)*getWidth()),(int)((0.92105263157894733-0.8241626794258373)*getHeight()),null);
+        g.drawImage(station,(int)(0.711622125543816*getWidth()),(int)(0.8588516746411483*getHeight()),(int)((0.7694220012430081-0.711622125543816)*getWidth()),(int)((0.8313397129186603-0.75598086124)*getHeight()),null);
+        g.drawString(""+gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getNumTrains(),(int)(0.785581106277190*getWidth()), (int)(0.7978468899521531*getHeight()));	
+        g.drawString(""+gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getNumTrainStations(),(int)(0.79055313859590*getWidth()), (int)( 0.889952153110031*getHeight()));
         g.setFont(origionalFont);
     }//end of paintPlayerHand
 
