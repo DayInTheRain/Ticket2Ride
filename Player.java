@@ -81,14 +81,18 @@ public class Player {
     	}	
     	}
 
-public void choice(int num) {
-	turnState = num;
-	// 1 = claim route
-	// 2 = pick train card
-	// 3 = pick ticket card
-	// 4 = build train Station
-}
-public int getchoice() {
-	return turnState;
-}
-}
+    public void choice(int num) {
+        turnState = num;
+        // 1 = claim route
+        // 2 = pick train card
+        // 3 = pick ticket card
+        // 4 = build train Station
+    }
+    public int getchoice() {
+        return turnState;
+    }
+
+    public String toString(){
+        return "Player " + getPlayerNum();
+    }
+}//class Player

@@ -51,7 +51,8 @@ public class Game {
         shuffleDecks();
         dealStartCards();
 
-        //initialize mapGraph
+
+        //initialize mapGraph -- comment out when sync
         //mapGraph = new MapGraph(cityList, railroadList);
     }//end of constructor
 

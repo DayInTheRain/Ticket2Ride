@@ -45,18 +45,23 @@ public class MapGraph {
 		}
 	}//connectGraph
 
+	//Method addCity should never be called vv
+	/* 
 	public void addCity(String key, City c){
 		if(cities.get(key) == null){
 			cities.put(key, c);
 		}
 	}
+	*/
+	
 
-	public HashMap getCities() {
+	public HashMap<String, City> getCities() {
 		return cities;
 	}
-	public HashMap getRailroads() {
+	public HashMap<String,Railroad> getRailroads() {
 		return railroads;
 	}
+	
 	public int numTrains(Railroad x) {
 		return x.getNumTrains();
 	}
@@ -67,7 +72,7 @@ public class MapGraph {
 		return longest;
 	}
 
-	public boolean search(City fCity, City sCity, Player p) {
+	public boolean searchIfClaimed(City fCity, City sCity, Player p) {
 		boolean claimed = false;
 		//write on if railraod connects c1 anc c2 and see if claimed by player.
 		String exists = railroadExists(fCity, sCity);
@@ -99,14 +104,20 @@ public class MapGraph {
 		return railroadID;
 	}
 
-	public City getCity(int x, int y) {
-		City s = null;
-		return s;
+	public City getCity(String c) {
+		c = c.toUpperCase();
+		return cities.get(c);
 	}
 
 	public Railroad getRailroad(City c1, City c2) {
-		Railroad x = null;
-		return x;
-	}
+		String id = railroadExists(c1, c2);
 
-}
+		if (id.equals("false")){
+			return null;
+		}else{
+			return railroads.get(id);
+		}
+	}//getRailroad
+
+
+}//class MapGraph

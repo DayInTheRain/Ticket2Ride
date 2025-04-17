@@ -6,8 +6,12 @@ public class Railroad {
 	private int numWilds;
 	private String color;
 	private boolean isTunnel;
-	private String firstCity;
-	private String secondCity;
+
+	private String firstCityString;
+	private String secondCityString;
+	private City firsCity;
+	private City secondCity;
+
 	private String railroadID;
 	private double[] coords;
 
@@ -19,8 +23,8 @@ public class Railroad {
 
 		String[] info = s.split(" ");
 	
-		this.firstCity = info[0];
-		this.secondCity = info[1];
+		this.firstCityString = info[0];
+		this.secondCityString = info[1];
 		this.color = info[2];
 		this.coords[0] = Double.parseDouble(info[3]);
 		this.coords[1] = Double.parseDouble(info[4]);
@@ -36,18 +40,35 @@ public class Railroad {
 		numWilds = numw;
 		color = c;
 		isTunnel = t;
-		firstCity = fc;
-		secondCity = sc;
+		firstCityString = fc;
+		secondCityString = sc;
 		railroadID = rail;
 		player = null;
 	}
 	
+	public City getFirstCity(){
+		return firsCity;
+	}
+
+	public City getSecondCity(){
+		return secondCity;
+	}
+
 	public String getFirst(){
-		return firstCity;
+		return firstCityString;
 	}
 
 	public String getSecond(){
-		return secondCity;
+		return secondCityString;
+	}
+
+	public void setCities(City c1, City c2){
+		firsCity = c1;
+		secondCity = c2;
+	}
+
+	public String getCities(){
+		return firstCityString + " " + secondCityString;
 	}
 
 	public boolean isDouble() {
@@ -89,4 +110,10 @@ public class Railroad {
 		return railroadID;
 	}
 	
+	public City getOtherCity(City c){
+		if(c.getName().equals(firstCityString))
+			return secondCity;
+		else
+			return firsCity;
+	}
 }//end of the class
