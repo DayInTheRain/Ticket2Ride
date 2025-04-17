@@ -215,4 +215,8 @@ public class Game {
         return mapGraph;
     }
 
+    public ArrayList<Railroad> getRailroads(){
+        return railroadList;
+    }
+
 }//end of class
