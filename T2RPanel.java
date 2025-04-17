@@ -122,6 +122,10 @@ public class T2RPanel extends JPanel implements MouseListener{
                 {
                     pickTicketUI(g);
                 }
+                else if (turnState == 3)
+                {
+                    pickTrainCardUI(g);
+                }
 
                 else if(turnState == -10){
                     paintTicketChoosing(g);
@@ -318,6 +322,11 @@ public class T2RPanel extends JPanel implements MouseListener{
                       destinationTicket2 = gameAccess.drawTicket();
                       destinationTicket3 = gameAccess.drawTicket();
                     }
+                if(rectangularInBounds(x, y, 0.83095*getWidth(), 0.92231 * getWidth(), 0.50239 * getHeight(), 0.54545 * getHeight()))
+                    {
+                        System.out.println("pick ticket clicked");
+                        turnState = 3;
+                    }
 
                 
 
@@ -422,6 +431,13 @@ public class T2RPanel extends JPanel implements MouseListener{
                     }
                 }
 
+             }
+             else if(turnState == 3){
+                if ( rectangularInBounds(x, y, (int) (getWidth() * 0.7383), (int) (getWidth() * 0.8986), (int) (getHeight() * 0.7416), (int) (getHeight() * 0.9007)))
+                {
+                    System.out.println("End turn clicked");
+                    turnState = 0;
+                }
              }
             
 
@@ -644,6 +660,18 @@ public class T2RPanel extends JPanel implements MouseListener{
         
 
     }
+
+    public void pickTrainCardUI(Graphics g)
+    {
+        
+        g.setColor((Color.white));
+        g.fillRect(getWidth()/10, getHeight()/10, (int)(getWidth()*0.8), (int)(getHeight()*0.8));
+        g.setColor(Color.black);
+        g.drawString("Pick two train cards. If chosen a wild, only one.", (int)(0.30640149*getWidth()), (int)(0.16507 * getHeight()));
+        g.drawRect((int)(0.738020833 * getWidth()) , (int) (0.7413962635201573 * getHeight()), (int) (0.16 * getWidth()), (int) (0.16 * getHeight()));
+        g.drawString("End Turn", (int) (0.763206 * getWidth()), (int) (getHeight() * 0.76794));
+
+    }//incomplete
 
 
     public City CityDetector(double  x, double  y)
