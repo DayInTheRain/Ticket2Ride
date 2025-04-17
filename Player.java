@@ -64,8 +64,10 @@ public class Player {
         return true;
     }
     public void addtickets(Ticket x) {
-        if(checkTickets(x))
-    		tickets.add(x);
+    	tickets.add(x);
+    }
+    public void removeTicket(Ticket x){
+        tickets.remove(x);
     }
     public void rotateTickets(boolean forwards){
         if(forwards){
