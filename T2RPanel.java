@@ -503,12 +503,14 @@ public class T2RPanel extends JPanel implements MouseListener{
     {
 
         g.setColor(Color.black);
+        
+        g.drawString("Player "+(gameAccess.getPlayerTurn())%5+" Points: "+gameAccess.getPlayers().get((gameAccess.getPlayerTurn()-1)).getPoints(), (int) (0.76196*getWidth()), (int) (0.10630*getHeight()));
                        
-        g.drawString("Points:", (int) (0.76196*getWidth()), (int) (0.17630*getHeight()));
+        g.drawString("Player "+(gameAccess.getPlayerTurn()+1)%5+" Points: "+gameAccess.getPlayers().get((gameAccess.getPlayerTurn()+0)).getPoints(), (int) (0.76196*getWidth()), (int) (0.17630*getHeight()));
 
-        g.drawString("Points:", (int) (0.76196*getWidth()), (int) (0.25239*getHeight()));
+        g.drawString("Player "+(gameAccess.getPlayerTurn()+2)%5+" Points: "+gameAccess.getPlayers().get((gameAccess.getPlayerTurn()+1)).getPoints(), (int) (0.76196*getWidth()), (int) (0.25239*getHeight()));
 
-        g.drawString("Points:", (int) (0.76196*getWidth()), (int) (0.32848*getHeight()));
+        g.drawString("Player "+(gameAccess.getPlayerTurn()+3)%5+" Points: "+gameAccess.getPlayers().get((gameAccess.getPlayerTurn()+2)).getPoints(), (int) (0.76196*getWidth()), (int) (0.32848*getHeight()));
 
 
         //beginningOfTurnDisplay(g);
