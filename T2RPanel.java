@@ -433,12 +433,18 @@ public class T2RPanel extends JPanel implements MouseListener{
 
              }
              else if(turnState == 3){
+                for(int i = 0; i < 6; i++){
+                    if(rectangularInBounds(x, y, (int)((0.12927 + (0.23741-0.12927)*i)*getWidth()), (int)((0.23555 + (0.23741-0.12927)*i)*getWidth()), (int)(0.18468*getHeight()), (int)(0.45933*getHeight()))){
+                        gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).addToCardsPicked(gameAccess.getGrid().remove(i-1));
+                    }
+                }
+                gameAccess.fillGrid();
                 if ( rectangularInBounds(x, y, (int) (getWidth() * 0.7383), (int) (getWidth() * 0.8986), (int) (getHeight() * 0.7416), (int) (getHeight() * 0.9007)))
                 {
                     System.out.println("End turn clicked");
                     turnState = 0;
                 }
-             }
+             }//incomplete *NOTE*: the view ticket coordinates doesnt work
             
 
 
@@ -663,13 +669,16 @@ public class T2RPanel extends JPanel implements MouseListener{
     {
         g.setColor((Color.white));
         g.fillRect(getWidth()/10, getHeight()/10, (int)(getWidth()*0.8), (int)(getHeight()*0.8));
-        g.drawImage(gameAccess.getTrainCardBack(), (int)(0.12927*getWidth()), (int)(0.28468*getHeight()), (int)((0.23741-0.12927)*getWidth()), (int)((0.56220-0.28468)*getHeight()), null);
+        g.drawImage(gameAccess.getTrainCardBack(), (int)(0.12927*getWidth()), (int)(0.18468*getHeight()), (int)((0.23741-0.12927)*getWidth()), (int)((0.56220-0.28468)*getHeight()), null);
         g.setColor(Color.black);
         g.drawString("Pick two train cards. If chosen a wild, only one.", (int)(0.30640149*getWidth()), (int)(0.16507 * getHeight()));
         g.drawRect((int)(0.738020833 * getWidth()) , (int) (0.7413962635201573 * getHeight()), (int) (0.16 * getWidth()), (int) (0.16 * getHeight()));
         g.drawString("End Turn", (int) (0.763206 * getWidth()), (int) (getHeight() * 0.76794));
         for(int i = 0; i < 5; i++){
-            //g.drawImage(, i, i, rulesbutton)
+            g.drawImage(gameAccess.getGrid().get(i).getImage(), (int)((0.23741 + (0.23741-0.12927)*i)*getWidth()), (int)(0.18468*getHeight()), (int)((0.23741-0.12927)*getWidth()), (int)((0.56220-0.28468)*getHeight()), null);
+        }
+        for(int i = 0; i < gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getCardsPicked().size(); i++){
+            g.drawImage(gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getCardsPicked().get(i).getImage(), (int)((0.21379 + (0.23741-0.12927)*i)*getWidth()), (int)(0.52870*getHeight()), (int)((0.23741-0.12927)*getWidth()), (int)((0.56220-0.28468)*getHeight()), null);
         }
 
     }//incomplete
