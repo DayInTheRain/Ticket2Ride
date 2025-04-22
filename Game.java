@@ -76,6 +76,8 @@ public class Game {
         }
     }//deals with the five cards on screen (aka grid)
 
+    public ArrayList<TrainCard> getGrid(){ return grid;}
+
     public Image getTrainCardBack() {return trainCardBack;}
     public Image getTicketBack() {return ticketBack;}
     public Image getEuropeanExpress() {return europeanExpressCard;}
