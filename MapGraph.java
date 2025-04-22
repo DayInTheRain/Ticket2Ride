@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.*;
 
 public class MapGraph {
@@ -69,8 +68,53 @@ public class MapGraph {
 	public Player longestRailroad(ArrayList<Player> p) {
 		Player longest = null;
 		// write how to determine the longest
+		//ArrayList<Railroad> roadList = p.getRailroadList();
+		
+
 		return longest;
 	}
+
+	/* NOT WORKING YET
+	public int longestRailroadOfPlayer(Player p){
+		int trainNum = 0;
+		int maxTrainNum = trainNum;
+		ArrayList<Railroad> roadList = p.getRailroadList();
+
+
+		Queue<Railroad> queue = new LinkedList<>();
+		boolean[] visited = new boolean[roadList.size()];
+		visited[0] = true;
+
+		while(!roadList.isEmpty()){
+			Railroad r = roadList.get(0);
+			trainNum = r.getNumTrains();
+			City city1 = r.getFirstCity();
+			City city2 = r.getFirstCity();
+			roadList.removeFirst();
+
+			boolean endOfSection = false;
+
+			while(endOfSection == false){
+				int current = 0;
+
+				for(Railroad currentRail : roadList ){
+					if(currentRail.getFirstCity().equals(city1) || currentRail.getSecondCity().equals(city2)){
+						trainNum += currentRail.getNumTrains();
+						roadList.remove(currentRail);
+					}
+				}
+
+
+			}
+
+			if(trainNum > maxTrainNum){
+				maxTrainNum = trainNum;
+			}
+		}
+
+		return maxTrainNum;
+	}
+		*/
 
 	public boolean searchIfClaimed(City fCity, City sCity, Player p) {
 		boolean claimed = false;
