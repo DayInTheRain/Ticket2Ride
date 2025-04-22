@@ -6,3 +6,5 @@ hello chat (this is clearly not Kashish)
 ImageLoader.get("/Images/skyjo card images/neg2-card.jpg").getScaledInstance(width, height, Image.SCALE_SMOOTH)
 
                 location
+                let me commit
+                
