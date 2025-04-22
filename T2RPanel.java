@@ -33,7 +33,9 @@ public class T2RPanel extends JPanel implements MouseListener{
     boolean destinationTicket1Selected;
     boolean destinationTicket2Selected;
     boolean destinationTicket3Selected;
-    
+
+    //buildStation IVs
+    City buildStationCity;
 
 
     Font origionalFont;
@@ -125,6 +127,11 @@ public class T2RPanel extends JPanel implements MouseListener{
                 else if (turnState == 3)
                 {
                     pickTrainCardUI(g);
+                }
+
+                else if (turnState == 4)
+                {
+                    buildStationUI(g);
                 }
 
                 else if(turnState == -10){
@@ -327,6 +334,11 @@ public class T2RPanel extends JPanel implements MouseListener{
                         System.out.println("pick ticket clicked");
                         turnState = 3;
                     }
+                if(rectangularInBounds(x, y, 0.83095*getWidth(), 0.92231 * getWidth(), 0.62209 * getHeight(), 0.66985 * getHeight()))
+                 {
+                        System.out.println("build Station clicked");
+                        turnState = 4;
+                 }
 
                 
 
@@ -358,12 +370,12 @@ public class T2RPanel extends JPanel implements MouseListener{
                 {
                     city2 = CityDetector(x, y);
                     
-                    if (city2 != null)
+                    if (city2 != null & !gameAccess.getMap().railroadExists(city1, city2).equals("false"))
                     {
                         claimRouteState = 2;
-
-
                     }
+                    else
+                    	System.out.println("Cities are not connected");
 
 
 
@@ -446,6 +458,32 @@ public class T2RPanel extends JPanel implements MouseListener{
                 }
              }//incomplete *NOTE*: the view ticket coordinates doesnt work
             
+             }
+
+             else if (turnState == 4)
+            {
+
+                buildStationCity = CityDetector(x, y);
+                if (buildStationCity != null)
+                {
+                System.out.println("The selected city is " + buildStationCity.getName());
+                }
+
+                if (rectangularInBounds(x, y, (int) (0.865133 * getWidth()), (int) (0.9645 * getWidth()), (int) (0.87200 * getHeight()), (int) (0.97009 * getHeight())))
+                {
+                    System.out.println("End turn clicked");
+                    turnState = 0;
+                }
+
+                
+
+
+
+
+
+
+
+            }
 
 
 
@@ -563,7 +601,7 @@ public class T2RPanel extends JPanel implements MouseListener{
 
         if (city1 != null)
         {
-            g.drawString( city1.getName(),(int) (0.68942*getWidth()), (int) (0.1605*getHeight()) );
+            g.drawString( city1.getName(),(int) (0.70942*getWidth()), (int) (0.1605*getHeight()) );
             g.setColor(Color.green);
             g.fillOval( (int) (city1.getCoords()[0] * getWidth() * 0.6 * 205 / 154.792222) - (int)(getWidth()*0.025)/2, (int)(city1.getCoords()[1] * getHeight() * 0.7 * 172 / 133.694) - (int)(getHeight()* 0.04)/2, (int)(getWidth()*0.025), (int)(getHeight()* 0.04) );
             g.setColor(Color.black);
@@ -573,7 +611,7 @@ public class T2RPanel extends JPanel implements MouseListener{
 
          if (city2 != null)
          {
-            g.drawString( city2.getName(),(int) (0.68942*getWidth()), (int) (0.205*getHeight()) );        
+            g.drawString( city2.getName(),(int) (0.70942*getWidth()), (int) (0.205*getHeight()) );        
             g.setColor(Color.green);
             g.fillOval( (int) (city2.getCoords()[0] * getWidth() * 0.6 * 205 / 154.792222) - (int)(getWidth()*0.025)/2, (int)(city2.getCoords()[1] * getHeight() * 0.7 * 172 / 133.694) - (int)(getHeight()* 0.04)/2, (int)(getWidth()*0.025), (int)(getHeight()* 0.04) );
             g.setColor(Color.black);
@@ -667,23 +705,52 @@ public class T2RPanel extends JPanel implements MouseListener{
 
     public void pickTrainCardUI(Graphics g)
     {
+        
         g.setColor((Color.white));
         g.fillRect(getWidth()/10, getHeight()/10, (int)(getWidth()*0.8), (int)(getHeight()*0.8));
+<<<<<<< HEAD
         g.drawImage(gameAccess.getTrainCardBack(), (int)(0.12927*getWidth()), (int)(0.18468*getHeight()), (int)((0.23741-0.12927)*getWidth()), (int)((0.56220-0.28468)*getHeight()), null);
+=======
+>>>>>>> 910aa5c820d7896c5b699a5ad2c39c1f682b31cc
         g.setColor(Color.black);
         g.drawString("Pick two train cards. If chosen a wild, only one.", (int)(0.30640149*getWidth()), (int)(0.16507 * getHeight()));
         g.drawRect((int)(0.738020833 * getWidth()) , (int) (0.7413962635201573 * getHeight()), (int) (0.16 * getWidth()), (int) (0.16 * getHeight()));
         g.drawString("End Turn", (int) (0.763206 * getWidth()), (int) (getHeight() * 0.76794));
+<<<<<<< HEAD
         for(int i = 0; i < 5; i++){
             g.drawImage(gameAccess.getGrid().get(i).getImage(), (int)((0.23741 + (0.23741-0.12927)*i)*getWidth()), (int)(0.18468*getHeight()), (int)((0.23741-0.12927)*getWidth()), (int)((0.56220-0.28468)*getHeight()), null);
         }
         for(int i = 0; i < gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getCardsPicked().size(); i++){
             g.drawImage(gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getCardsPicked().get(i).getImage(), (int)((0.21379 + (0.23741-0.12927)*i)*getWidth()), (int)(0.52870*getHeight()), (int)((0.23741-0.12927)*getWidth()), (int)((0.56220-0.28468)*getHeight()), null);
         }
+=======
+>>>>>>> 910aa5c820d7896c5b699a5ad2c39c1f682b31cc
 
     }//incomplete
 
+    public void buildStationUI(Graphics g)
+    {
+        System.out.println("We are printing...");
 
+        g.drawString("Pick one city to build a station on", (int) (0.637041 * getWidth()), (int) (0.04784 * getHeight()));
+
+        g.drawString("Selected City: ", (int) (0.637041 * getWidth()), (int) (0.09784 * getHeight()));
+
+        // end turn button
+        g.setColor(Color.black);
+        g.drawRect((int) (0.86575 * getWidth()), (int) (0.872009 * getHeight()), (int)(getWidth()*0.1), (int)(getHeight()*0.1));
+
+
+        g.drawRect(ALLBITS, ABORT, WIDTH, HEIGHT);
+        if (buildStationCity != null)
+        {
+            g.drawString( buildStationCity.getName(), (int) (0.726041 * getWidth()), (int) (0.09784 * getHeight()));
+        g.setColor(Color.green);
+            g.fillOval( (int) (buildStationCity.getCoords()[0] * getWidth() * 0.6 * 205 / 154.792222) - (int)(getWidth()*0.025)/2, (int)(buildStationCity.getCoords()[1] * getHeight() * 0.7 * 172 / 133.694) - (int)(getHeight()* 0.04)/2, (int)(getWidth()*0.025), (int)(getHeight()* 0.04) );
+            g.setColor(Color.black);
+         }
+
+    }
     public City CityDetector(double  x, double  y)
     {
         for (City c: gameAccess.getCities())
@@ -696,7 +763,7 @@ public class T2RPanel extends JPanel implements MouseListener{
             /*  System.out.println(distance + " : distance from " + c.getName());
             System.out.println("ScaledX: " + scaledCityX + " and X: " + x + "and ScaledY " + scaledCityY + "and Y: " + y); */
             
-            if (distance < 10)
+            if (distance < 15)
             {
                 System.out.println("City detected: " + c.getName());
                 return c;
