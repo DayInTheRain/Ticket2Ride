@@ -375,7 +375,9 @@ public class T2RPanel extends JPanel implements MouseListener{
                         claimRouteState = 2;
                     }
                     else
+                    	city2 = null;
                     	System.out.println("Cities are not connected");
+                    
 
 
 
@@ -599,10 +601,15 @@ public class T2RPanel extends JPanel implements MouseListener{
             g.fillOval( (int) (city2.getCoords()[0] * getWidth() * 0.6 * 205 / 154.792222) - (int)(getWidth()*0.025)/2, (int)(city2.getCoords()[1] * getHeight() * 0.7 * 172 / 133.694) - (int)(getHeight()* 0.04)/2, (int)(getWidth()*0.025), (int)(getHeight()* 0.04) );
             g.setColor(Color.black);
         }
+         if( city1 != null && city2 == null) {
+        	 g.drawString( "Cities are not connected, please pick again",(int) (0.70942*getWidth()), (int) (0.205*getHeight()) );
+         }
 
-         g.drawRect((int) (0.8442*getWidth()), (int) (0.0431*getHeight()), (int) (getWidth()*0.05), (int) (getHeight()*0.05)); //draws clear button
+         g.drawRect((int) (0.8942*getWidth()), (int) (0.0231*getHeight()), (int) (getWidth()*0.05), (int) (getHeight()*0.04)); 
+         g.drawString("Clear",(int) (0.9042*getWidth()),(int) (0.0471*getHeight()));//draws clear button
 
-         g.drawRect((int)(0.8154133001864512 * getWidth()) , (int)(0.777511961722488 * getHeight()), (int) (0.08 * getWidth()), (int) (0.125 * getHeight())) ; // draws collectRoute button
+         g.drawRect((int)(0.8154133001864512 * getWidth()) , (int)(0.777511961722488 * getHeight()), (int) (0.08 * getWidth()), (int) (0.125 * getHeight())) ;
+         g.drawString("Continue",(int)(0.8254133001864512 * getWidth()),(int)(0.839511961722488 * getHeight()));// draws collectRoute button
          if (city1 != null && city2 != null)
          {
             City alphaFirst;
