@@ -484,30 +484,29 @@ public class T2RPanel extends JPanel implements MouseListener{
 
 
             }
+            else if(gameState == -1)  {   	  
+                if(rectangularInBounds(x,y,0.8744561839651958*getWidth(),0.988755980861244 *getWidth(),0.888755980861244*getHeight(), 0.9760765550239234*getHeight()))
+                { System.out.println("clicked next page");
+                // clicked next page
+                gameState = -2;}
+            }//gamestate == -1
+    
+           else if(gameState == -2) {
+               if(rectangularInBounds(x,y,0.867619639527657*getWidth(),0.988755980861244 *getWidth(),0.868755980861244*getHeight(), 0.9760765550239234*getHeight())) {
+                    System.out.println("go back to home screen");
+                    gameState = 0;
+            }
+               if(rectangularInBounds(x,y,0.7414543194530765*getWidth(),0.8297078931013051 *getWidth(),0.8588516746411483*getHeight(),  0.9389952153110048*getHeight())) {
+                   System.out.println("g previous page");
+                   gameState = -1;
+               }
+              
+           }
+            repaint();
 
 
 
-        }
-        else if(gameState == -1)  {   	  
-            if(rectangularInBounds(x,y,0.8744561839651958*getWidth(),0.988755980861244 *getWidth(),0.888755980861244*getHeight(), 0.9760765550239234*getHeight()))
-            { System.out.println("clicked next page");
-            // clicked next page
-            gameState = -2;}
-        }//gamestate == -1
-
-       else if(gameState == -2) {
-    	   if(rectangularInBounds(x,y,0.867619639527657*getWidth(),0.988755980861244 *getWidth(),0.868755980861244*getHeight(), 0.9760765550239234*getHeight())) {
-    		    System.out.println("go back to home screen");
-    	        gameState = 0;
-        }
-    	   if(rectangularInBounds(x,y,0.7414543194530765*getWidth(),0.8297078931013051 *getWidth(),0.8588516746411483*getHeight(),  0.9389952153110048*getHeight())) {
-    		   System.out.println("g previous page");
-    		   gameState = -1;
-    	   }
-    	  
-       }
-        repaint();
-    }//mouse clicked
+        }//mouse clicked
      
     @Override
     public void mousePressed(MouseEvent e) {
@@ -708,23 +707,17 @@ public class T2RPanel extends JPanel implements MouseListener{
         
         g.setColor((Color.white));
         g.fillRect(getWidth()/10, getHeight()/10, (int)(getWidth()*0.8), (int)(getHeight()*0.8));
-<<<<<<< HEAD
         g.drawImage(gameAccess.getTrainCardBack(), (int)(0.12927*getWidth()), (int)(0.18468*getHeight()), (int)((0.23741-0.12927)*getWidth()), (int)((0.56220-0.28468)*getHeight()), null);
-=======
->>>>>>> 910aa5c820d7896c5b699a5ad2c39c1f682b31cc
         g.setColor(Color.black);
         g.drawString("Pick two train cards. If chosen a wild, only one.", (int)(0.30640149*getWidth()), (int)(0.16507 * getHeight()));
         g.drawRect((int)(0.738020833 * getWidth()) , (int) (0.7413962635201573 * getHeight()), (int) (0.16 * getWidth()), (int) (0.16 * getHeight()));
         g.drawString("End Turn", (int) (0.763206 * getWidth()), (int) (getHeight() * 0.76794));
-<<<<<<< HEAD
         for(int i = 0; i < 5; i++){
             g.drawImage(gameAccess.getGrid().get(i).getImage(), (int)((0.23741 + (0.23741-0.12927)*i)*getWidth()), (int)(0.18468*getHeight()), (int)((0.23741-0.12927)*getWidth()), (int)((0.56220-0.28468)*getHeight()), null);
         }
         for(int i = 0; i < gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getCardsPicked().size(); i++){
             g.drawImage(gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getCardsPicked().get(i).getImage(), (int)((0.21379 + (0.23741-0.12927)*i)*getWidth()), (int)(0.52870*getHeight()), (int)((0.23741-0.12927)*getWidth()), (int)((0.56220-0.28468)*getHeight()), null);
         }
-=======
->>>>>>> 910aa5c820d7896c5b699a5ad2c39c1f682b31cc
 
     }//incomplete
 

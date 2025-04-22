@@ -4,11 +4,8 @@ public class Player {
     private HashMap<String, Integer> trainCards;
     private ArrayList<Ticket> tickets;
     private boolean hasEuropeanExpress;
-<<<<<<< HEAD
     private ArrayList<TrainCard> cardsPicked;
-=======
     private ArrayList<Railroad> railroads;
->>>>>>> 910aa5c820d7896c5b699a5ad2c39c1f682b31cc
     
 
     public Player(int num){
