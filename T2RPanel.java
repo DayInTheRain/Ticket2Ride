@@ -456,9 +456,18 @@ public class T2RPanel extends JPanel implements MouseListener{
             {
 
                 buildStationCity = CityDetector(x, y);
+                if (buildStationCity != null)
+                {
+                System.out.println("The selected city is " + buildStationCity.getName());
+                }
 
+                if (rectangularInBounds(x, y, (int) (0.865133 * getWidth()), (int) (0.9645 * getWidth()), (int) (0.87200 * getHeight()), (int) (0.97009 * getHeight())))
+                {
+                    System.out.println("End turn clicked");
+                    turnState = 0;
+                }
 
-
+                
 
 
 
@@ -704,6 +713,22 @@ public class T2RPanel extends JPanel implements MouseListener{
 
         g.drawString("Pick one city to build a station on", (int) (0.637041 * getWidth()), (int) (0.04784 * getHeight()));
 
+        g.drawString("Selected City: ", (int) (0.637041 * getWidth()), (int) (0.09784 * getHeight()));
+
+        // end turn button
+        g.setColor(Color.black);
+        g.drawRect((int) (0.86575 * getWidth()), (int) (0.872009 * getHeight()), (int)(getWidth()*0.1), (int)(getHeight()*0.1));
+
+
+        g.drawRect(ALLBITS, ABORT, WIDTH, HEIGHT);
+        if (buildStationCity != null)
+        {
+            g.drawString( buildStationCity.getName(), (int) (0.726041 * getWidth()), (int) (0.09784 * getHeight()));
+        g.setColor(Color.green);
+            g.fillOval( (int) (buildStationCity.getCoords()[0] * getWidth() * 0.6 * 205 / 154.792222) - (int)(getWidth()*0.025)/2, (int)(buildStationCity.getCoords()[1] * getHeight() * 0.7 * 172 / 133.694) - (int)(getHeight()* 0.04)/2, (int)(getWidth()*0.025), (int)(getHeight()* 0.04) );
+            g.setColor(Color.black);
+         }
+
     }
     public City CityDetector(double  x, double  y)
     {
@@ -717,7 +742,7 @@ public class T2RPanel extends JPanel implements MouseListener{
             /*  System.out.println(distance + " : distance from " + c.getName());
             System.out.println("ScaledX: " + scaledCityX + " and X: " + x + "and ScaledY " + scaledCityY + "and Y: " + y); */
             
-            if (distance < 10)
+            if (distance < 15)
             {
                 System.out.println("City detected: " + c.getName());
                 return c;
