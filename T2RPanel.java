@@ -661,7 +661,7 @@ public class T2RPanel extends JPanel implements MouseListener{
 
     public void pickTrainCardUI(Graphics g)
     {
-        
+        //g.drawImage(gameAccess.getTrainCardBack(), (int)(0.12927*getWidth()), (int)(0.28468*getHeight()), rulesbutton)
         g.setColor((Color.white));
         g.fillRect(getWidth()/10, getHeight()/10, (int)(getWidth()*0.8), (int)(getHeight()*0.8));
         g.setColor(Color.black);
