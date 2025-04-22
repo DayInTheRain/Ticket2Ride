@@ -557,7 +557,7 @@ public class T2RPanel extends JPanel implements MouseListener{
 
         if (city1 != null)
         {
-            g.drawString( city1.getName(),(int) (0.68942*getWidth()), (int) (0.1605*getHeight()) );
+            g.drawString( city1.getName(),(int) (0.70942*getWidth()), (int) (0.1605*getHeight()) );
             g.setColor(Color.green);
             g.fillOval( (int) (city1.getCoords()[0] * getWidth() * 0.6 * 205 / 154.792222) - (int)(getWidth()*0.025)/2, (int)(city1.getCoords()[1] * getHeight() * 0.7 * 172 / 133.694) - (int)(getHeight()* 0.04)/2, (int)(getWidth()*0.025), (int)(getHeight()* 0.04) );
             g.setColor(Color.black);
@@ -567,7 +567,7 @@ public class T2RPanel extends JPanel implements MouseListener{
 
          if (city2 != null)
          {
-            g.drawString( city2.getName(),(int) (0.68942*getWidth()), (int) (0.205*getHeight()) );        
+            g.drawString( city2.getName(),(int) (0.70942*getWidth()), (int) (0.205*getHeight()) );        
             g.setColor(Color.green);
             g.fillOval( (int) (city2.getCoords()[0] * getWidth() * 0.6 * 205 / 154.792222) - (int)(getWidth()*0.025)/2, (int)(city2.getCoords()[1] * getHeight() * 0.7 * 172 / 133.694) - (int)(getHeight()* 0.04)/2, (int)(getWidth()*0.025), (int)(getHeight()* 0.04) );
             g.setColor(Color.black);
@@ -661,16 +661,13 @@ public class T2RPanel extends JPanel implements MouseListener{
 
     public void pickTrainCardUI(Graphics g)
     {
+        
         g.setColor((Color.white));
         g.fillRect(getWidth()/10, getHeight()/10, (int)(getWidth()*0.8), (int)(getHeight()*0.8));
-        g.drawImage(gameAccess.getTrainCardBack(), (int)(0.12927*getWidth()), (int)(0.28468*getHeight()), (int)((0.23741-0.12927)*getWidth()), (int)((0.56220-0.28468)*getHeight()), null);
         g.setColor(Color.black);
         g.drawString("Pick two train cards. If chosen a wild, only one.", (int)(0.30640149*getWidth()), (int)(0.16507 * getHeight()));
         g.drawRect((int)(0.738020833 * getWidth()) , (int) (0.7413962635201573 * getHeight()), (int) (0.16 * getWidth()), (int) (0.16 * getHeight()));
         g.drawString("End Turn", (int) (0.763206 * getWidth()), (int) (getHeight() * 0.76794));
-        for(int i = 0; i < 5; i++){
-            //g.drawImage(, i, i, rulesbutton)
-        }
 
     }//incomplete
 
