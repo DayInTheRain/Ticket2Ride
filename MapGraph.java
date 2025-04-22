@@ -138,7 +138,7 @@ public class MapGraph {
 			String r = scanner.nextLine();
 			String[] rInfo = r.split(" ");
 
-			if(rInfo[0].equals(fCity.getName()) && rInfo[1].equals(sCity.getName())){
+			if(rInfo[0].equals(fCity.getName()) && rInfo[1].equals(sCity.getName()) || rInfo[1].equals(fCity.getName()) && rInfo[0].equals(sCity.getName()) ){
 				railroadID = r;
 			}
 		}

@@ -17,6 +17,7 @@ public class Game {
     private ArrayList<City> cityList;
     private ArrayList<Railroad> railroadList;
     private Image trainCardBack, europeanExpressCard, ticketBack;
+    private ArrayList<TrainCard> grid;
 
     public Game(){
         lastRound = false;
@@ -38,6 +39,7 @@ public class Game {
         longTickets = new LinkedList<Ticket>();
         tickets = new LinkedList<Ticket>();
         trainCardFiles = new ArrayList<>();
+        grid = new ArrayList<>();
 
         //Initialize all cards
         trainCardGenerator();
@@ -50,6 +52,7 @@ public class Game {
 
         shuffleDecks();
         dealStartCards();
+        generateTrainCardGrid();
 
 
         //initialize mapGraph -- comment out when sync
@@ -61,6 +64,19 @@ public class Game {
         ticketBack = ImageLoader.get("/Images/CardBacks/TicketBack.jpg");
         europeanExpressCard = ImageLoader.get("/Images/CardBacks/EuropeanExpress.jpg");
     }//cardBackGenerator
+
+    private void generateTrainCardGrid(){
+        for(int i = 0; i < 5; i++)
+            grid.add(trainCards.pop());
+    }
+
+    public void fillGrid(){
+        while(grid.size() < 5){
+            grid.add(trainCards.pop());
+        }
+    }//deals with the five cards on screen (aka grid)
+
+    public ArrayList<TrainCard> getGrid(){ return grid;}
 
     public Image getTrainCardBack() {return trainCardBack;}
     public Image getTicketBack() {return ticketBack;}
