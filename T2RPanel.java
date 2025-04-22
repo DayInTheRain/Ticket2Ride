@@ -358,12 +358,12 @@ public class T2RPanel extends JPanel implements MouseListener{
                 {
                     city2 = CityDetector(x, y);
                     
-                    if (city2 != null)
+                    if (city2 != null & !gameAccess.getMap().railroadExists(city1, city2).equals("false"))
                     {
                         claimRouteState = 2;
-
-
                     }
+                    else
+                    	System.out.println("Cities are not connected");
 
 
 
