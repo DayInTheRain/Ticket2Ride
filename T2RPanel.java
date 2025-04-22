@@ -33,7 +33,9 @@ public class T2RPanel extends JPanel implements MouseListener{
     boolean destinationTicket1Selected;
     boolean destinationTicket2Selected;
     boolean destinationTicket3Selected;
-    
+
+    //buildStation IVs
+    City buildStationCity;
 
 
     Font origionalFont;
@@ -125,6 +127,11 @@ public class T2RPanel extends JPanel implements MouseListener{
                 else if (turnState == 3)
                 {
                     pickTrainCardUI(g);
+                }
+
+                else if (turnState == 4)
+                {
+                    buildStationUI(g);
                 }
 
                 else if(turnState == -10){
@@ -327,6 +334,11 @@ public class T2RPanel extends JPanel implements MouseListener{
                         System.out.println("pick ticket clicked");
                         turnState = 3;
                     }
+                if(rectangularInBounds(x, y, 0.83095*getWidth(), 0.92231 * getWidth(), 0.62209 * getHeight(), 0.66985 * getHeight()))
+                 {
+                        System.out.println("build Station clicked");
+                        turnState = 4;
+                 }
 
                 
 
@@ -439,7 +451,22 @@ public class T2RPanel extends JPanel implements MouseListener{
                     turnState = 0;
                 }
              }
-            
+
+             else if (turnState == 4)
+            {
+
+                buildStationCity = CityDetector(x, y);
+
+
+
+
+
+
+
+
+
+
+            }
 
 
 
@@ -671,7 +698,13 @@ public class T2RPanel extends JPanel implements MouseListener{
 
     }//incomplete
 
+    public void buildStationUI(Graphics g)
+    {
+        System.out.println("We are printing...");
 
+        g.drawString("Pick one city to build a station on", (int) (0.637041 * getWidth()), (int) (0.04784 * getHeight()));
+
+    }
     public City CityDetector(double  x, double  y)
     {
         for (City c: gameAccess.getCities())
