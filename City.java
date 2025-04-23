@@ -47,6 +47,11 @@ public void addRoute(Railroad r){
 	routes.add(r);
 }
 
+public void setStationID(int i)
+{
+	stationID = i;
+}
+
 public String getName() {
 	return name;
 }
