@@ -440,6 +440,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                         destinationTicket1Selected = false;
                         destinationTicket2Selected = false;
                         destinationTicket3Selected = false;
+
                     }
                 }
 
@@ -460,11 +461,24 @@ public class T2RPanel extends JPanel implements MouseListener{
                 {
                 System.out.println("The selected city is " + buildStationCity.getName());
                 }
-
+                
                 if (rectangularInBounds(x, y, (int) (0.865133 * getWidth()), (int) (0.9645 * getWidth()), (int) (0.87200 * getHeight()), (int) (0.97009 * getHeight())))
                 {
+                    if (buildStationCity != null)
+                    {
+
+                    
                     System.out.println("End turn clicked");
                     turnState = 0;
+
+                    for (City cityTest : gameAccess.getCities())
+                    {
+                        if (cityTest.equals(buildStationCity))
+                        {
+                            cityTest.setStationID(1);
+                        }
+                    }
+                    }
                 }
 
                 
