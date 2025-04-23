@@ -235,6 +235,7 @@ public class T2RPanel extends JPanel implements MouseListener{
     public void mouseClicked(MouseEvent e) {
     	
        System.out.println("gamestate " + gameState);
+       System.out.println("turnstate: " + turnState);
         double x = e.getX();
         double y= e.getY();
         System.out.println("Coords:");
@@ -495,11 +496,11 @@ public class T2RPanel extends JPanel implements MouseListener{
                 }
              }//*NOTE*: the view ticket coordinates doesnt work
             
-             }
+             
 
              else if (turnState == 4)
             {
-
+                System.out.println("building a station");
                 buildStationCity = CityDetector(x, y);
                 if (buildStationCity != null)
                 {
@@ -515,24 +516,11 @@ public class T2RPanel extends JPanel implements MouseListener{
                     System.out.println("End turn clicked");
                     turnState = 0;
 
-                    for (City cityTest : gameAccess.getCities())
-                    {
-                        if (cityTest.equals(buildStationCity))
-                        {
-                            cityTest.setStationID(1);
-                        }
-                    }
+                    
                     }
                 }
-
-                
-
-
-
-
-
-
-
+            }
+               
             }
             else if(gameState == -1)  {   	  
                 if(rectangularInBounds(x,y,0.8744561839651958*getWidth(),0.988755980861244 *getWidth(),0.888755980861244*getHeight(), 0.9760765550239234*getHeight()))
