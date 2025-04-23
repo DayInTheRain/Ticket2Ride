@@ -75,6 +75,10 @@ public class Game {
             grid.add(trainCards.pop());
         }
     }//deals with the five cards on screen (aka grid)
+    public void replaceGrid(){
+        grid.clear();
+        fillGrid();
+    }
 
     public ArrayList<TrainCard> getGrid(){ return grid;}
 

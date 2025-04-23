@@ -25,6 +25,7 @@ public class MapGraph {
 		}
 
 		connectGraph();
+		setUpNeighbors();
 	}
 
 	private void connectGraph(){
@@ -43,6 +44,31 @@ public class MapGraph {
 			System.out.println("found second city: " + foundCity);
 		}
 	}//connectGraph
+
+	public void setUpNeighbors(){
+		Iterator<Railroad> iter = railroads.values().iterator();
+
+		ArrayList<Railroad> list = new ArrayList<>(railroads.values());
+
+		while(iter.hasNext()){
+			Railroad currentRailroad = iter.next();
+
+			for(Railroad r : list){
+				if(r == currentRailroad){
+					break;
+				}
+
+				if(currentRailroad.getFirst().equals(r.getFirst()) || currentRailroad.getFirst().equals(r.getSecond()) ||
+				currentRailroad.getSecond().equals(r.getFirst()) || currentRailroad.getSecond().equals(r.getSecond())){
+
+					System.out.println("" + r + " is a neighbor of " + currentRailroad);
+					currentRailroad.addNeighbor(r);
+				}
+			}
+
+		}
+	}//setUpNeighbors
+
 
 	//Method addCity should never be called vv
 	/* 
@@ -74,47 +100,60 @@ public class MapGraph {
 		return longest;
 	}
 
-	/* NOT WORKING YET
-	public int longestRailroadOfPlayer(Player p){
-		int trainNum = 0;
-		int maxTrainNum = trainNum;
-		ArrayList<Railroad> roadList = p.getRailroadList();
+	// NOT WORKING YET
+	// public int longestRailroadOfPlayer(Player p){
+	// 	int trainNum = 0;
+	// 	int maxTrainNum = trainNum;
+	// 	ArrayList<Railroad> roadList = p.getRailroadList();
 
+
+	// 	Queue<Railroad> queue = new LinkedList<>();
+	// 	boolean[] visited = new boolean[roadList.size()];
+	// 	visited[0] = true;
+
+	// 	while(!roadList.isEmpty()){
+	// 		Railroad r = roadList.get(0);
+	// 		trainNum = r.getNumTrains();
+	// 		City city1 = r.getFirstCity();
+	// 		City city2 = r.getFirstCity();
+	// 		roadList.removeFirst();
+
+	// 		boolean endOfSection = false;
+
+	// 		while(endOfSection == false){
+	// 			int current = 0;
+
+	// 			for(Railroad currentRail : roadList ){
+	// 				if(currentRail.getFirstCity().equals(city1) || currentRail.getSecondCity().equals(city2)){
+	// 					trainNum += currentRail.getNumTrains();
+	// 					roadList.remove(currentRail);
+	// 				}
+	// 			}
+
+
+	// 		}
+
+	// 		if(trainNum > maxTrainNum){
+	// 			maxTrainNum = trainNum;
+	// 		}
+	// 	}
+
+	// 	return maxTrainNum;
+	// }//longestRailroadOFPlayer
+
+	public Railroad bfSearch(ArrayList<Railroad> list, Railroad start){
 
 		Queue<Railroad> queue = new LinkedList<>();
-		boolean[] visited = new boolean[roadList.size()];
-		visited[0] = true;
+		queue.add(start);
 
-		while(!roadList.isEmpty()){
-			Railroad r = roadList.get(0);
-			trainNum = r.getNumTrains();
-			City city1 = r.getFirstCity();
-			City city2 = r.getFirstCity();
-			roadList.removeFirst();
+		boolean[] visited = new boolean[list.size()];
+		visited[list.indexOf(start)] = true;
 
-			boolean endOfSection = false;
+		System.out.println(visited);
 
-			while(endOfSection == false){
-				int current = 0;
-
-				for(Railroad currentRail : roadList ){
-					if(currentRail.getFirstCity().equals(city1) || currentRail.getSecondCity().equals(city2)){
-						trainNum += currentRail.getNumTrains();
-						roadList.remove(currentRail);
-					}
-				}
-
-
-			}
-
-			if(trainNum > maxTrainNum){
-				maxTrainNum = trainNum;
-			}
-		}
-
-		return maxTrainNum;
-	}
-		*/
+		return null;
+	}//bfSearch
+		
 
 	public boolean searchIfClaimed(City fCity, City sCity, Player p) {
 		boolean claimed = false;
@@ -129,6 +168,8 @@ public class MapGraph {
 		}
 		return claimed;
 	}
+
+	
 
 	public String railroadExists(City fCity, City sCity){
 		String railroadID = "false";
@@ -154,7 +195,12 @@ public class MapGraph {
 	}
 
 	public Railroad getRailroad(City c1, City c2) {
-		String id = railroadExists(c1, c2);
+		String id;
+		if(c1.getName().compareToIgnoreCase(c2.getName()) < 0 ){
+			id = railroadExists(c1, c2);
+		} else{
+			id = railroadExists(c2, c1);
+		}
 
 		if (id.equals("false")){
 			return null;

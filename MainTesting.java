@@ -1,10 +1,12 @@
 import java.text.BreakIterator;
+import java.util.ArrayList;
 
 public class MainTesting {
     public static void main(String[] args) {
         Game game = new Game();
 
         MapGraph mapT = game.getMap();
+        
 
         //BER DAN grey 0.310130 0.148325 F 4 0 F
         mapT.railroadExists(new City("BER 0.36544 0.25837"), new City("DAN 0.4481 0.16387"));
@@ -27,6 +29,14 @@ public class MainTesting {
         r.claim(game.getPlayers().get(0));
         System.out.println(r.getPlayer());
 
-        
+        ArrayList<Railroad> railroadList  = new ArrayList<>();
+        railroadList.add(mapT.getRailroad(mapT.getCity("ber"), mapT.getCity("lon")));
+        railroadList.add(mapT.getRailroad(mapT.getCity("dan"), mapT.getCity("ber")));
+        railroadList.add(mapT.getRailroad(mapT.getCity("dan"), mapT.getCity("rig")));
+
+
+        System.out.println(railroadList.get(1));
+
+        mapT.bfSearch(null, r);
     }//main ends
 }//class ends
