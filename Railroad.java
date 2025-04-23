@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 
 public class Railroad {
 	private boolean isDouble;
@@ -15,7 +14,6 @@ public class Railroad {
 
 	private String railroadID;
 	private double[] coords;
-	private ArrayList<Railroad> neighbors;
 
 	public Railroad(String s){
 		this.coords = new double[2];
@@ -34,7 +32,6 @@ public class Railroad {
 		this.numTrains = Integer.parseInt(info[6]);
 		this.numWilds = Integer.parseInt(info[7]);
 		this.isDouble = info[8].equals("F") ? false : true;
-		this.neighbors = new ArrayList<>();
 	}
 	
 	public Railroad(boolean d, int numt, int numw, String c, boolean t, String fc, String sc, String rail) {
@@ -120,8 +117,20 @@ public class Railroad {
 		else
 			return firsCity;
 	}
-
-	public void addNeighbor(Railroad n){
-		neighbors.add(n);
+	
+	public int getPoints() {
+		if(this.getNumTrains()==1)
+			return 1;
+		else if(this.getNumTrains()==2)
+			return 2;
+		else if(this.getNumTrains()==3)
+			return 4;
+		else if(this.getNumTrains()==4)
+			return 7;
+		else if(this.getNumTrains()==6)
+			return 15;
+		else if(this.getNumTrains()==8)
+			return 15;
+		return 0;
 	}
 }//end of the class
