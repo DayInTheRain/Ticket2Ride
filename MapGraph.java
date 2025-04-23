@@ -61,7 +61,7 @@ public class MapGraph {
 				if(currentRailroad.getFirst().equals(r.getFirst()) || currentRailroad.getFirst().equals(r.getSecond()) ||
 				currentRailroad.getSecond().equals(r.getFirst()) || currentRailroad.getSecond().equals(r.getSecond())){
 
-					//System.out.println("" + r + " is a neighbor of " + currentRailroad);
+					System.out.println("" + r + " is a neighbor of " + currentRailroad);
 					currentRailroad.addNeighbor(r);
 				}
 			}
@@ -195,8 +195,12 @@ public class MapGraph {
 	}
 
 	public Railroad getRailroad(City c1, City c2) {
-
-		String id = railroadExists(c1, c2);
+		String id;
+		if(c1.getName().compareToIgnoreCase(c2.getName()) < 0 ){
+			id = railroadExists(c1, c2);
+		} else{
+			id = railroadExists(c2, c1);
+		}
 
 		if (id.equals("false")){
 			return null;

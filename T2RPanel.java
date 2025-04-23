@@ -245,6 +245,7 @@ public class T2RPanel extends JPanel implements MouseListener{
     public void mouseClicked(MouseEvent e) {
     	
        System.out.println("gamestate " + gameState);
+       System.out.println("turnstate: " + turnState);
         double x = e.getX();
         double y= e.getY();
         System.out.println("Coords:");
@@ -360,7 +361,8 @@ public class T2RPanel extends JPanel implements MouseListener{
 
              else if (turnState == 1)
              {
-                if (rectangularInBounds(x,y, (int) (0.8442*getWidth()), (int) (0.8942*getWidth()), (int) (0.0431*getHeight()), (int) (0.0931*getHeight()))) // if (reset button clicked)
+            	
+                if (rectangularInBounds(x,y, (int) (0.8943443132380361*getWidth()), (int) (0.9422001243008079*getWidth()), (int) ( 0.05741626794258373*getHeight()), (int) (0.0931*getHeight()))) // if (reset button clicked)
                 {
                     System.out.println("clear button clicked");
                     claimRouteState = 0;
@@ -401,9 +403,43 @@ public class T2RPanel extends JPanel implements MouseListener{
                     if (rectangularInBounds(x, y, (int)(0.8154133001864512 * getWidth()), (int)(0.8954133001864512 * getWidth()), (int)(0.777511961722488 * getHeight()), (int) (0.902511961722488 * getHeight())))
                     {
                         System.out.println("Finish turn button clicked");
+                        
+                        Railroad railroad = gameAccess.getMap().getRailroad(city1, city2);
+                        int num = 0;
+                        int numWild = 0;
+                        String color = "";
+                        if(railroad.getPlayer()==null) {
+                        numWild+= railroad.getNumWild();
+                        num += railroad.getNumTrains();
+                        color = railroad.getColor();
+                        int numOfColor = gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1) .getTrainCards().get(color);
+                        int numOfWild  = gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1) .getTrainCards().get("wild");
+                        	
+                        if(numOfWild >= numWild && numOfColor >= num || numOfColor+numOfWild >= num) {
+                        	gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1) .getTrainCards().replace("wild",numOfWild, numOfWild- numWild);
+                        	if(numOfColor >= num)
+                        		gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1) .getTrainCards().replace(color,numOfColor, numOfColor- num);
+                        	else if(numOfColor+numOfWild >= num) {
+                        		int numLeft = num-numOfColor;
+                        		gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1) .getTrainCards().replace(color,numOfColor, 0);
+                        		gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1) .getTrainCards().replace("wild",numWild, numWild-numLeft);
+
+                        }
+                      
+                        gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).addRailroad(railroad);
+                        gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).addPoints(railroad.getPoints());
+                       // System.out.println(""+railroad.getPoints());
+                      city1 = null;
+                      city2 = null;
+                      claimRouteState = 0;
+                      turnState = 0; 
+                      
+                        }
                     }
+                    
  g.drawRect((int)(0.8154133001864512 * getWidth()) , (int)(0.777511961722488 * getHeight()), (int) (0.08 * getWidth()), (int) (0.125 * getHeight())) ;
                 }
+             }
              }
 
              else if (turnState == 2)//destination ticket
@@ -505,11 +541,11 @@ public class T2RPanel extends JPanel implements MouseListener{
                 }
              }//*NOTE*: the view ticket coordinates doesnt work
             
-             }
+             
 
              else if (turnState == 4)
             {
-
+                System.out.println("building a station");
                 buildStationCity = CityDetector(x, y);
                 if (buildStationCity != null)
                 {
@@ -525,24 +561,11 @@ public class T2RPanel extends JPanel implements MouseListener{
                     System.out.println("End turn clicked");
                     turnState = 0;
 
-                    for (City cityTest : gameAccess.getCities())
-                    {
-                        if (cityTest.equals(buildStationCity))
-                        {
-                            cityTest.setStationID(1);
-                        }
-                    }
+                    
                     }
                 }
-
-                
-
-
-
-
-
-
-
+            }
+               
             }
             else if(gameState == -1)  {   	  
                 if(rectangularInBounds(x,y,0.8744561839651958*getWidth(),0.988755980861244 *getWidth(),0.888755980861244*getHeight(), 0.9760765550239234*getHeight()))

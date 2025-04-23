@@ -31,8 +31,11 @@ public class MainTesting {
 
         ArrayList<Railroad> railroadList  = new ArrayList<>();
         railroadList.add(mapT.getRailroad(mapT.getCity("ber"), mapT.getCity("lon")));
-        railroadList.add(mapT.getRailroad(mapT.getCity("ber"), mapT.getCity("lon")));
+        railroadList.add(mapT.getRailroad(mapT.getCity("dan"), mapT.getCity("ber")));
+        railroadList.add(mapT.getRailroad(mapT.getCity("dan"), mapT.getCity("rig")));
 
+
+        System.out.println(railroadList.get(1));
 
         mapT.bfSearch(null, r);
     }//main ends
