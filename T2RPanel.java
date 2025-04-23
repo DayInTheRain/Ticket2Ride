@@ -116,6 +116,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                 if (turnState ==0)
                 {
                     beginTurnUI(g);
+                    paintGridOnScreen(g);
                 }
         
                 if (turnState ==1)
@@ -229,6 +230,15 @@ public class T2RPanel extends JPanel implements MouseListener{
         g.drawString(""+gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getNumTrainStations(),(int)(0.79055313859590*getWidth()), (int)( 0.889952153110031*getHeight()));
         g.setFont(origionalFont);
     }//end of paintPlayerHand
+
+    public void paintGridOnScreen(Graphics g){
+        double cardWidth = 0.665-0.60285;
+        double cardHeight = 0.17703-0.00598;
+        g.drawImage(gameAccess.getTrainCardBack(), (int)(0.60285*getWidth()), (int)(0.00598*getHeight()), (int)(cardWidth*getWidth()), (int)(cardHeight*getHeight()), null);
+        for(int i = 0; i < 5; i++){
+            g.drawImage(gameAccess.getGrid().get(i).getImage(), (int)((0.67060 + cardWidth*i)*getWidth()), (int)((0.00598)*getHeight()), (int)(cardWidth*getWidth()), (int)(cardHeight*getHeight()), null);
+        }
+    }
 
    
     @Override
@@ -597,13 +607,13 @@ public class T2RPanel extends JPanel implements MouseListener{
 
         g.setColor(Color.black);
         
-        g.drawString("Player "+(gameAccess.getPlayerTurn())%5+" Points: "+gameAccess.getPlayers().get((gameAccess.getPlayerTurn()-1)).getPoints(), (int) (0.76196*getWidth()), (int) (0.10630*getHeight()));
+        g.drawString("Player "+(gameAccess.getPlayerTurn())%5+" Points: "+gameAccess.getPlayers().get((gameAccess.getPlayerTurn()-1)).getPoints(), (int) (0.76196*getWidth()), (int) (0.20630*getHeight()));
                        
-        g.drawString("Player "+(gameAccess.getPlayerTurn()+1)%5+" Points: "+gameAccess.getPlayers().get((gameAccess.getPlayerTurn()+0)).getPoints(), (int) (0.76196*getWidth()), (int) (0.17630*getHeight()));
+        g.drawString("Player "+(gameAccess.getPlayerTurn()+1)%5+" Points: "+gameAccess.getPlayers().get((gameAccess.getPlayerTurn()+0)).getPoints(), (int) (0.76196*getWidth()), (int) (0.27630*getHeight()));
 
-        g.drawString("Player "+(gameAccess.getPlayerTurn()+2)%5+" Points: "+gameAccess.getPlayers().get((gameAccess.getPlayerTurn()+1)).getPoints(), (int) (0.76196*getWidth()), (int) (0.25239*getHeight()));
+        g.drawString("Player "+(gameAccess.getPlayerTurn()+2)%5+" Points: "+gameAccess.getPlayers().get((gameAccess.getPlayerTurn()+1)).getPoints(), (int) (0.76196*getWidth()), (int) (0.35239*getHeight()));
 
-        g.drawString("Player "+(gameAccess.getPlayerTurn()+3)%5+" Points: "+gameAccess.getPlayers().get((gameAccess.getPlayerTurn()+2)).getPoints(), (int) (0.76196*getWidth()), (int) (0.32848*getHeight()));
+        g.drawString("Player "+(gameAccess.getPlayerTurn()+3)%5+" Points: "+gameAccess.getPlayers().get((gameAccess.getPlayerTurn()+2)).getPoints(), (int) (0.76196*getWidth()), (int) (0.42848*getHeight()));
 
 
         //beginningOfTurnDisplay(g);
