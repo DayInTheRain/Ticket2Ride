@@ -133,4 +133,8 @@ public class Railroad {
 			return 15;
 		return 0;
 	}
+
+	public ArrayList<Railroad> getNeighbors(){
+		return neighbors;
+	}
 }//end of the class
