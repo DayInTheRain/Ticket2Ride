@@ -96,6 +96,7 @@ public class Railroad {
 	
 	public void claim(Player p) {
 		player = p;
+		p.addRailroad(this);
 	}
 
 	public double[] getCoords(){

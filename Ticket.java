@@ -34,7 +34,7 @@ public class Ticket {
         if(t.getFirstCity().equals(getFirstCity()) && t.getSecondCity().equals(getSecondCity())){
             return 0;
         }
-        return t.getFirstCity().compareTo(getFirstCity());
+        return -1;
     }
 
     public boolean isLong(){ return isLong; }
