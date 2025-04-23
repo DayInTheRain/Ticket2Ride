@@ -117,4 +117,20 @@ public class Railroad {
 		else
 			return firsCity;
 	}
+	
+	public int getPoints() {
+		if(this.getNumTrains()==1)
+			return 1;
+		else if(this.getNumTrains()==2)
+			return 2;
+		else if(this.getNumTrains()==3)
+			return 4;
+		else if(this.getNumTrains()==4)
+			return 7;
+		else if(this.getNumTrains()==6)
+			return 15;
+		else if(this.getNumTrains()==8)
+			return 15;
+		return 0;
+	}
 }//end of the class
