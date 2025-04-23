@@ -124,4 +124,8 @@ public class Railroad {
 	public void addNeighbor(Railroad n){
 		neighbors.add(n);
 	}
+
+	public ArrayList<Railroad> getNeighbors(){
+		return neighbors;
+	}
 }//end of the class
