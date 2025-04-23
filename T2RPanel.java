@@ -34,6 +34,9 @@ public class T2RPanel extends JPanel implements MouseListener{
     boolean destinationTicket2Selected;
     boolean destinationTicket3Selected;
 
+    //pickTrainCard IVs
+    int pickTrainCardState;
+
     //buildStation IVs
     City buildStationCity;
 
@@ -277,7 +280,7 @@ public class T2RPanel extends JPanel implements MouseListener{
         {
 
             //if user clicks to view tickets
-            if(rectangularInBounds(x, y, (int)(0.00745*getWidth()), (int)(0.69670*getWidth()), (int)( 0.74760*getHeight()), (int)( 0.98444*getHeight())) && turnState != -10){
+            if(rectangularInBounds(x, y, (int)(0.62834*getWidth()), (int)(0.69484*getWidth()), (int)( 0.74880*getHeight()), (int)( 0.98205*getHeight())) && turnState != -10){
                 System.out.println("view tickets was clicked");
                 viewingTickets = true;
                 repaint();
@@ -448,18 +451,49 @@ public class T2RPanel extends JPanel implements MouseListener{
 
              }
              else if(turnState == 3){
+                int counter = 0;
+                for(TrainCard t: gameAccess.getGrid()){
+                    if(t.getColor().equals("wild")){
+                        counter++;
+                    }
+                }
+                if(counter > 2){
+                    gameAccess.replaceGrid();
+                }
+                if(gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getCardsPicked().size() >= 2){
+                    pickTrainCardState = 1;
+                }//stops at 2 cards picked
+                if(gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getCardsPicked().size() == 1){
+                    if(gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getCardsPicked().get(0).getColor().equals("wild") && pickTrainCardState != 2){
+                        pickTrainCardState = 1;
+                    }
+                }//wild case
                 for(int i = 0; i < 6; i++){
-                    if(rectangularInBounds(x, y, (int)((0.12927 + (0.23741-0.12927)*i)*getWidth()), (int)((0.23555 + (0.23741-0.12927)*i)*getWidth()), (int)(0.18468*getHeight()), (int)(0.45933*getHeight()))){
-                        gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).addToCardsPicked(gameAccess.getGrid().remove(i-1));
+                    if(rectangularInBounds(x, y, (int)((0.12927 + (0.23741-0.12927)*i)*getWidth()), (int)((0.23555 + (0.23741-0.12927)*i)*getWidth()), (int)(0.18468*getHeight()), (int)(0.45933*getHeight())) && pickTrainCardState != 1){
+                        if(i == 0){
+                            gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).addToCardsPicked(gameAccess.drawTrainCard());
+                            pickTrainCardState = 2;
+                        }
+                        else if(gameAccess.getGrid().get(i-1).getColor().equals("wild")){
+                            if(!(gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getCardsPicked().size() > 0)){
+                                gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).addToCardsPicked(gameAccess.getGrid().remove(i-1));
+                            }//wild case (doesnt let choose a wild as second card)
+                        } else {
+                            gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).addToCardsPicked(gameAccess.getGrid().remove(i-1));
+                        }
                     }
                 }
                 gameAccess.fillGrid();
-                if ( rectangularInBounds(x, y, (int) (getWidth() * 0.7383), (int) (getWidth() * 0.8986), (int) (getHeight() * 0.7416), (int) (getHeight() * 0.9007)))
+                if ( rectangularInBounds(x, y, (int) (getWidth() * 0.7383), (int) (getWidth() * 0.8986), (int) (getHeight() * 0.7416), (int) (getHeight() * 0.9007)) && pickTrainCardState == 1)
                 {
                     System.out.println("End turn clicked");
+                    gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).addTrainCards(gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getCardsPicked());
+                    gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).clearCardsPicked();
                     turnState = 0;
+                    pickTrainCardState = 0;
+                    //gameAccess.incrementTurn();
                 }
-             }//incomplete *NOTE*: the view ticket coordinates doesnt work
+             }//*NOTE*: the view ticket coordinates doesnt work
             
              }
 

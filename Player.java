@@ -44,6 +44,19 @@ public class Player {
     public int getNumTrains(){ return trains; }
     public ArrayList<TrainCard> getCardsPicked() { return cardsPicked; }
 
+    public void addTrainCard(String color){
+        trainCards.put(color, trainCards.get(color) + 1);
+    }
+    public void addTrainCard(String color, int i){
+        trainCards.put(color, trainCards.get(color) + i);
+    }
+
+    public void addTrainCards(ArrayList<TrainCard> tcs){
+        for(TrainCard t: tcs){
+            addTrainCard(t.getColor());
+        }
+    }
+    
     public void addRailroad(Railroad r){
         railroads.add(r);
     }
@@ -72,6 +85,7 @@ public class Player {
     public void addToCardsPicked(TrainCard t){
         cardsPicked.add(t);
     }
+    public void clearCardsPicked(){ cardsPicked.clear(); }
     public boolean checkTickets(Ticket t){
         for(int i = 0; i < tickets.size(); i++){
             if(tickets.get(i).compareTo(t) == 0){
