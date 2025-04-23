@@ -56,7 +56,7 @@ public class Game {
 
 
         //initialize mapGraph -- comment out when sync
-        //mapGraph = new MapGraph(cityList, railroadList);
+        mapGraph = new MapGraph(cityList, railroadList);
     }//end of constructor
 
     private void cardBackGenerator(){
