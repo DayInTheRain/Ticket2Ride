@@ -4,6 +4,7 @@ public class Player {
     private HashMap<String, Integer> trainCards;
     private ArrayList<Ticket> tickets;
     private boolean hasEuropeanExpress;
+    private ArrayList<TrainCard> cardsPicked;
     private ArrayList<Railroad> railroads;
     
 
@@ -29,6 +30,7 @@ public class Player {
         
 
         tickets = new ArrayList<>();
+        cardsPicked = new ArrayList<>();
         hasEuropeanExpress = false;
         railroads = new ArrayList<>();
     }
@@ -40,6 +42,7 @@ public class Player {
     public ArrayList<Ticket> getTickets(){ return tickets; }
     public boolean hasEuropeanExpress(){ return hasEuropeanExpress; }
     public int getNumTrains(){ return trains; }
+    public ArrayList<TrainCard> getCardsPicked() { return cardsPicked; }
 
     public void addRailroad(Railroad r){
         railroads.add(r);
@@ -65,6 +68,9 @@ public class Player {
     }
     public void placetrains(int num) {
     	trains -= num;
+    }
+    public void addToCardsPicked(TrainCard t){
+        cardsPicked.add(t);
     }
     public boolean checkTickets(Ticket t){
         for(int i = 0; i < tickets.size(); i++){

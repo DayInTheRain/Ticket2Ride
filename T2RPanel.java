@@ -375,7 +375,9 @@ public class T2RPanel extends JPanel implements MouseListener{
                         claimRouteState = 2;
                     }
                     else
+                    	city2 = null;
                     	System.out.println("Cities are not connected");
+                    
 
 
 
@@ -440,16 +442,25 @@ public class T2RPanel extends JPanel implements MouseListener{
                         destinationTicket1Selected = false;
                         destinationTicket2Selected = false;
                         destinationTicket3Selected = false;
+
                     }
                 }
 
              }
              else if(turnState == 3){
+                for(int i = 0; i < 6; i++){
+                    if(rectangularInBounds(x, y, (int)((0.12927 + (0.23741-0.12927)*i)*getWidth()), (int)((0.23555 + (0.23741-0.12927)*i)*getWidth()), (int)(0.18468*getHeight()), (int)(0.45933*getHeight()))){
+                        gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).addToCardsPicked(gameAccess.getGrid().remove(i-1));
+                    }
+                }
+                gameAccess.fillGrid();
                 if ( rectangularInBounds(x, y, (int) (getWidth() * 0.7383), (int) (getWidth() * 0.8986), (int) (getHeight() * 0.7416), (int) (getHeight() * 0.9007)))
                 {
                     System.out.println("End turn clicked");
                     turnState = 0;
                 }
+             }//incomplete *NOTE*: the view ticket coordinates doesnt work
+            
              }
 
              else if (turnState == 4)
@@ -460,11 +471,24 @@ public class T2RPanel extends JPanel implements MouseListener{
                 {
                 System.out.println("The selected city is " + buildStationCity.getName());
                 }
-
+                
                 if (rectangularInBounds(x, y, (int) (0.865133 * getWidth()), (int) (0.9645 * getWidth()), (int) (0.87200 * getHeight()), (int) (0.97009 * getHeight())))
                 {
+                    if (buildStationCity != null)
+                    {
+
+                    
                     System.out.println("End turn clicked");
                     turnState = 0;
+
+                    for (City cityTest : gameAccess.getCities())
+                    {
+                        if (cityTest.equals(buildStationCity))
+                        {
+                            cityTest.setStationID(1);
+                        }
+                    }
+                    }
                 }
 
                 
@@ -476,30 +500,29 @@ public class T2RPanel extends JPanel implements MouseListener{
 
 
             }
+            else if(gameState == -1)  {   	  
+                if(rectangularInBounds(x,y,0.8744561839651958*getWidth(),0.988755980861244 *getWidth(),0.888755980861244*getHeight(), 0.9760765550239234*getHeight()))
+                { System.out.println("clicked next page");
+                // clicked next page
+                gameState = -2;}
+            }//gamestate == -1
+    
+           else if(gameState == -2) {
+               if(rectangularInBounds(x,y,0.867619639527657*getWidth(),0.988755980861244 *getWidth(),0.868755980861244*getHeight(), 0.9760765550239234*getHeight())) {
+                    System.out.println("go back to home screen");
+                    gameState = 0;
+            }
+               if(rectangularInBounds(x,y,0.7414543194530765*getWidth(),0.8297078931013051 *getWidth(),0.8588516746411483*getHeight(),  0.9389952153110048*getHeight())) {
+                   System.out.println("g previous page");
+                   gameState = -1;
+               }
+              
+           }
+            repaint();
 
 
 
-        }
-        else if(gameState == -1)  {   	  
-            if(rectangularInBounds(x,y,0.8744561839651958*getWidth(),0.988755980861244 *getWidth(),0.888755980861244*getHeight(), 0.9760765550239234*getHeight()))
-            { System.out.println("clicked next page");
-            // clicked next page
-            gameState = -2;}
-        }//gamestate == -1
-
-       else if(gameState == -2) {
-    	   if(rectangularInBounds(x,y,0.867619639527657*getWidth(),0.988755980861244 *getWidth(),0.868755980861244*getHeight(), 0.9760765550239234*getHeight())) {
-    		    System.out.println("go back to home screen");
-    	        gameState = 0;
-        }
-    	   if(rectangularInBounds(x,y,0.7414543194530765*getWidth(),0.8297078931013051 *getWidth(),0.8588516746411483*getHeight(),  0.9389952153110048*getHeight())) {
-    		   System.out.println("g previous page");
-    		   gameState = -1;
-    	   }
-    	  
-       }
-        repaint();
-    }//mouse clicked
+        }//mouse clicked
      
     @Override
     public void mousePressed(MouseEvent e) {
@@ -608,10 +631,15 @@ public class T2RPanel extends JPanel implements MouseListener{
             g.fillOval( (int) (city2.getCoords()[0] * getWidth() * 0.6 * 205 / 154.792222) - (int)(getWidth()*0.025)/2, (int)(city2.getCoords()[1] * getHeight() * 0.7 * 172 / 133.694) - (int)(getHeight()* 0.04)/2, (int)(getWidth()*0.025), (int)(getHeight()* 0.04) );
             g.setColor(Color.black);
         }
+         if( city1 != null && city2 == null) {
+        	 g.drawString( "Cities are not connected, please pick again",(int) (0.70942*getWidth()), (int) (0.205*getHeight()) );
+         }
 
-         g.drawRect((int) (0.8442*getWidth()), (int) (0.0431*getHeight()), (int) (getWidth()*0.05), (int) (getHeight()*0.05)); //draws clear button
+         g.drawRect((int) (0.8942*getWidth()), (int) (0.0231*getHeight()), (int) (getWidth()*0.05), (int) (getHeight()*0.04)); 
+         g.drawString("Clear",(int) (0.9042*getWidth()),(int) (0.0471*getHeight()));//draws clear button
 
-         g.drawRect((int)(0.8154133001864512 * getWidth()) , (int)(0.777511961722488 * getHeight()), (int) (0.08 * getWidth()), (int) (0.125 * getHeight())) ; // draws collectRoute button
+         g.drawRect((int)(0.8154133001864512 * getWidth()) , (int)(0.777511961722488 * getHeight()), (int) (0.08 * getWidth()), (int) (0.125 * getHeight())) ;
+         g.drawString("Continue",(int)(0.8254133001864512 * getWidth()),(int)(0.839511961722488 * getHeight()));// draws collectRoute button
          if (city1 != null && city2 != null)
          {
             City alphaFirst;
@@ -700,10 +728,17 @@ public class T2RPanel extends JPanel implements MouseListener{
         
         g.setColor((Color.white));
         g.fillRect(getWidth()/10, getHeight()/10, (int)(getWidth()*0.8), (int)(getHeight()*0.8));
+        g.drawImage(gameAccess.getTrainCardBack(), (int)(0.12927*getWidth()), (int)(0.18468*getHeight()), (int)((0.23741-0.12927)*getWidth()), (int)((0.56220-0.28468)*getHeight()), null);
         g.setColor(Color.black);
         g.drawString("Pick two train cards. If chosen a wild, only one.", (int)(0.30640149*getWidth()), (int)(0.16507 * getHeight()));
         g.drawRect((int)(0.738020833 * getWidth()) , (int) (0.7413962635201573 * getHeight()), (int) (0.16 * getWidth()), (int) (0.16 * getHeight()));
         g.drawString("End Turn", (int) (0.763206 * getWidth()), (int) (getHeight() * 0.76794));
+        for(int i = 0; i < 5; i++){
+            g.drawImage(gameAccess.getGrid().get(i).getImage(), (int)((0.23741 + (0.23741-0.12927)*i)*getWidth()), (int)(0.18468*getHeight()), (int)((0.23741-0.12927)*getWidth()), (int)((0.56220-0.28468)*getHeight()), null);
+        }
+        for(int i = 0; i < gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getCardsPicked().size(); i++){
+            g.drawImage(gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getCardsPicked().get(i).getImage(), (int)((0.21379 + (0.23741-0.12927)*i)*getWidth()), (int)(0.52870*getHeight()), (int)((0.23741-0.12927)*getWidth()), (int)((0.56220-0.28468)*getHeight()), null);
+        }
 
     }//incomplete
 
