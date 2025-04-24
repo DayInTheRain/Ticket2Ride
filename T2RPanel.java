@@ -852,9 +852,11 @@ public class T2RPanel extends JPanel implements MouseListener{
         // end turn button
         g.setColor(Color.black);
         g.drawRect((int) (0.86575 * getWidth()), (int) (0.872009 * getHeight()), (int)(getWidth()*0.1), (int)(getHeight()*0.1)); // end turn button
+        g.drawString("Claim station", (int) (0.8775 * getWidth()), (int) (0.90909 * getHeight()));
+
 
         g.drawRect((int) (0.86575 * getWidth()), (int) (0.722009 * getHeight()), (int)(getWidth()*0.1), (int)(getHeight()*0.1)); // back button
-
+        g.drawString("Go back", (int) (0.8775 * getWidth()), (int) (0.75209 * getHeight()));
       
         if (buildStationCity != null)
         {
