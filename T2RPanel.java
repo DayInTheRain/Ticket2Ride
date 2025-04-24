@@ -548,6 +548,16 @@ public class T2RPanel extends JPanel implements MouseListener{
 
              else if (turnState == 4) //building station
             {
+                if (rectangularInBounds(x, y, (int)(0.86575 * getWidth()), (int)(0.96575 * getWidth()), (int) (0.722009 * getHeight()), (int) (0.822009 * getHeight())))
+                {
+                    System.out.println("back button clicked");
+                    buildStationCity = null;
+                    turnState = 0;
+                    repaint();
+                    return;
+                }
+
+               
                 System.out.println("building a station");
                 if ( CityDetector(x,y) != null && CityDetector(x, y).getStation() != 0)
                 {
@@ -841,10 +851,11 @@ public class T2RPanel extends JPanel implements MouseListener{
 
         // end turn button
         g.setColor(Color.black);
-        g.drawRect((int) (0.86575 * getWidth()), (int) (0.872009 * getHeight()), (int)(getWidth()*0.1), (int)(getHeight()*0.1));
+        g.drawRect((int) (0.86575 * getWidth()), (int) (0.872009 * getHeight()), (int)(getWidth()*0.1), (int)(getHeight()*0.1)); // end turn button
 
+        g.drawRect((int) (0.86575 * getWidth()), (int) (0.722009 * getHeight()), (int)(getWidth()*0.1), (int)(getHeight()*0.1)); // back button
 
-        g.drawRect(ALLBITS, ABORT, WIDTH, HEIGHT);
+      
         if (buildStationCity != null)
         {
             g.drawString( buildStationCity.getName(), (int) (0.726041 * getWidth()), (int) (0.09784 * getHeight()));
