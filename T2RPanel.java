@@ -143,6 +143,9 @@ public class T2RPanel extends JPanel implements MouseListener{
                 else if(turnState == -10){
                     paintTicketChoosing(g);
                 }// choosing ticket screen
+
+
+                drawStations(g); //the drawn stations are permanent changes to the map.
             }
         }
 
@@ -601,25 +604,54 @@ public class T2RPanel extends JPanel implements MouseListener{
             
              
 
-             else if (turnState == 4)
+             else if (turnState == 4) //building station
             {
+                if (rectangularInBounds(x, y, (int)(0.86575 * getWidth()), (int)(0.96575 * getWidth()), (int) (0.722009 * getHeight()), (int) (0.822009 * getHeight())))
+                {
+                    System.out.println("back button clicked");
+                    buildStationCity = null;
+                    turnState = 0;
+                    repaint();
+                    return;
+                }
+
+               
                 System.out.println("building a station");
-                buildStationCity = CityDetector(x, y);
+                if ( CityDetector(x,y) != null && CityDetector(x, y).getStation() != 0)
+                {
+                    System.out.println(CityDetector(x, y).getName() + " has already been claimed");
+                }
+                else if (CityDetector(x, y) != null)
+                {               
+                        buildStationCity = CityDetector(x, y);
+                }
                 if (buildStationCity != null)
                 {
                 System.out.println("The selected city is " + buildStationCity.getName());
                 }
                 
-                if (rectangularInBounds(x, y, (int) (0.865133 * getWidth()), (int) (0.9645 * getWidth()), (int) (0.87200 * getHeight()), (int) (0.97009 * getHeight())))
+               if (rectangularInBounds(x, y, (int) (0.865133 * getWidth()), (int) (0.9645 * getWidth()), (int) (0.87200 * getHeight()), (int) (0.97009 * getHeight())))
                 {
+                    System.out.println("end turn clicked");
                     if (buildStationCity != null)
                     {
 
                     
-                    System.out.println("End turn clicked");
+                    System.out.println("End turn clicked and city not null");
+                    
+
                     turnState = 0;
 
-                    
+                    for (City c: gameAccess.getCities())
+                    {
+                        if (c.equals(buildStationCity))
+                        {
+                            System.out.println("We're going to mark " + c.getName());
+                            System.out.println("The current player turn is " + gameAccess.getPlayerTurn());
+                            c.setStationID(gameAccess.getPlayerTurn());
+                        }
+                    }
+                    buildStationCity = null;
                     }
                 }
             }
@@ -884,10 +916,13 @@ public class T2RPanel extends JPanel implements MouseListener{
 
         // end turn button
         g.setColor(Color.black);
-        g.drawRect((int) (0.86575 * getWidth()), (int) (0.872009 * getHeight()), (int)(getWidth()*0.1), (int)(getHeight()*0.1));
+        g.drawRect((int) (0.86575 * getWidth()), (int) (0.872009 * getHeight()), (int)(getWidth()*0.1), (int)(getHeight()*0.1)); // end turn button
+        g.drawString("Claim station", (int) (0.8775 * getWidth()), (int) (0.90909 * getHeight()));
 
 
-        g.drawRect(ALLBITS, ABORT, WIDTH, HEIGHT);
+        g.drawRect((int) (0.86575 * getWidth()), (int) (0.722009 * getHeight()), (int)(getWidth()*0.1), (int)(getHeight()*0.1)); // back button
+        g.drawString("Go back", (int) (0.8775 * getWidth()), (int) (0.75209 * getHeight()));
+      
         if (buildStationCity != null)
         {
             g.drawString( buildStationCity.getName(), (int) (0.726041 * getWidth()), (int) (0.09784 * getHeight()));
@@ -896,8 +931,24 @@ public class T2RPanel extends JPanel implements MouseListener{
             g.setColor(Color.black);
          }
 
+
     }
-    public City CityDetector(double  x, double  y)
+
+    public void drawStations(Graphics g)
+    {
+        
+        for (City c : gameAccess.getCities())
+        {
+           if (c.getStation() != 0)
+           {
+               g.setColor(Color.green);
+           g.fillOval( (int) (c.getCoords()[0] * getWidth() * 0.6 * 205 / 154.792222) - (int)(getWidth()*0.025)/2, (int)(c.getCoords()[1] * getHeight() * 0.7 * 172 / 133.694) - (int)(getHeight()* 0.04)/2, (int)(getWidth()*0.025), (int)(getHeight()* 0.04) );
+           g.setColor(Color.black);
+
+           }
+       }
+    } 
+       public City CityDetector(double  x, double  y)
     {
         for (City c: gameAccess.getCities())
         {

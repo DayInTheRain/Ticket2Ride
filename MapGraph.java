@@ -141,18 +141,41 @@ public class MapGraph {
 	// 	return maxTrainNum;
 	// }//longestRailroadOFPlayer
 
-	public Railroad bfSearch(ArrayList<Railroad> list, Railroad start){
+	public int dfSearch(ArrayList<Railroad> list, Railroad start){
 
-		Queue<Railroad> queue = new LinkedList<>();
-		queue.add(start);
 
-		boolean[] visited = new boolean[list.size()];
-		visited[list.indexOf(start)] = true;
+        System.out.println(list);
 
-		System.out.println(visited);
 
-		return null;
-	}//bfSearch
+        int trainNum = 0;
+        int maxTrainNum = trainNum;
+        // Queue<Railroad> queue = new LinkedList<>();
+        // queue.add(start);
+
+
+        Railroad lastVisited = start;
+        boolean[] visited = new boolean[list.size()];
+        visited[list.indexOf(start)] = true;
+
+
+        for(Railroad currentRailroad : list){
+            if(!visited[list.indexOf(currentRailroad)] ){
+                trainNum += currentRailroad.getNumTrains();
+                visited[list.indexOf(currentRailroad)] = true;
+                System.out.println(currentRailroad);
+            }
+
+
+            if(maxTrainNum < trainNum){
+                maxTrainNum = trainNum;
+            }
+        }
+
+
+        //System.out.println(visited);
+        return maxTrainNum;
+    }//dfSearch
+
 		
 
 	public boolean searchIfClaimed(City fCity, City sCity, Player p) {
