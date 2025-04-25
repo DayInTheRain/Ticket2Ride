@@ -489,26 +489,24 @@ public class T2RPanel extends JPanel implements MouseListener{
                             System.out.println("Finish turn button clicked");
                             
                             if(railroad.getPlayer()==null) {
+                                System.out.println("HERE");
                                 numWild+= railroad.getNumWild();
                                 num += railroad.getNumTrains();
                                 color = railroad.getColor();
                             
                                     
                                 if(numOfWild >= numWild && numOfColor >= num || numOfColor+numOfWild >= num) {
-                                    getCurrentPlayer() .getTrainCards().replace("wild",numOfWild, numOfWild- numWild);
                                     gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1) .getTrainCards().replace("wild", numOfWild- numWild);
                                     if(numOfColor >= num){
                                         getCurrentPlayer() .getTrainCards().replace(color,numOfColor, numOfColor- num);
                                         gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1) .getTrainCards().replace(color, numOfColor- num);
-                                    }
+                                    }   
                                     else if(numOfColor+numOfWild >= num) {
                                         int numLeft = num-numOfColor;
                                         getCurrentPlayer() .getTrainCards().replace(color,numOfColor, 0);
-                                        getCurrentPlayer() .getTrainCards().replace("wild",numWild, numWild-numLeft);
+                                        getCurrentPlayer() .getTrainCards().replace("wild",numOfWild-numLeft);
                                         gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1) .getTrainCards().replace(color, 0);
-                                        System.out.println(numWild-numLeft);
-                                        gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1) .getTrainCards().replace("wild", numWild-numLeft);
-
+                                        gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1) .getTrainCards().replace("wild", numOfWild-numLeft);
                                     }
                             
                                     getCurrentPlayer().addRailroad(railroad);
@@ -557,6 +555,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                         canPurchaseTunnel = true;
                     }
                 }
+                System.out.println(canPurchaseTunnel);
                 if (rectangularInBounds(x, y, (int)(0.8154133001864512 * getWidth()), (int)(0.8954133001864512 * getWidth()), (int)(0.777511961722488 * getHeight()), (int) (0.902511961722488 * getHeight())))
                 {
                    
@@ -571,20 +570,19 @@ public class T2RPanel extends JPanel implements MouseListener{
                             else if(numOfColor+numOfWild >= num) {
                                 int numLeft = num-numOfColor;
                                 getCurrentPlayer() .getTrainCards().replace(color,numOfColor, 0);
-                                getCurrentPlayer() .getTrainCards().replace("wild",numWild, numWild-numLeft);
+                                getCurrentPlayer() .getTrainCards().replace("wild",numOfWild-numLeft);
                                 gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1) .getTrainCards().replace(color, 0);
-                                System.out.println(numWild + "" + numLeft);
-                                gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1) .getTrainCards().replace("wild", numWild-numLeft);
+                                gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1) .getTrainCards().replace("wild", numOfWild-numLeft);
 
                             }
                     
-                        getCurrentPlayer().addRailroad(railroad);
-                        getCurrentPlayer().addPoints(railroad.getPoints());
-                    // System.out.println(""+railroad.getPoints());
-                    city1 = null;
-                    city2 = null;
-                    claimRouteState = 0;
-                    turnState = 0; 
+                            getCurrentPlayer().addRailroad(railroad);
+                            getCurrentPlayer().addPoints(railroad.getPoints());
+                            // System.out.println(""+railroad.getPoints());
+                            city1 = null;
+                            city2 = null;
+                            claimRouteState = 0;
+                            turnState = 0; 
                     
                         }
                             gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).addRailroad(railroad);
@@ -962,11 +960,11 @@ public class T2RPanel extends JPanel implements MouseListener{
             for(int i = 0; i < tunnelCards.size(); i++){
                 g.drawImage(tunnelCards.get(i).getImage(), (int)((0.61570 + cardWidth*i)*getWidth()), (int)( 0.26406*getHeight()), (int)(cardWidth*getWidth()), (int)(cardHeight*getHeight()), null);
             }
-            if(canPurchaseTunnel){
-                g.drawString("Can Purchase! Click next to end turn.", (int)(0.656308*getWidth()), (int)(0.57416*getHeight()));
-            } else {
-                g.drawString("Can't Purchase! Click next to end turn.", (int)(0.656308*getWidth()), (int)(0.57416*getHeight()));
-            }
+            // if(canPurchaseTunnel){
+            //     g.drawString("Can Purchase! Click next to end turn.", (int)(0.656308*getWidth()), (int)(0.57416*getHeight()));
+            // } else {
+            //     g.drawString("Can't Purchase! Click next to end turn.", (int)(0.656308*getWidth()), (int)(0.57416*getHeight()));
+            // }
         }
     }
     public void generateTunnelCards(){
