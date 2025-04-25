@@ -431,140 +431,107 @@ public class T2RPanel extends JPanel implements MouseListener{
                      int numWild = 0;
                      String color = "";
                      if(railroad.getPlayer()==null) {
-                     numWild+= railroad.getNumWild();
-                     num += railroad.getNumTrains();
-                     color = railroad.getColor();
-                     
-                     System.out.println(color);
-                     if(color.equals("grey")) {
-                     	System.out.println("grey train");
-                     	if(rectangularInBounds(x,y, (int)(0.008079552517091361*getWidth()),(int)(0.07022995649471722*getWidth()), (int)(0.7523923444976076*getHeight()),(int)(0.9784688995215312*getHeight()))) {
-                     			color = "red";
-                     			System.out.println(color);
-                     	}
-                     	if(rectangularInBounds(x,y, (int)(0.0783095090118*getWidth()),(int)(0.139838649471722*getWidth()), (int)(0.74521531*getHeight()),(int)(0.9760765550239234*getHeight()))) {
-                 			color = "orange";
-                 			System.out.println(color);
-                 	}
-                     	if(rectangularInBounds(x,y, (int)(0.1485394655065258*getWidth()),(int)(0.2113113735239279*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
-                 			color = "yellow";
-                 			System.out.println(color);
-                 	}
-                     	if(rectangularInBounds(x,y, (int)(0.2144188937228092*getWidth()),(int)(0.27967681789931637*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
-                 			color = "green";
-                 			System.out.println(color);
-                 	}
-                     	if(rectangularInBounds(x,y, (int)(0.2865133623368552*getWidth()),(int)(0.3449347420758235*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
-                 			color = "blue";
-                 			System.out.println(color);
-                 	}
-                     	if(rectangularInBounds(x,y, (int)(0.35487880671224364*getWidth()),(int)(0.4170292106898695*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
-                 			color = "pink";
-                 			System.out.println(color);
-                 	}
-                     	if(rectangularInBounds(x,y, (int)(0.4244872591671846*getWidth()),(int)(0.4829086389061529*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
-                 			color = "white";
-                 			System.out.println(color);
-                 	}
-                     	if(rectangularInBounds(x,y, (int)(0.4916096954630205*getWidth()),(int)(0.5550031075201989*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
-                 			color = "black";
-                 			System.out.println(color);
-                 	}
-                     	if(rectangularInBounds(x,y, (int)(0.5587321317588564*getWidth()),(int)(0.6246115599751398*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
-                 			color = "wild";
-                 			System.out.println(color);
-                 	}
-                     	
-                          	
-                     	
-                     }
-                     // DOESNT WORK YETTTT
-                     int numOfColor = getCurrentPlayer() .getTrainCards().get(color);
-                     System.out.println(""+numOfColor);
-                     int numOfWild  = getCurrentPlayer() .getTrainCards().get("wild");
-                     colorChoosen = color;
-                    if (rectangularInBounds(x, y, (int)(0.8154133001864512 * getWidth()), (int)(0.8954133001864512 * getWidth()), (int)(0.777511961722488 * getHeight()), (int) (0.902511961722488 * getHeight())))
-                    {
-                        System.out.println("Finish turn button clicked");
-                        
-                       
-                        if(railroad.getPlayer()==null && railroad.isTunnel()) {
-                            claimRouteState = 3;
-                        }
-                        else if(railroad.getPlayer()==null) {
-                    if (rectangularInBounds(x, y, (int)(0.8154133001864512 * getWidth()), (int)(0.8954133001864512 * getWidth()), (int)(0.777511961722488 * getHeight()), (int) (0.902511961722488 * getHeight())))
-                    {
-                        System.out.println("Finish turn button clicked");
-                        
-                        Railroad railroad = gameAccess.getMap().getRailroad(city1, city2);
-                        int num = 0;
-                        int numWild = 0;
-                        String color = "";
-                        if(railroad.getPlayer()==null) {
                         numWild+= railroad.getNumWild();
                         num += railroad.getNumTrains();
                         color = railroad.getColor();
-                      
-                        	
-                        if(numOfWild >= numWild && numOfColor >= num || numOfColor+numOfWild >= num) {
-                        	getCurrentPlayer() .getTrainCards().replace("wild",numOfWild, numOfWild- numWild);
-                        	gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1) .getTrainCards().replace("wild", numOfWild- numWild);
-                        	if(numOfColor >= num)
-                        		getCurrentPlayer() .getTrainCards().replace(color,numOfColor, numOfColor- num);
-                        		gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1) .getTrainCards().replace(color, numOfColor- num);
-                        	else if(numOfColor+numOfWild >= num) {
-                        		int numLeft = num-numOfColor;
-                        		getCurrentPlayer() .getTrainCards().replace(color,numOfColor, 0);
-                        		getCurrentPlayer() .getTrainCards().replace("wild",numWild, numWild-numLeft);
-                        		gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1) .getTrainCards().replace(color, 0);
-                                System.out.println(numWild-numLeft);
-                        		gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1) .getTrainCards().replace("wild", numWild-numLeft);
-
-                        }
-                      
-                        getCurrentPlayer().addRailroad(railroad);
-                        getCurrentPlayer().addPoints(railroad.getPoints());
-                       // System.out.println(""+railroad.getPoints());
-                      city1 = null;
-                      city2 = null;
-                      claimRouteState = 0;
-                      turnState = 0; 
-                      
-                        }
-                        else {
-							g.drawString("can't afford the railroad, please choose again or exit",(int)(0.6625233064014916*getWidth()), (int)(0.3803827751196172*getHeight())); 
-						}
-                    }
-                    
- g.drawRect((int)(0.8154133001864512 * getWidth()) , (int)(0.777511961722488 * getHeight()), (int) (0.08 * getWidth()), (int) (0.125 * getHeight())) ;
-                }
-             }
-                }
-             else if(claimRouteState == 3){
-                if (rectangularInBounds(x, y, (int)(0.8154133001864512 * getWidth()), (int)(0.8954133001864512 * getWidth()), (int)(0.777511961722488 * getHeight()), (int) (0.902511961722488 * getHeight())))
-                {
-                    Railroad railroad = gameAccess.getMap().getRailroad(city1, city2);
-                    int num = 0;
-                    int numWild = 0;
-                    String color = "";
-                    if(railroad.getPlayer()==null) {
-                        numWild+= railroad.getNumWild();
-                        num += railroad.getNumTrains();
-                        color = railroad.getColor();
-                        int numOfColor = getCurrentPlayer() .getTrainCards().get(color);
-                        int numOfWild  = getCurrentPlayer() .getTrainCards().get("wild");
                         
-                        generateTunnelCards();
-                        int counter = 0;
-                        for(TrainCard t: tunnelCards){
-                            System.out.println(t.getColor());
-                            if(t.getColor().equals(color) || t.getColor().equals("wild")){
-                                counter++;
+                        System.out.println(color);
+                        if(color.equals("grey")) {
+                            System.out.println("grey train");
+                            if(rectangularInBounds(x,y, (int)(0.008079552517091361*getWidth()),(int)(0.07022995649471722*getWidth()), (int)(0.7523923444976076*getHeight()),(int)(0.9784688995215312*getHeight()))) {
+                                    color = "red";
+                                    System.out.println(color);
                             }
+                            if(rectangularInBounds(x,y, (int)(0.0783095090118*getWidth()),(int)(0.139838649471722*getWidth()), (int)(0.74521531*getHeight()),(int)(0.9760765550239234*getHeight()))) {
+                                color = "orange";
+                                System.out.println(color);
+                            }
+                            if(rectangularInBounds(x,y, (int)(0.1485394655065258*getWidth()),(int)(0.2113113735239279*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
+                                color = "yellow";
+                                System.out.println(color);
+                            }
+                            if(rectangularInBounds(x,y, (int)(0.2144188937228092*getWidth()),(int)(0.27967681789931637*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
+                                color = "green";
+                                System.out.println(color);
+                            }
+                            if(rectangularInBounds(x,y, (int)(0.2865133623368552*getWidth()),(int)(0.3449347420758235*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
+                                color = "blue";
+                                System.out.println(color);
+                            }
+                            if(rectangularInBounds(x,y, (int)(0.35487880671224364*getWidth()),(int)(0.4170292106898695*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
+                                color = "pink";
+                                System.out.println(color);
+                            }
+                            if(rectangularInBounds(x,y, (int)(0.4244872591671846*getWidth()),(int)(0.4829086389061529*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
+                                color = "white";
+                                System.out.println(color);
+                            }
+                            if(rectangularInBounds(x,y, (int)(0.4916096954630205*getWidth()),(int)(0.5550031075201989*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
+                                color = "black";
+                                System.out.println(color);
+                            }
+                            if(rectangularInBounds(x,y, (int)(0.5587321317588564*getWidth()),(int)(0.6246115599751398*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
+                                color = "wild";
+                                System.out.println(color);
+                            }
+                            
+                                
+                            
                         }
-                        num += counter;
-                        if(numOfWild >= numWild && numOfColor >= num || numOfColor+numOfWild >= num) {
-                            getCurrentPlayer() .getTrainCards().replace("wild",numOfWild, numOfWild- numWild);
+                        // DOESNT WORK YETTTT
+                        int numOfColor = getCurrentPlayer() .getTrainCards().get(color);
+                        System.out.println(""+numOfColor);
+                        int numOfWild  = getCurrentPlayer() .getTrainCards().get("wild");
+                        colorChoosen = color;
+                        
+                        if (rectangularInBounds(x, y, (int)(0.8154133001864512 * getWidth()), (int)(0.8954133001864512 * getWidth()), (int)(0.777511961722488 * getHeight()), (int) (0.902511961722488 * getHeight())))
+                        {
+                            System.out.println("Finish turn button clicked");
+                            
+                            if(railroad.getPlayer()==null) {
+                                numWild+= railroad.getNumWild();
+                                num += railroad.getNumTrains();
+                                color = railroad.getColor();
+                            
+                                    
+                                if(numOfWild >= numWild && numOfColor >= num || numOfColor+numOfWild >= num) {
+                                    getCurrentPlayer() .getTrainCards().replace("wild",numOfWild, numOfWild- numWild);
+                                    gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1) .getTrainCards().replace("wild", numOfWild- numWild);
+                                    if(numOfColor >= num){
+                                        getCurrentPlayer() .getTrainCards().replace(color,numOfColor, numOfColor- num);
+                                        gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1) .getTrainCards().replace(color, numOfColor- num);
+                                    }
+                                    else if(numOfColor+numOfWild >= num) {
+                                        int numLeft = num-numOfColor;
+                                        getCurrentPlayer() .getTrainCards().replace(color,numOfColor, 0);
+                                        getCurrentPlayer() .getTrainCards().replace("wild",numWild, numWild-numLeft);
+                                        gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1) .getTrainCards().replace(color, 0);
+                                        System.out.println(numWild-numLeft);
+                                        gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1) .getTrainCards().replace("wild", numWild-numLeft);
+
+                                    }
+                            
+                                    getCurrentPlayer().addRailroad(railroad);
+                                    getCurrentPlayer().addPoints(railroad.getPoints());
+                                    // System.out.println(""+railroad.getPoints());
+                                    city1 = null;
+                                    city2 = null;
+                                    claimRouteState = 0;
+                                    turnState = 0; 
+                            
+                                }
+                                else {
+                                    g.drawString("can't afford the railroad, please choose again or exit",(int)(0.6625233064014916*getWidth()), (int)(0.3803827751196172*getHeight())); 
+                                }
+                            }   
+                        
+                            g.drawRect((int)(0.8154133001864512 * getWidth()) , (int)(0.777511961722488 * getHeight()), (int) (0.08 * getWidth()), (int) (0.125 * getHeight())) ;
+                        }
+                    }
+                }
+            
+                     
+             else if(claimRouteState == 3){
                 Railroad railroad = gameAccess.getMap().getRailroad(city1, city2);
                 int num = 0;
                 int numWild = 0;
@@ -597,9 +564,10 @@ public class T2RPanel extends JPanel implements MouseListener{
                         
                         if(numOfWild >= numWild && numOfColor >= num || numOfColor+numOfWild >= num) {
                             gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1) .getTrainCards().replace("wild", numOfWild- numWild);
-                            if(numOfColor >= num)
+                            if(numOfColor >= num){
                                 getCurrentPlayer() .getTrainCards().replace(color,numOfColor, numOfColor- num);
                                 gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1) .getTrainCards().replace(color, numOfColor- num);
+                            }   
                             else if(numOfColor+numOfWild >= num) {
                                 int numLeft = num-numOfColor;
                                 getCurrentPlayer() .getTrainCards().replace(color,numOfColor, 0);
@@ -641,7 +609,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                     }
                 }
              }//tunnel case DOES NOT WORK!!!!
-             }
+             
 
              else if (turnState == 2)//destination ticket
              {
@@ -800,7 +768,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                 }
             }
                
-            }
+            
             else if(gameState == -1)  {   	  
                 if(rectangularInBounds(x,y,0.8744561839651958*getWidth(),0.988755980861244 *getWidth(),0.888755980861244*getHeight(), 0.9760765550239234*getHeight()))
                 { System.out.println("clicked next page");
@@ -823,7 +791,8 @@ public class T2RPanel extends JPanel implements MouseListener{
 
 
 
-        }//mouse clicked
+        }
+    }//mouse clicked
      
     @Override
     public void mousePressed(MouseEvent e) {
@@ -986,7 +955,7 @@ public class T2RPanel extends JPanel implements MouseListener{
       
                
             }
-         }
+        
          if(claimRouteState == 3){
             double cardWidth = 0.69578-0.61570;
             double cardHeight = 0.44531-0.26406;
