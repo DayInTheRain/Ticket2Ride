@@ -1006,7 +1006,7 @@ public class T2RPanel extends JPanel implements MouseListener{
            if (c.getStation() != 0)
            {
                g.setColor(Color.green);
-           g.fillOval( (int) (c.getCoords()[0] * getWidth() * 0.6 * 205 / 154.792222) - (int)(getWidth()*0.025)/2, (int)(c.getCoords()[1] * getHeight() * 0.7 * 172 / 133.694) - (int)(getHeight()* 0.04)/2, (int)(getWidth()*0.025), (int)(getHeight()* 0.04) );
+           g.fillOval( (int) (c.getCoords()[0] * getWidth() * 0.6 * 205 / 154.792222) - (int)(getWidth()*0.0125)/2, (int)(c.getCoords()[1] * getHeight() * 0.7 * 172 / 133.694) - (int)(getHeight()* 0.02)/2, (int)(getWidth()*0.0125), (int)(getHeight()* 0.02) );
            g.setColor(Color.black);
 
            }
