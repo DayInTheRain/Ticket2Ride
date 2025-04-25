@@ -123,11 +123,13 @@ public class T2RPanel extends JPanel implements MouseListener{
                 {
                     beginTurnUI(g);
                     paintGridOnScreen(g);
+                    drawStations(g);
                 }
         
                 if (turnState ==1)
                 {
                     claimRouteUI(g);
+                    drawStations(g);
                 }
         
                 else if ( turnState == 2)
@@ -142,6 +144,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                 else if (turnState == 4)
                 {
                     buildStationUI(g);
+                    drawStations(g);
                 }
 
                 else if(turnState == -10){
@@ -149,7 +152,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                 }// choosing ticket screen
 
 
-                drawStations(g); //the drawn stations are permanent changes to the map.
+                 //the drawn stations are permanent changes to the map.
             }
         }
 
@@ -374,7 +377,7 @@ public class T2RPanel extends JPanel implements MouseListener{
              else if (turnState == 1)
              {
             	
-                if (rectangularInBounds(x,y, (int) (0.8943443132380361*getWidth()), (int) (0.9422001243008079*getWidth()), (int) ( 0.05741626794258373*getHeight()), (int) (0.0931*getHeight()))) // if (reset button clicked)
+                if (rectangularInBounds(x,y, (int) (0.8943443132380361*getWidth()), (int) (0.9422001243008079*getWidth()), (int) ( 0.02392*getHeight()), (int) (0.0633*getHeight()))) // if (reset button clicked)
                 {
                     System.out.println("clear button clicked");
                     claimRouteState = 0;
@@ -1011,7 +1014,7 @@ public class T2RPanel extends JPanel implements MouseListener{
            if (c.getStation() != 0)
            {
                g.setColor(Color.green);
-           g.fillOval( (int) (c.getCoords()[0] * getWidth() * 0.6 * 205 / 154.792222) - (int)(getWidth()*0.025)/2, (int)(c.getCoords()[1] * getHeight() * 0.7 * 172 / 133.694) - (int)(getHeight()* 0.04)/2, (int)(getWidth()*0.025), (int)(getHeight()* 0.04) );
+           g.fillOval( (int) (c.getCoords()[0] * getWidth() * 0.6 * 205 / 154.792222) - (int)(getWidth()*0.0125)/2, (int)(c.getCoords()[1] * getHeight() * 0.7 * 172 / 133.694) - (int)(getHeight()* 0.02)/2, (int)(getWidth()*0.0125), (int)(getHeight()* 0.02) );
            g.setColor(Color.black);
 
            }
