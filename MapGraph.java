@@ -101,45 +101,46 @@ public class MapGraph {
 	}
 
 	// NOT WORKING YET
-	// public int longestRailroadOfPlayer(Player p){
-	// 	int trainNum = 0;
-	// 	int maxTrainNum = trainNum;
-	// 	ArrayList<Railroad> roadList = p.getRailroadList();
+	public int longestRailroadOfPlayer(Player p){
+		int trainNum = 0;
+		int maxTrainNum = trainNum;
+		ArrayList<Railroad> roadList = p.getRailroadList();
 
 
-	// 	Queue<Railroad> queue = new LinkedList<>();
-	// 	boolean[] visited = new boolean[roadList.size()];
-	// 	visited[0] = true;
+		Queue<Railroad> queue = new LinkedList<>();
+		boolean[] visited = new boolean[roadList.size()];
+		visited[0] = true;
 
-	// 	while(!roadList.isEmpty()){
-	// 		Railroad r = roadList.get(0);
-	// 		trainNum = r.getNumTrains();
-	// 		City city1 = r.getFirstCity();
-	// 		City city2 = r.getFirstCity();
-	// 		roadList.removeFirst();
+		while(!roadList.isEmpty()){
+			Railroad r = roadList.get(0);
+			trainNum = r.getNumTrains();
+			City city1 = r.getFirstCity();
+			City city2 = r.getFirstCity();
+			roadList.removeFirst();
 
-	// 		boolean endOfSection = false;
+			boolean endOfSection = false;
 
-	// 		while(endOfSection == false){
-	// 			int current = 0;
+			while(endOfSection == false){
+				int current = 0;
 
-	// 			for(Railroad currentRail : roadList ){
-	// 				if(currentRail.getFirstCity().equals(city1) || currentRail.getSecondCity().equals(city2)){
-	// 					trainNum += currentRail.getNumTrains();
-	// 					roadList.remove(currentRail);
-	// 				}
-	// 			}
+				for(Railroad currentRail : roadList ){
+					if(currentRail.getFirstCity().equals(city1) || currentRail.getSecondCity().equals(city2)){
+						trainNum += currentRail.getNumTrains();
+						System.out.println();
+						roadList.remove(currentRail);
+					}
+				}
 
 
-	// 		}
+			}
 
-	// 		if(trainNum > maxTrainNum){
-	// 			maxTrainNum = trainNum;
-	// 		}
-	// 	}
+			if(trainNum > maxTrainNum){
+				maxTrainNum = trainNum;
+			}
+		}
 
-	// 	return maxTrainNum;
-	// }//longestRailroadOFPlayer
+		return maxTrainNum;
+	}//longestRailroadOFPlayer
 
 	public int dfSearch(ArrayList<Railroad> list, Railroad start){
 
@@ -160,6 +161,7 @@ public class MapGraph {
 
         for(Railroad currentRailroad : list){
             if(!visited[list.indexOf(currentRailroad)] ){
+
                 trainNum += currentRailroad.getNumTrains();
                 visited[list.indexOf(currentRailroad)] = true;
                 System.out.println(currentRailroad);
@@ -175,7 +177,6 @@ public class MapGraph {
         //System.out.println(visited);
         return maxTrainNum;
     }//dfSearch
-
 		
 
 	public boolean searchIfClaimed(City fCity, City sCity, Player p) {
