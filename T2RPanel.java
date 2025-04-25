@@ -123,11 +123,13 @@ public class T2RPanel extends JPanel implements MouseListener{
                 {
                     beginTurnUI(g);
                     paintGridOnScreen(g);
+                    drawStations(g);
                 }
         
                 if (turnState ==1)
                 {
                     claimRouteUI(g);
+                    drawStations(g);
                 }
         
                 else if ( turnState == 2)
@@ -142,6 +144,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                 else if (turnState == 4)
                 {
                     buildStationUI(g);
+                    drawStations(g);
                 }
 
                 else if(turnState == -10){
@@ -149,7 +152,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                 }// choosing ticket screen
 
 
-                drawStations(g); //the drawn stations are permanent changes to the map.
+                 //the drawn stations are permanent changes to the map.
             }
         }
 
@@ -374,7 +377,7 @@ public class T2RPanel extends JPanel implements MouseListener{
              else if (turnState == 1)
              {
             	
-                if (rectangularInBounds(x,y, (int) (0.8943443132380361*getWidth()), (int) (0.9422001243008079*getWidth()), (int) ( 0.05741626794258373*getHeight()), (int) (0.0931*getHeight()))) // if (reset button clicked)
+                if (rectangularInBounds(x,y, (int) (0.8943443132380361*getWidth()), (int) (0.9422001243008079*getWidth()), (int) ( 0.02392*getHeight()), (int) (0.0633*getHeight()))) // if (reset button clicked)
                 {
                     System.out.println("clear button clicked");
                     claimRouteState = 0;
@@ -503,6 +506,9 @@ public class T2RPanel extends JPanel implements MouseListener{
                       turnState = 0; 
                       
                         }
+                        else {
+							g.drawString("can't afford the railroad, please choose again or exit",(int)(0.6625233064014916*getWidth()), (int)(0.3803827751196172*getHeight())); 
+						}
                     }
                     
  g.drawRect((int)(0.8154133001864512 * getWidth()) , (int)(0.777511961722488 * getHeight()), (int) (0.08 * getWidth()), (int) (0.125 * getHeight())) ;
@@ -888,14 +894,16 @@ public class T2RPanel extends JPanel implements MouseListener{
 
 
             }
-            if(gameAccess.getMap().railroadExists(city1, city2) != null)
-                if(gameAccess.getMap().getRailroad(city1, city2).getColor().equals("grey"));
-               	isgrey = true;
-
-               if(isgrey) {
-               	g.drawString("Please choose a color from your hand", (int)(0.6625233064014916*getWidth()), (int)(0.3803827751196172*getHeight()));
-               }
-              
+            if(gameAccess.getMap().railroadExists(city1, city2) != null) {
+                if(gameAccess.getMap().getRailroad(city1, city2).getColor().equals("grey")){
+               		isgrey = true;
+               		g.drawString("Please choose a color from your hand", (int)(0.6625233064014916*getWidth()), (int)(0.3803827751196172*getHeight()));     	
+                }
+                else
+                	isgrey = false;
+ 
+            }
+      
                
             }
     }
