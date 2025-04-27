@@ -649,7 +649,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                             tunnelCards.clear();
                             canPurchaseTunnel = false;
                             continueButtonClicked = false;
-                            System.out.println("Holaaa");
+                            
                         }
                     }
                     else {
