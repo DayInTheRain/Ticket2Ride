@@ -128,4 +128,9 @@ public class Player {
     public String toString(){
         return "Player " + getPlayerNum();
     }
+
+    public void decrementTrainStations()
+    {
+        trainStations = trainStations -1;
+    }
 }//class Player
