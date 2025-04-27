@@ -43,7 +43,9 @@ public class T2RPanel extends JPanel implements MouseListener{
 
     //buildStation IVs
     City buildStationCity;
-
+    int buildStationState;
+    String buildStationColor;
+    ArrayList<String> ColorsPaid;
 
     Font origionalFont;
 
@@ -65,6 +67,7 @@ public class T2RPanel extends JPanel implements MouseListener{
         origionalFont = new Font("Monospaced", Font.PLAIN, Math.abs((int)( 0.18947416762342135*getHeight() -  0.16991963260619977*getHeight()))); //sets the standard font for printing things
         claimRouteState = 0;
         pickTicketState = 0;
+        buildStationState = 0;
         System.out.println();
         System.out.println("testing");
        
@@ -84,7 +87,8 @@ public class T2RPanel extends JPanel implements MouseListener{
         destinationTicket3 = null;
         isgrey = false;
         colorChoosen = "";
-        
+        buildStationColor = null;
+        ColorsPaid = new ArrayList<String>();
         boolean destinationTicket1Selected = false;
         boolean destinationTicket2Selected = false;
         boolean destinationTicket3Selected = false;
@@ -277,7 +281,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                 {
                     System.out.println("start game");
                     gameState = 1;
-                   turnState = -10;
+                  turnState = -10;
                     repaint();
                 }
 
@@ -451,41 +455,9 @@ public class T2RPanel extends JPanel implements MouseListener{
                         System.out.println(color);
                         if(color.equals("grey")) {
                             System.out.println("grey train");
-                            if(rectangularInBounds(x,y, (int)(0.008079552517091361*getWidth()),(int)(0.07022995649471722*getWidth()), (int)(0.7523923444976076*getHeight()),(int)(0.9784688995215312*getHeight()))) {
-                                    color = "red";
-                                    System.out.println(color);
-                            }
-                            if(rectangularInBounds(x,y, (int)(0.0783095090118*getWidth()),(int)(0.139838649471722*getWidth()), (int)(0.74521531*getHeight()),(int)(0.9760765550239234*getHeight()))) {
-                                color = "orange";
-                                System.out.println(color);
-                            }
-                            if(rectangularInBounds(x,y, (int)(0.1485394655065258*getWidth()),(int)(0.2113113735239279*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
-                                color = "yellow";
-                                System.out.println(color);
-                            }
-                            if(rectangularInBounds(x,y, (int)(0.2144188937228092*getWidth()),(int)(0.27967681789931637*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
-                                color = "green";
-                                System.out.println(color);
-                            }
-                            if(rectangularInBounds(x,y, (int)(0.2865133623368552*getWidth()),(int)(0.3449347420758235*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
-                                color = "blue";
-                                System.out.println(color);
-                            }
-                            if(rectangularInBounds(x,y, (int)(0.35487880671224364*getWidth()),(int)(0.4170292106898695*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
-                                color = "pink";
-                                System.out.println(color);
-                            }
-                            if(rectangularInBounds(x,y, (int)(0.4244872591671846*getWidth()),(int)(0.4829086389061529*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
-                                color = "white";
-                                System.out.println(color);
-                            }
-                            if(rectangularInBounds(x,y, (int)(0.4916096954630205*getWidth()),(int)(0.5550031075201989*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
-                                color = "black";
-                                System.out.println(color);
-                            }
-                            if(rectangularInBounds(x,y, (int)(0.5587321317588564*getWidth()),(int)(0.6246115599751398*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
-                                color = "wild";
-                                System.out.println(color);
+                            if (colorPicked(x, y) != null)
+                            {
+                                color = colorPicked(x, y);
                             }
                             
                                 
@@ -738,13 +710,15 @@ public class T2RPanel extends JPanel implements MouseListener{
             
              
 
-             else if (turnState == 4) //building station
+             else if (turnState == 4) //building station 
             {
                 if (rectangularInBounds(x, y, (int)(0.86575 * getWidth()), (int)(0.96575 * getWidth()), (int) (0.722009 * getHeight()), (int) (0.822009 * getHeight())))
                 {
                     System.out.println("back button clicked");
                     buildStationCity = null;
+                    buildStationState = 0;
                     turnState = 0;
+                    ColorsPaid.clear();
                     repaint();
                     return;
                 }
@@ -766,9 +740,54 @@ public class T2RPanel extends JPanel implements MouseListener{
                 if (buildStationCity != null)
                 {
                 System.out.println("The selected city is " + buildStationCity.getName());
-                }
                 
-               if (rectangularInBounds(x, y, (int) (0.865133 * getWidth()), (int) (0.9645 * getWidth()), (int) (0.87200 * getHeight()), (int) (0.97009 * getHeight())))
+
+                   buildStationState = 1;
+                }
+                if (buildStationState == 1) // pay for station here
+                {
+                    System.out.println("help me");
+                    for (String s: ColorsPaid)
+                    {
+                        System.out.println("Colories");
+                        System.out.println(s);
+                    }
+                    
+                    int price = 4 - getCurrentPlayer().getNumTrainStations();
+                    
+                            if (ColorsPaid.size() < price)
+                            {
+                                System.out.println("entered the while loop");
+                            if (colorPicked(x, y) != null)
+                            {
+                               if (getCurrentPlayer().getTrainCards().get(colorPicked(x,y)) > 0)
+                               {
+                                System.out.println("Okay, you can do this");
+                               }
+                               else
+                               {
+                                System.out.println("too broke");
+                                return;
+                               }
+
+                                buildStationColor = colorPicked(x, y);
+                                System.out.println("======================= " + buildStationColor);
+                                ColorsPaid.add(buildStationColor);
+                                buildStationColor =null;
+                            }
+                        }
+
+                        if (ColorsPaid.size() == price)
+                        {
+                            System.out.println("Cost satisfied");
+                            buildStationState =2;
+                        }
+                    }
+
+            if (buildStationState == 2)
+            {
+
+                if (rectangularInBounds(x, y, (int) (0.865133 * getWidth()), (int) (0.9645 * getWidth()), (int) (0.87200 * getHeight()), (int) (0.97009 * getHeight())))
                 {
                     System.out.println("end turn clicked");
                     if (buildStationCity != null)
@@ -790,10 +809,18 @@ public class T2RPanel extends JPanel implements MouseListener{
                         }
                     }
                     buildStationCity = null;
+                    ColorsPaid.clear();
                     getCurrentPlayer().decrementTrainStations();
+
                     gameAccess.incrementTurn();
                     }
                 }
+
+
+
+
+
+            }
             }
                
             
@@ -1076,7 +1103,7 @@ public class T2RPanel extends JPanel implements MouseListener{
 
     }//train card picking
 
-    public void buildStationUI(Graphics g)
+    public void buildStationUI(Graphics g) 
     {
         System.out.println("We are printing...");
 
@@ -1139,7 +1166,49 @@ public class T2RPanel extends JPanel implements MouseListener{
         return null;
     }//CityDetector
 
-    Player getCurrentPlayer(){
+    public Player getCurrentPlayer(){
         return gameAccess.getPlayers().get(gameAccess.getPlayerTurn() - 1);
+    }
+
+    public String colorPicked(double x, double y)
+    {
+        String color = null;
+        if(rectangularInBounds(x,y, (int)(0.008079552517091361*getWidth()),(int)(0.07022995649471722*getWidth()), (int)(0.7523923444976076*getHeight()),(int)(0.9784688995215312*getHeight()))) {
+            color = "red";
+            System.out.println(color);
+    }
+    if(rectangularInBounds(x,y, (int)(0.0783095090118*getWidth()),(int)(0.139838649471722*getWidth()), (int)(0.74521531*getHeight()),(int)(0.9760765550239234*getHeight()))) {
+        color = "orange";
+        System.out.println(color);
+    }
+    if(rectangularInBounds(x,y, (int)(0.1485394655065258*getWidth()),(int)(0.2113113735239279*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
+        color = "yellow";
+        System.out.println(color);
+    }
+    if(rectangularInBounds(x,y, (int)(0.2144188937228092*getWidth()),(int)(0.27967681789931637*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
+        color = "green";
+        System.out.println(color);
+    }
+    if(rectangularInBounds(x,y, (int)(0.2865133623368552*getWidth()),(int)(0.3449347420758235*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
+        color = "blue";
+        System.out.println(color);
+    }
+    if(rectangularInBounds(x,y, (int)(0.35487880671224364*getWidth()),(int)(0.4170292106898695*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
+        color = "pink";
+        System.out.println(color);
+    }
+    if(rectangularInBounds(x,y, (int)(0.4244872591671846*getWidth()),(int)(0.4829086389061529*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
+        color = "white";
+        System.out.println(color);
+    }
+    if(rectangularInBounds(x,y, (int)(0.4916096954630205*getWidth()),(int)(0.5550031075201989*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
+        color = "black";
+        System.out.println(color);
+    }
+    if(rectangularInBounds(x,y, (int)(0.5587321317588564*getWidth()),(int)(0.6246115599751398*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
+        color = "wild";
+        System.out.println(color);
+    }
+    return color;
     }
 }//class TR2PAnel
