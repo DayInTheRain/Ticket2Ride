@@ -116,7 +116,7 @@ public class MapGraph {
 			trainNum = r.getNumTrains();
 			City city1 = r.getFirstCity();
 			City city2 = r.getFirstCity();
-			roadList.removeFirst();
+			//roadList.removeFirst();
 
 			boolean endOfSection = false;
 
