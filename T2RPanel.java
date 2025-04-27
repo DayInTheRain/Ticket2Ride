@@ -787,7 +787,11 @@ public class T2RPanel extends JPanel implements MouseListener{
                     repaint();
                     return;
                 }
-
+                if (getCurrentPlayer().getNumTrainStations() == 0)
+                {
+                    System.out.println("Sorry, you don't have any stations left to build");
+                    return;
+                }
                
                 System.out.println("building a station");
                 if ( CityDetector(x,y) != null && CityDetector(x, y).getStation() != 0)
@@ -825,6 +829,8 @@ public class T2RPanel extends JPanel implements MouseListener{
                         }
                     }
                     buildStationCity = null;
+                    getCurrentPlayer().decrementTrainStations();
+                    gameAccess.incrementTurn();
                     }
                 }
             }
