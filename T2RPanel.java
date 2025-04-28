@@ -89,16 +89,10 @@ public class T2RPanel extends JPanel implements MouseListener{
         destinationTicket1 = null;
         destinationTicket2 = null;
         destinationTicket3 = null;
-<<<<<<< HEAD
         //isgrey = false;
         //colorChoosen = "";
-        
-=======
-        isgrey = false;
-        colorChoosen = "";
         buildStationColor = null;
         ColorsPaid = new ArrayList<String>();
->>>>>>> a48a9f798836c5980bcd26dba1bf295888f83c7c
         boolean destinationTicket1Selected = false;
         boolean destinationTicket2Selected = false;
         boolean destinationTicket3Selected = false;
