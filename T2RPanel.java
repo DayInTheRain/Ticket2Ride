@@ -1282,7 +1282,7 @@ public class T2RPanel extends JPanel implements MouseListener{
     {
         System.out.println("We are printing...");
 
-        g.drawString("Pick one city to build a station on", (int) (0.637041 * getWidth()), (int) (0.04784 * getHeight()));
+        g.drawString("First, pick your city. Then, pick the cards.", (int) (0.637041 * getWidth()), (int) (0.04784 * getHeight()));
 
         g.drawString("Selected City: ", (int) (0.637041 * getWidth()), (int) (0.09784 * getHeight()));
 
