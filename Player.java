@@ -131,10 +131,20 @@ public class Player {
     }
 
     public Color getColor(){
+        Color c;
         switch (playerNum) {
             case 1:
-                //return Color.getHSBColor();
-            
+                c = new Color(50, 168, 82); //green
+                return  c;
+            case 2:
+                c = new Color(176, 26, 26); //red
+                return  c;
+            case 3:
+                c = new Color(232, 195, 9); //yellow
+                return  c;
+            case 4:
+                c = new Color(31, 31, 171); // blue
+                return  c;
             default:
                 return Color.gray;
         }
