@@ -1,3 +1,4 @@
+import java.nio.file.PathMatcher;
 import java.util.ArrayList;
 
 public class MainTesting {
@@ -40,21 +41,27 @@ public class MainTesting {
 
         //System.out.println(railroadList.get(1));
 
-        int europeanExpress = mapT.dfSearch(railroadList, r);
-        System.out.println(europeanExpress);
+        // int europeanExpress = mapT.dfSearch(railroadList, r);
+        // System.out.println(europeanExpress);
+
+        // System.out.println();
+        // System.out.println("Tryng to get Longest railroad from player");
+        // game.getPlayers().get(0);
+
+        // for (Railroad tempRailroad : railroadList){
+        //     tempRailroad.claim(game.getPlayers().get(0));
+        //     System.out.println(game.getPlayers().get(0).getRailroadList());
+        // }
+
+        // int maxOfPlayer0 = mapT.longestRailroadOfPlayer(game.getPlayers().get(0));
+        // System.out.println(maxOfPlayer0);
 
         System.out.println();
-        System.out.println("Tryng to get Longest railroad from player");
-        game.getPlayers().get(0);
-
-        for (Railroad tempRailroad : railroadList){
-            tempRailroad.claim(game.getPlayers().get(0));
-            System.out.println(game.getPlayers().get(0).getRailroadList());
-        }
-
-        int maxOfPlayer0 = mapT.longestRailroadOfPlayer(game.getPlayers().get(0));
-        System.out.println(maxOfPlayer0);
-
+        System.out.println("trying to get other railroad");
+        Railroad dr1 = mapT.getRailroad(mapT.getCity("PAM"), mapT.getCity("PAR"));
+        Railroad dr2 = dr1.getSisterRailroad();
+        System.out.println(dr1);
+        System.out.println(dr2);
     }//main ends
 }//class ends
 
