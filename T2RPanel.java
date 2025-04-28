@@ -8,6 +8,7 @@ public class T2RPanel extends JPanel implements MouseListener{
     Image t2r_map;
     Image rules1;
     Image rules2;
+    Image endscreen;
     Image station, train;
     int gameState;
     int turnState;
@@ -48,6 +49,9 @@ public class T2RPanel extends JPanel implements MouseListener{
     int buildStationState;
     String buildStationColor;
    
+    //ending game
+    boolean isEnd;
+    
 
     Font origionalFont;
 
@@ -57,6 +61,7 @@ public class T2RPanel extends JPanel implements MouseListener{
     {
         gameAccess = new Game();
         gameState = 0;
+        //END TURN NOT FINISHED (GAMESTATE = 2)
         turnState = 0;
         tunnel = false;
         canPurchaseTunnel = false;
@@ -84,6 +89,7 @@ public class T2RPanel extends JPanel implements MouseListener{
         rules2 = ImageLoader.get("/Images/rules2.jpg");
         station = ImageLoader.get("/Images/station.png");
         train = ImageLoader.get("/Images/train.png");
+        endscreen = ImageLoader.get("/Images/end screen.jpg");
         city1 = null;
         city2 = null;
         destinationTicket1 = null;
@@ -96,6 +102,7 @@ public class T2RPanel extends JPanel implements MouseListener{
         boolean destinationTicket1Selected = false;
         boolean destinationTicket2Selected = false;
         boolean destinationTicket3Selected = false;
+        isEnd = false;
     }
 
     public void generateTicketsOnScreen(){
@@ -164,6 +171,12 @@ public class T2RPanel extends JPanel implements MouseListener{
 
 
                  //the drawn stations are permanent changes to the map.
+            }
+            else if(gameState == 2) {
+            // endscreen
+            	g.drawImage(endscreen, 0, 0, (int)(getWidth()), (int)(getHeight()), null);
+            	endGame(g);
+            	
             }
         }
 
@@ -1337,5 +1350,74 @@ public class T2RPanel extends JPanel implements MouseListener{
             System.out.println(color);
         }
         return color;
+    }
+    public void endGame(Graphics g) {
+    	Player first;
+    	Player second;
+    	Player third;
+    	Player fourth;
+    	first = getCurrentPlayer();
+    	second = first;
+    	third = second;
+    	fourth = third;
+    	for(Player x : gameAccess.getPlayers()) {
+    		if(first.getPoints()<x.getPoints())
+    			first = x;
+    		else if(first.getPoints() == x.getPoints()) {
+    			if(first.getTickets().size()< x.getTickets().size()) 
+    				first = x;	
+    		}
+    		else if(second.getPoints()<x.getPoints())
+    			second = x;
+    		else if(second.getPoints() == x.getPoints()) {
+    			if(second.getTickets().size()< x.getTickets().size()) 
+    				second = x;	
+    		}
+    		else if(third.getPoints()<x.getPoints())
+    			third = x;
+    		else if(third.getPoints() == x.getPoints()) {
+    			if(third.getTickets().size()< x.getTickets().size()) 
+    				third = x;	
+    		}
+    		else
+    			fourth = x;
+    	}
+    	
+    	// NOT DONE
+    		
+    	first = getCurrentPlayer();
+    	second = getCurrentPlayer();
+    	third  = getCurrentPlayer();
+    	fourth  = getCurrentPlayer();
+    	
+    	
+    	Font font = new Font("Monospaced", Font.PLAIN, Math.abs((int)( 0.20947416762342135*getHeight() -  0.16991963260619977*getHeight()))); 
+    	g.setFont(font);
+    	g.drawString("Player " +first.getPlayerNum(),(int)(0.0853079552517091361*getWidth()),(int)( 0.3908133971291866*getHeight()));
+    	g.drawString("Player " +second.getPlayerNum(),(int)(0.331541330018645*getWidth()),(int)( 0.5418660287081339*getHeight()));
+    	g.drawString("Player " +third.getPlayerNum(),(int)(0.6026041666666667*getWidth()),(int)( 0.6188200589970502*getHeight()));
+    	g.drawString("Player " +fourth.getPlayerNum(),(int)(0.8344791666666667*getWidth()),(int)( 0.7887610619469026*getHeight()));
+    	
+    	g.drawString("Points: "+first.getPoints(),(int)(0.08633312616532007*getWidth()),(int)( 0.5143540669856459*getHeight()));
+    	g.drawString("Points: "+second.getPoints(),(int)(0.331541330018645*getWidth()),(int)( 0.618421052631579*getHeight()));
+    	g.drawString("Points: "+third.getPoints(),(int)(0.6026041666666667*getWidth()),(int)( 0.7105263157894737*getHeight()));
+    	g.drawString("Points: "+fourth.getPoints(),(int)(0.8344791666666667*getWidth()),(int)( 0.8444976076555024*getHeight()));
+    	
+    	g.drawString("Click for",(int)(0.08633312616532007*getWidth()),(int)( 0.6303827751196173*getHeight()));
+    	g.drawString("breakdown",(int)(0.08633312616532007*getWidth()),(int)( 0.6674641148325359*getHeight()));
+    	g.drawRect((int)(0.09384711000621504*getWidth()),(int)(0.7476076555023924*getHeight()),(int)(0.18272218769422002*getWidth())-(int)(0.09384711000621504*getWidth()),(int)(0.8074162679425837*getHeight())-(int)(0.7476076555023924*getHeight()));
+    	
+    	g.drawString("Click for",(int)(0.331541330018645*getWidth()),(int)( 0.6901913875598086*getHeight()));
+    	g.drawString("breakdown",(int)(0.331541330018645*getWidth()),(int)( 0.7234528347329473*getHeight()));
+    	g.drawRect((int)(0.341541330018645*getWidth()),(int)(0.7990430622009569*getHeight()),(int)(0.42272218769422002*getWidth())-(int)(0.331541330018645*getWidth()),(int)(0.8582384782*getHeight())-(int)(0.7990430622009569*getHeight()));
+    	
+    	g.drawString("Click for",(int)(0.6026041666666667*getWidth()),(int)( 0.7691387559808612*getHeight()));
+    	g.drawString("breakdown",(int)(0.6026041666666667*getWidth()),(int)( 0.802354456*getHeight()));
+    	g.drawRect((int)(0.6128589185829708*getWidth()),(int)(0.8564593301435407*getHeight()),(int)(0.704164077066501*getWidth())-(int)(0.6128589185829708*getWidth()),(int)(0.9127751196172249*getHeight())-(int)(0.8564593301435407*getHeight()));
+    	
+    	g.drawString("Click for",(int)(0.8344791666666667*getWidth()),(int)( 0.8820095693779905*getHeight()));
+    	g.drawString("breakdown",(int)(0.8344791666666667*getWidth()),(int)( 0.9120095693779905*getHeight()));
+    	g.drawRect((int)(0.84000*getWidth()),(int)(0.9413875598086124*getHeight()),(int)(0.93324654*getWidth())-(int)(0.8400000*getWidth()),(int)(0.9900000*getHeight())-(int)(0.9413875598086124*getHeight()));
+    	
     }
 }//class TR2PAnel
