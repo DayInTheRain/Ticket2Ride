@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.util.*;
 public class Player {
     private int playerNum, points, trainStations, trains, turnStatus, turnState;
@@ -127,5 +128,15 @@ public class Player {
 
     public String toString(){
         return "Player " + getPlayerNum();
+    }
+
+    public Color getColor(){
+        switch (playerNum) {
+            case 1:
+                //return Color.getHSBColor();
+            
+            default:
+                return Color.gray;
+        }
     }
 }//class Player

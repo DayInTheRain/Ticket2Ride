@@ -1,9 +1,9 @@
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
-
+import java.util.*;
 import javax.swing.*;
+
 public class T2RPanel extends JPanel implements MouseListener{
     Image trainBG;
     Image t2r_map;
@@ -12,7 +12,6 @@ public class T2RPanel extends JPanel implements MouseListener{
     Image station, train;
     int gameState;
     int turnState;
-    
     
     JButton startbutton;
     JButton rulesbutton;
@@ -150,16 +149,23 @@ public class T2RPanel extends JPanel implements MouseListener{
                 else if(turnState == -10){
                     paintTicketChoosing(g);
                 }// choosing ticket screen
-
-
                  //the drawn stations are permanent changes to the map.
             }
         }
 
     }//end of paint
 
+    private void paintClaimedRailroads(Graphics g){
+        for(Player p : gameAccess.getPlayers()){
+            for(Railroad r : p.getRailroadList()){
+                g.setColor(getBackground());
+                g.drawOval( (int)r.getCoords()[0] * getWidth(), (int)r.getCoords()[1] * getHeight(), 5, 5);
+            }
+        }
+    }//paintalimedRailroads
+
     public void paintTicketChoosing(Graphics g){
-        g.setColor(Color.WHITE);
+        g.setColor(Color.white);
         g.fillRect(0, 0, getWidth(), getHeight());
 
         g.setColor(Color.BLACK);
@@ -287,7 +293,6 @@ public class T2RPanel extends JPanel implements MouseListener{
 
             
             }  
-  
         }//gamestate == 0
 
         if(viewingTickets){
@@ -337,7 +342,6 @@ public class T2RPanel extends JPanel implements MouseListener{
             }
 
             
-
             else if (turnState ==0)
             {
                 if (rectangularInBounds(x, y, (int)(0.70711*getWidth()), (int)(0.80711*getWidth()), (int)(0.500000*getHeight()),  (int)(0.550000*getHeight())))
@@ -369,9 +373,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                         turnState = 4;
                  }
 
-                
-
-           
+       
              }
 
              else if (turnState == 1)
@@ -407,9 +409,6 @@ public class T2RPanel extends JPanel implements MouseListener{
                     else
                     	city2 = null;
                     	System.out.println("Cities are not connected");
-                    
-
-
 
                 }
 
