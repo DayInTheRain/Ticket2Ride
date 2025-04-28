@@ -792,6 +792,12 @@ public class T2RPanel extends JPanel implements MouseListener{
                     buildStationState = 0;
                     turnState = 0;
                     buildStationColor = null;
+                    for (String s: ColorsPicked)
+                    {
+                        int coloramt = getCurrentPlayer().getTrainCards().get(s) +1;
+                                        getCurrentPlayer().getTrainCards().put(s,  coloramt );
+                    }
+                    ColorsPicked.clear();
                     repaint();
                     return;
                 }
@@ -822,55 +828,79 @@ public class T2RPanel extends JPanel implements MouseListener{
                     
                    
                     int price = 4 - getCurrentPlayer().getNumTrainStations();
-                  if (buildStationColor == null)
-
+                 
                    {
-                            if (colorPicked(x, y) != null)
+                    
+                        if (ColorsPicked.size() == price)
+                        {
+                            buildStationState = 2;
+                            System.out.println("cost met");
+                        }
+                        else if (colorPicked(x, y) != null)
                             {
-                                if (getCurrentPlayer().getTrainCards().get(colorPicked(x, y)) > 0)
-                               ColorsPicked.add(colorPicked(x, y));
-                               int coloramt = getCurrentPlayer().getTrainCards().get(colorPicked(x, y)) -1;
-                               getCurrentPlayer().getTrainCards().put(colorPicked(x, y),  coloramt );
+                                if (getCurrentPlayer().getTrainCards().get(colorPicked(x, y)) == 0)
+                                {
+                                    System.out.println("too broke");
+                                }
+                                else if (colorPicked(x, y).equals("wild"))
+                                {
+                                    ColorsPicked.add(colorPicked(x, y));
+                                    int coloramt = getCurrentPlayer().getTrainCards().get(colorPicked(x, y)) -1;
+                                    getCurrentPlayer().getTrainCards().put(colorPicked(x, y),  coloramt );
+                                }
+                               else if (ColorsPicked.size() == 0)
+                               { 
+                                System.out.println("hello please work");
+                                ColorsPicked.add(colorPicked(x, y));
+
+                                int coloramt = getCurrentPlayer().getTrainCards().get(colorPicked(x, y)) -1;
+                                getCurrentPlayer().getTrainCards().put(colorPicked(x, y),  coloramt );
+                                }
+                                else
+                                {
+                                    boolean onlyOneColor = true;
+                                    for (String s:ColorsPicked)
+                                    {
+                                        if (! s.equals("wild"))
+                                        {
+                                            System.out.println("we entered");
+                                            if (! s.equals(colorPicked(x,y)))
+                                            {
+                                                System.out.println(s +" is not equal to " +colorPicked(x, y));
+                                                onlyOneColor = false;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            System.out.println("It is wild");
+                                        }
+
+                                       
+                                        
+                                    }
+                                    if (onlyOneColor)
+                                    {
+                                        System.out.println("the color we are adding is" + colorPicked(x, y));
+                                        ColorsPicked.add(colorPicked(x, y));
+                                        int coloramt = getCurrentPlayer().getTrainCards().get(colorPicked(x, y)) -1;
+                                        getCurrentPlayer().getTrainCards().put(colorPicked(x, y),  coloramt );
+                                    }
+
+
+                                   
+
+                                }
+                               
+                               
 
                             } 
                 }
-                      /*      if (ColorsPaid.size() < price)
-                            {
-                               
-                            if (colorPicked(x, y) != null)
-                            {
-                               if (getCurrentPlayer().getTrainCards().get(colorPicked(x,y)) > 0)
-                               {
-                                System.out.println("Okay, you can do this");
-                               }
-                               else
-                               {
-                                System.out.println("too broke");
-                                return;
-                               }
-
-                                buildStationColor = colorPicked(x, y);
-                                System.out.println("======================= " + buildStationColor);
-                                ColorsPaid.add(buildStationColor);
-                                buildStationColor =null;
-                            }
-                        }
-
-                        if (ColorsPaid.size() == price)
-                        {
-                            System.out.println("Cost satisfied");
-                            buildStationState =2;
-                        }  */
+                    
                     }
 
                    if (buildStationState == 2)
                     {
-                        int coloredCardPicked = 0;
-                        if (colorPicked(x, y).equals(buildStationColor))
-                        {
-                            coloredCardPicked++;
-                        }
-                        System.out.println("ColoredCArd Picked" + coloredCardPicked);
+                       
                     }
             if (buildStationState == 2)
             {
@@ -897,7 +927,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                         }
                     }
                     buildStationCity = null;
-                    buildStationColor = null;
+                    ColorsPicked.clear();
                     getCurrentPlayer().decrementTrainStations();
 
                     gameAccess.incrementTurn();
@@ -1247,14 +1277,10 @@ public class T2RPanel extends JPanel implements MouseListener{
          }
          int increment = (int) (0.07*getWidth());
 
-         for (String s: ColorsPicked)
+        if (ColorsPicked.size() >0)
          {
-            
-
-
-
+            g.drawString(ColorsPicked.toString(), (int) (0.637041 * getWidth()), (int) (0.19784 * getHeight()));
          }
-
 
     }
 
