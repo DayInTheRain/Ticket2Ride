@@ -82,12 +82,23 @@ public class MapGraph {
 	}
 	*/
 	
-
 	public HashMap<String, City> getCities() {
 		return cities;
 	}
 	public HashMap<String,Railroad> getRailroads() {
 		return railroads;
+	}
+	
+	public Railroad getRailroad(City c1, City c2, String color){
+		Railroad r;
+		if(c1.getName().compareTo(c2.getName()) < 0){
+			r = getRailroad(c1, c2);
+		} else{
+			r = getRailroad(c2, c1);
+		}
+
+		r.getSisterRailroad(color);
+		return r;
 	}
 	
 	public int numTrains(Railroad x) {
@@ -103,7 +114,7 @@ public class MapGraph {
 		return longest;
 	}
 
-	// NOT WORKING YET
+	/* // NOT WORKING YET
 	public int longestRailroadOfPlayer(Player p){
 		int trainNum = 0;
 		int maxTrainNum = trainNum;
@@ -144,7 +155,9 @@ public class MapGraph {
 
 		return maxTrainNum;
 	}//longestRailroadOFPlayer
+	*/
 
+	/* //NOT WORKING s
 	public int dfSearch(ArrayList<Railroad> list, Railroad start){
 
 
@@ -195,7 +208,7 @@ public class MapGraph {
 		}
 		return claimed;
 	}
-
+	*/
 	
 
 	public String railroadExists(City fCity, City sCity){

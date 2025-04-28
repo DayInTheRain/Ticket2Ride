@@ -129,6 +129,7 @@ public class T2RPanel extends JPanel implements MouseListener{
             //g.drawImage(trainBG, 0, 0, getWidth(), getHeight(), null);
             else if (gameState == 1){
                 g.drawImage(t2r_map, 0, 0, (int)(getWidth() * 0.6), (int)(getHeight()  * 0.7) ,null);
+                paintClaimedRailroads(g); //paints the claimed railroads in the color of the player
                 paintPlayerHand(g); //paints the player whos turn it is
                 if (turnState ==0)
                 {
@@ -168,10 +169,11 @@ public class T2RPanel extends JPanel implements MouseListener{
     }//end of paint
 
     private void paintClaimedRailroads(Graphics g){
+        int radius = 10;
         for(Player p : gameAccess.getPlayers()){
             for(Railroad r : p.getRailroadList()){
-                g.setColor(getBackground());
-                g.drawOval( (int)r.getCoords()[0] * getWidth(), (int)r.getCoords()[1] * getHeight(), 5, 5);
+                g.setColor(p.getColor());
+                g.fillOval( (int)(r.getCoords()[0] * getWidth()) - radius, (int)(r.getCoords()[1] * getHeight()) - radius, radius*2, radius*2);
             }
         }
     }//paintalimedRailroads
