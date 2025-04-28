@@ -3,9 +3,5 @@ public class T2RRunner {
     {
             T2RFrame gameFrame = new T2RFrame("Ticket to Ride");
 
-
-
-
-
     }
 }
