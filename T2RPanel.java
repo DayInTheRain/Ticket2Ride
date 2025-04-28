@@ -951,6 +951,10 @@ public class T2RPanel extends JPanel implements MouseListener{
                         }
                     }
                     buildStationCity = null;
+                    for (String s: ColorsPicked)
+                    {
+                        gameAccess.discardTrainCard(new TrainCard(s));
+                    }
                     ColorsPicked.clear();
                     getCurrentPlayer().decrementTrainStations();
 
