@@ -139,4 +139,9 @@ public class Player {
                 return Color.gray;
         }
     }
+
+    public void decrementTrainStations()
+    {
+        trainStations = trainStations -1;
+    }
 }//class Player
