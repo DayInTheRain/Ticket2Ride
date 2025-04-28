@@ -36,12 +36,15 @@ public class MapGraph {
 
 			System.out.println(r);
 
-			City foundCity = cities.get(r.getFirst());
-			foundCity.addRoute(r);
-			System.out.println("found first city: " + foundCity);
-			foundCity = cities.get(r.getSecond());
-			foundCity.addRoute(r);
-			System.out.println("found second city: " + foundCity);
+			City foundCity1 = cities.get(r.getFirst());
+			foundCity1.addRoute(r);
+			System.out.println("found first city: " + foundCity1);
+
+			City foundCity2 = cities.get(r.getSecond());
+			foundCity2.addRoute(r);
+			System.out.println("found second city: " + foundCity2);
+
+			r.setCities(foundCity1, foundCity2);
 		}
 	}//connectGraph
 
