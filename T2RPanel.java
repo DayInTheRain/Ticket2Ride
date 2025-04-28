@@ -47,12 +47,12 @@ public class T2RPanel extends JPanel implements MouseListener{
     City buildStationCity;
     int buildStationState;
     String buildStationColor;
-    ArrayList<String> ColorsPaid;
+   
 
     Font origionalFont;
 
     Graphics g;
-
+    ArrayList<String> ColorsPicked;
     public T2RPanel()
     {
         gameAccess = new Game();
@@ -92,7 +92,7 @@ public class T2RPanel extends JPanel implements MouseListener{
         //isgrey = false;
         //colorChoosen = "";
         buildStationColor = null;
-        ColorsPaid = new ArrayList<String>();
+        ColorsPicked = new ArrayList<String>();
         boolean destinationTicket1Selected = false;
         boolean destinationTicket2Selected = false;
         boolean destinationTicket3Selected = false;
@@ -303,7 +303,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                 {
                     System.out.println("start game");
                     gameState = 1;
-                  turnState = -10;
+                  //turnState = -10;
                     repaint();
                 }
 
@@ -820,7 +820,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                     buildStationCity = null;
                     buildStationState = 0;
                     turnState = 0;
-                    ColorsPaid.clear();
+                    buildStationColor = null;
                     repaint();
                     return;
                 }
@@ -848,18 +848,24 @@ public class T2RPanel extends JPanel implements MouseListener{
                 }
                 if (buildStationState == 1) // pay for station here
                 {
-                    System.out.println("help me");
-                    for (String s: ColorsPaid)
-                    {
-                        System.out.println("Colories");
-                        System.out.println(s);
-                    }
                     
+                   
                     int price = 4 - getCurrentPlayer().getNumTrainStations();
-                    
-                            if (ColorsPaid.size() < price)
+                  if (buildStationColor == null)
+
+                   {
+                            if (colorPicked(x, y) != null)
                             {
-                                System.out.println("entered the while loop");
+                                if (getCurrentPlayer().getTrainCards().get(colorPicked(x, y)) > 0)
+                               ColorsPicked.add(colorPicked(x, y));
+                               int coloramt = getCurrentPlayer().getTrainCards().get(colorPicked(x, y)) -1;
+                               getCurrentPlayer().getTrainCards().put(colorPicked(x, y),  coloramt );
+
+                            } 
+                }
+                      /*      if (ColorsPaid.size() < price)
+                            {
+                               
                             if (colorPicked(x, y) != null)
                             {
                                if (getCurrentPlayer().getTrainCards().get(colorPicked(x,y)) > 0)
@@ -883,9 +889,18 @@ public class T2RPanel extends JPanel implements MouseListener{
                         {
                             System.out.println("Cost satisfied");
                             buildStationState =2;
-                        }
+                        }  */
                     }
 
+                   if (buildStationState == 2)
+                    {
+                        int coloredCardPicked = 0;
+                        if (colorPicked(x, y).equals(buildStationColor))
+                        {
+                            coloredCardPicked++;
+                        }
+                        System.out.println("ColoredCArd Picked" + coloredCardPicked);
+                    }
             if (buildStationState == 2)
             {
 
@@ -911,7 +926,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                         }
                     }
                     buildStationCity = null;
-                    ColorsPaid.clear();
+                    buildStationColor = null;
                     getCurrentPlayer().decrementTrainStations();
 
                     gameAccess.incrementTurn();
@@ -1230,6 +1245,8 @@ public class T2RPanel extends JPanel implements MouseListener{
 
         g.drawString("Selected City: ", (int) (0.637041 * getWidth()), (int) (0.09784 * getHeight()));
 
+        g.drawString("Selected Color: ", (int) (0.637041 * getWidth()), (int) (0.14784 * getHeight()));
+
         // end turn button
         g.setColor(Color.black);
         g.drawRect((int) (0.86575 * getWidth()), (int) (0.872009 * getHeight()), (int)(getWidth()*0.1), (int)(getHeight()*0.1)); // end turn button
@@ -1237,7 +1254,7 @@ public class T2RPanel extends JPanel implements MouseListener{
 
 
         g.drawRect((int) (0.86575 * getWidth()), (int) (0.722009 * getHeight()), (int)(getWidth()*0.1), (int)(getHeight()*0.1)); // back button
-        g.drawString("Go back", (int) (0.8775 * getWidth()), (int) (0.75209 * getHeight()));
+        g.drawString("Go back/Clear", (int) (0.8775 * getWidth()), (int) (0.75209 * getHeight()));
       
         if (buildStationCity != null)
         {
@@ -1245,6 +1262,21 @@ public class T2RPanel extends JPanel implements MouseListener{
         g.setColor(Color.green);
             g.fillOval( (int) (buildStationCity.getCoords()[0] * getWidth() * 0.6 * 205 / 154.792222) - (int)(getWidth()*0.025)/2, (int)(buildStationCity.getCoords()[1] * getHeight() * 0.7 * 172 / 133.694) - (int)(getHeight()* 0.04)/2, (int)(getWidth()*0.025), (int)(getHeight()* 0.04) );
             g.setColor(Color.black);
+         }
+
+         if (buildStationColor != null)
+         {
+            System.out.println("We're in, and the buildstation color is" + buildStationColor);
+            g.drawString(buildStationColor, (int) (0.726041 * getWidth()), (int) (0.14784 * getHeight()));
+         }
+         int increment = (int) (0.07*getWidth());
+
+         for (String s: ColorsPicked)
+         {
+            
+
+
+
          }
 
 
