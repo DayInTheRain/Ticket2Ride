@@ -22,7 +22,7 @@ public class T2RPanel extends JPanel implements MouseListener{
     City city1;
     City city2;
     ArrayList<TrainCard> tunnelCards;
-    //boolean isgrey;
+    boolean isgrey;
     //String colorChoosen;
     boolean tunnel;
     boolean canPurchaseTunnel;
@@ -268,9 +268,9 @@ public class T2RPanel extends JPanel implements MouseListener{
         int numWild = railroad.getNumWild();
         int num = railroad.getNumTrains();
         if(color == null){
-            String color = railroad.getColor();
+            color = railroad.getColor();
         }
-        if(color != null){
+        if(color != null && !color.equals("grey")){
             int numOfColor = getCurrentPlayer().getTrainCards().get(color);
             int numOfWild  = getCurrentPlayer().getTrainCards().get("wild");
             int numWildForUse = numOfWild-numWild;
@@ -445,11 +445,11 @@ public class T2RPanel extends JPanel implements MouseListener{
                 {
                     city2 = CityDetector(x, y);
                     
-                    if (city2 != null & !gameAccess.getMap().railroadExists(city1, city2).equals("false"))
+                    if (city2 != null && !gameAccess.getMap().railroadExists(city1, city2).equals("false"))
                     {
                         claimRouteState = 2;
                         Railroad r = gameAccess.getMap().getRailroad(city1, city2);
-                        if(r.isTunnel() && r.getPlayer() == null && canPurchase()){
+                        if(r.isTunnel() && r.getPlayer() == null /*&& canPurchase()*/){ //uncomment that little thing
                             claimRouteState = 3;
                             tunnel = true;
                             generateTunnelCards();
@@ -459,15 +459,15 @@ public class T2RPanel extends JPanel implements MouseListener{
                     else
                     	city2 = null;
                     	System.out.println("Cities are not connected");
-                    
-
-
 
                 }
 
                 else if (claimRouteState == 2)
                 {
+                    System.out.println("Claim route state 2");
                 	 Railroad railroad = gameAccess.getMap().getRailroad(city1, city2);
+                     if(railroad.getColor().equals("grey"))
+                        isgrey = true;
                      int num = 0;
                      int numWild = 0;
                      if(railroad.getPlayer()==null) {
@@ -538,6 +538,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                                     claimRouteState = 0;
                                     turnState = 0;
                                     color = null;
+                                    isgrey = false;
                                     for(TrainCard t: cardsToDiscard)
                                         gameAccess.discardTrainCard(t); 
                             
@@ -551,59 +552,25 @@ public class T2RPanel extends JPanel implements MouseListener{
             
                      
              else if(claimRouteState == 3){
+                System.out.println("Claim route state 3");
                 Railroad railroad = gameAccess.getMap().getRailroad(city1, city2);
                 int num = 0;
                 int numWild = 0;
-                if(railroad.getPlayer()==null) {
-                   numWild = railroad.getNumWild();
-                   num = railroad.getNumTrains();
-                   if(color == null)
-                       color = railroad.getColor();
-                   
-                   System.out.println(color);
-                   if(railroad.getColor().equals("grey")) {
-                       System.out.println("grey train");
-                       if(rectangularInBounds(x,y, (int)(0.008079552517091361*getWidth()),(int)(0.07022995649471722*getWidth()), (int)(0.7523923444976076*getHeight()),(int)(0.9784688995215312*getHeight()))) {
-                               color = "red";
-                               System.out.println(color);
-                       }
-                       if(rectangularInBounds(x,y, (int)(0.0783095090118*getWidth()),(int)(0.139838649471722*getWidth()), (int)(0.74521531*getHeight()),(int)(0.9760765550239234*getHeight()))) {
-                           color = "orange";
-                           System.out.println(color);
-                       }
-                       if(rectangularInBounds(x,y, (int)(0.1485394655065258*getWidth()),(int)(0.2113113735239279*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
-                           color = "yellow";
-                           System.out.println(color);
-                       }
-                       if(rectangularInBounds(x,y, (int)(0.2144188937228092*getWidth()),(int)(0.27967681789931637*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
-                           color = "green";
-                           System.out.println(color);
-                       }
-                       if(rectangularInBounds(x,y, (int)(0.2865133623368552*getWidth()),(int)(0.3449347420758235*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
-                           color = "blue";
-                           System.out.println(color);
-                       }
-                       if(rectangularInBounds(x,y, (int)(0.35487880671224364*getWidth()),(int)(0.4170292106898695*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
-                           color = "pink";
-                           System.out.println(color);
-                       }
-                       if(rectangularInBounds(x,y, (int)(0.4244872591671846*getWidth()),(int)(0.4829086389061529*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
-                           color = "white";
-                           System.out.println(color);
-                       }
-                       if(rectangularInBounds(x,y, (int)(0.4916096954630205*getWidth()),(int)(0.5550031075201989*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
-                           color = "black";
-                           System.out.println(color);
-                       }
-                       if(rectangularInBounds(x,y, (int)(0.5587321317588564*getWidth()),(int)(0.6246115599751398*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
-                           color = "wild";
-                           System.out.println(color);
-                       }
-                       
-                    }   
-                       
+                numWild = railroad.getNumWild();
+                num = railroad.getNumTrains();
+                if(color == null)
+                    color = railroad.getColor();
+                        
+                if(railroad.getColor().equals("grey"))
+                    isgrey = true;
+                System.out.println("GREY: " + isgrey);
+                if(railroad.getColor().equals("grey")) {
+                    System.out.println("grey train");
+                    if (colorPicked(x, y) != null)
+                    {
+                        color = colorPicked(x, y);
+                    }
                 }
-                   // DOESNT WORK YETTTT - i think it works now lol
                    int numOfColor = getCurrentPlayer().getTrainCards().get(color);
                    System.out.println(""+numOfColor);
                    int numOfWild  = getCurrentPlayer() .getTrainCards().get("wild");
@@ -619,6 +586,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                         }
                     }
                     num += counter;
+                    System.out.println("here is the num "+ num);
                     if(numOfWild >= numWild && numOfColor >= num || numOfColor+numWildForUse >= num) {
                         if(numOfColor >= num){
                             canPurchaseTunnel = true;
@@ -635,7 +603,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                     {
                        
                         if(railroad.getPlayer()==null) {
-                            
+                            System.out.println("numOfWild" + numOfWild + " numwild" + numWild + " numofcolor" + numOfColor + " num" + num);
                             if(numOfWild >= numWild && numOfColor >= num || numOfColor+numOfWild >= num) {
                                 ArrayList<TrainCard> cardsToDiscard = new ArrayList<>();
                                 for(int i = 0; i < numWild; i++){
@@ -643,6 +611,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                                 }
                                 getCurrentPlayer().getTrainCards().replace("wild", numOfWild- numWild);
                                 if(numOfColor >= num){
+                                    System.out.println("purchasinggg");
                                     for(int i = 0; i < num; i++){
                                         cardsToDiscard.add(new TrainCard(color));
                                     }
@@ -650,6 +619,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                                     gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1) .getTrainCards().replace(color, numOfColor- num);
                                 }   
                                 else if(numOfColor+numOfWild >= num) {
+                                    System.out.println("purchasinggg");
                                     int numLeft = num-numOfColor;
                                     for(int i = 0; i < getCurrentPlayer().getTrainCards().get(color); i++){
                                         cardsToDiscard.add(new TrainCard(color));
@@ -688,6 +658,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                             canPurchaseTunnel = false;
                             continueButtonClicked = false;
                             color = null;
+                            isgrey = false;
 
                         }
                     }
@@ -1125,14 +1096,14 @@ public class T2RPanel extends JPanel implements MouseListener{
             }
             if(gameAccess.getMap().railroadExists(city1, city2) != null) {
                 if(gameAccess.getMap().getRailroad(city1, city2).getColor().equals("grey") && (color == null || color.equals("grey"))){
-               		//isgrey = true;
-               		g.drawString("Please choose a color from your hand", (int)(0.6625233064014916*getWidth()), (int)(0.3803827751196172*getHeight()));     	
+               		isgrey = true;
+               		g.drawString("Please choose a color from your hand", (int)(0.65783320*getWidth()), (int)(0.5271428571*getHeight()));     	
                 }
                 else if(gameAccess.getMap().getRailroad(city1, city2).getColor().equals("grey") && (!color.equals("grey") || color != null)){
-                    g.drawString("Color chosen: " + color, (int)(0.6625233064014916*getWidth()), (int)(0.3803827751196172*getHeight()));     	
+                    g.drawString("Color chosen: " + color, (int)(0.65783320*getWidth()), (int)(0.5271428571*getHeight()));     	
                 }
-                // else
-                //  isgrey = false;
+                 else
+                  isgrey = false;
  
             }
             
@@ -1157,14 +1128,19 @@ public class T2RPanel extends JPanel implements MouseListener{
                 g.drawString("Can't Purchase! Click the button to end turn.", (int)(0.656308*getWidth()), (int)(0.57416*getHeight()));
             }
         }
-        if(city1 != null && city2 != null && !canPurchase()){
+        System.out.println("COLOR" + color); 
+        if(city1 != null && city2 != null && !canPurchase() && color != null && !color.equals("grey")){
             g.drawString("You can't afford this", (int)(0.6625233064014916*getWidth()), (int)(0.3803827751196172*getHeight())); 
-            claimRouteState = 1;    	
+            claimRouteState = 1;    //change this to something else (maybe make a new claimroutestate)	
+            color = null;
+            isgrey = false; //this whole thing needs to reset everything
         }
     }
     public void generateTunnelCards(){
-        for(int i = 0; i < 3; i++)
-            tunnelCards.add(gameAccess.drawTrainCard());
+        if(tunnelCards.size() == 0)
+            for(int i = 0; i < 3; i++)
+                tunnelCards.add(gameAccess.drawTrainCard());
+        System.out.println("CAN PURCHASE?" + canPurchase());
     }
 
     public void pickTicketUI(Graphics g)
@@ -1327,39 +1303,39 @@ public class T2RPanel extends JPanel implements MouseListener{
         if(rectangularInBounds(x,y, (int)(0.008079552517091361*getWidth()),(int)(0.07022995649471722*getWidth()), (int)(0.7523923444976076*getHeight()),(int)(0.9784688995215312*getHeight()))) {
             color = "red";
             System.out.println(color);
-    }
-    if(rectangularInBounds(x,y, (int)(0.0783095090118*getWidth()),(int)(0.139838649471722*getWidth()), (int)(0.74521531*getHeight()),(int)(0.9760765550239234*getHeight()))) {
-        color = "orange";
-        System.out.println(color);
-    }
-    if(rectangularInBounds(x,y, (int)(0.1485394655065258*getWidth()),(int)(0.2113113735239279*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
-        color = "yellow";
-        System.out.println(color);
-    }
-    if(rectangularInBounds(x,y, (int)(0.2144188937228092*getWidth()),(int)(0.27967681789931637*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
-        color = "green";
-        System.out.println(color);
-    }
-    if(rectangularInBounds(x,y, (int)(0.2865133623368552*getWidth()),(int)(0.3449347420758235*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
-        color = "blue";
-        System.out.println(color);
-    }
-    if(rectangularInBounds(x,y, (int)(0.35487880671224364*getWidth()),(int)(0.4170292106898695*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
-        color = "pink";
-        System.out.println(color);
-    }
-    if(rectangularInBounds(x,y, (int)(0.4244872591671846*getWidth()),(int)(0.4829086389061529*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
-        color = "white";
-        System.out.println(color);
-    }
-    if(rectangularInBounds(x,y, (int)(0.4916096954630205*getWidth()),(int)(0.5550031075201989*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
-        color = "black";
-        System.out.println(color);
-    }
-    if(rectangularInBounds(x,y, (int)(0.5587321317588564*getWidth()),(int)(0.6246115599751398*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
-        color = "wild";
-        System.out.println(color);
-    }
-    return color;
+        }
+        if(rectangularInBounds(x,y, (int)(0.0783095090118*getWidth()),(int)(0.139838649471722*getWidth()), (int)(0.74521531*getHeight()),(int)(0.9760765550239234*getHeight()))) {
+            color = "orange";
+            System.out.println(color);
+        }
+        if(rectangularInBounds(x,y, (int)(0.1485394655065258*getWidth()),(int)(0.2113113735239279*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
+            color = "yellow";
+            System.out.println(color);
+        }
+        if(rectangularInBounds(x,y, (int)(0.2144188937228092*getWidth()),(int)(0.27967681789931637*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
+            color = "green";
+            System.out.println(color);
+        }
+        if(rectangularInBounds(x,y, (int)(0.2865133623368552*getWidth()),(int)(0.3449347420758235*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
+            color = "blue";
+            System.out.println(color);
+        }
+        if(rectangularInBounds(x,y, (int)(0.35487880671224364*getWidth()),(int)(0.4170292106898695*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
+            color = "pink";
+            System.out.println(color);
+        }
+        if(rectangularInBounds(x,y, (int)(0.4244872591671846*getWidth()),(int)(0.4829086389061529*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
+            color = "white";
+            System.out.println(color);
+        }
+        if(rectangularInBounds(x,y, (int)(0.4916096954630205*getWidth()),(int)(0.5550031075201989*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
+            color = "black";
+            System.out.println(color);
+        }
+        if(rectangularInBounds(x,y, (int)(0.5587321317588564*getWidth()),(int)(0.6246115599751398*getWidth()), (int)(0.7511961722488039*getHeight()),(int)(0.9772727272727273*getHeight()))) {
+            color = "wild";
+            System.out.println(color);
+        }
+        return color;
     }
 }//class TR2PAnel
