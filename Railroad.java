@@ -10,7 +10,7 @@ public class Railroad {
 
 	private String firstCityString;
 	private String secondCityString;
-	private City firsCity;
+	private City firstCity;
 	private City secondCity;
 
 	private String railroadID;
@@ -50,7 +50,7 @@ public class Railroad {
 	}
 	
 	public City getFirstCity(){
-		return firsCity;
+		return firstCity;
 	}
 
 	public City getSecondCity(){
@@ -66,7 +66,7 @@ public class Railroad {
 	}
 
 	public void setCities(City c1, City c2){
-		firsCity = c1;
+		firstCity = c1;
 		secondCity = c2;
 	}
 
@@ -77,6 +77,39 @@ public class Railroad {
 	public boolean isDouble() {
 		return isDouble;
 	}
+
+	public Railroad getSisterRailroad(){
+		if(isDouble()){
+			ArrayList<Railroad> cityRails = this.firstCity.getRoutes();
+			for(Railroad r : cityRails){
+				if(((r.getFirst().equals(this.getFirst()) && r.getSecond().equals(this.getSecond())) || 
+				(r.getFirst().equals(this.getSecond()) && r.getSecond().equals(this.getFirst()))) && r.getID().equals(this.getID()) == false ) {
+					return r;
+				}
+			}
+		} 
+		return null;
+	}
+
+
+	public Railroad getSisterRailroad(String color){
+		if(isDouble()){
+			if(this.color.equals(color)){
+				return this;
+			}
+			else if (!this.color.equals(color)){
+				ArrayList<Railroad> cityRails = this.firstCity.getRoutes();
+				for(Railroad r : cityRails){
+					if(((r.getFirst().equals(this.getFirst()) && r.getSecond().equals(this.getSecond())) || 
+					(r.getFirst().equals(this.getSecond()) && r.getSecond().equals(this.getFirst()))) && r.getID().equals(this.getID()) == false ) {
+						return r;
+					}
+				}
+			}
+		} 
+		return null;
+	}
+
 	public Player getPlayer() {
 		return player;
 	}
@@ -118,7 +151,7 @@ public class Railroad {
 		if(c.getName().equals(firstCityString))
 			return secondCity;
 		else
-			return firsCity;
+			return firstCity;
 	}
 	
 	public int getPoints() {

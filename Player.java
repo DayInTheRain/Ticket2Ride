@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.util.*;
 public class Player {
     private int playerNum, points, trainStations, trains, turnStatus, turnState;
@@ -127,6 +128,26 @@ public class Player {
 
     public String toString(){
         return "Player " + getPlayerNum();
+    }
+
+    public Color getColor(){
+        Color c;
+        switch (playerNum) {
+            case 1:
+                c = new Color(50, 168, 82); //green
+                return  c;
+            case 2:
+                c = new Color(176, 26, 26); //red
+                return  c;
+            case 3:
+                c = new Color(232, 195, 9); //yellow
+                return  c;
+            case 4:
+                c = new Color(31, 31, 171); // blue
+                return  c;
+            default:
+                return Color.gray;
+        }
     }
 
     public void decrementTrainStations()
