@@ -117,6 +117,9 @@ public class Railroad {
 	public int getNumTrains() {
 		return numTrains;
 	}
+	public int getNumTotalTrains(){
+		return numTrains + numWilds;
+	}
 	
 	public int getNumWild() {
 		return numWilds;
@@ -155,17 +158,17 @@ public class Railroad {
 	}
 	
 	public int getPoints() {
-		if(this.getNumTrains()==1)
+		if(this.getNumTotalTrains()==1)
 			return 1;
-		else if(this.getNumTrains()==2)
+		else if(this.getNumTotalTrains()==2)
 			return 2;
-		else if(this.getNumTrains()==3)
+		else if(this.getNumTotalTrains()==3)
 			return 4;
-		else if(this.getNumTrains()==4)
+		else if(this.getNumTotalTrains()==4)
 			return 7;
-		else if(this.getNumTrains()==6)
+		else if(this.getNumTotalTrains()==6)
 			return 15;
-		else if(this.getNumTrains()==8)
+		else if(this.getNumTotalTrains()==8)
 			return 15;
 		return 0;
 	}
