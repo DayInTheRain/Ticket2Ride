@@ -1051,7 +1051,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                         {
                             System.out.println("We're going to mark " + c.getName());
                             System.out.println("The current player turn is " + gameAccess.getPlayerTurn());
-                            c.setStationID(gameAccess.getPlayerTurn());
+                            c.placeStation(getCurrentPlayer());
                         }
                     }
                     buildStationCity = null;
