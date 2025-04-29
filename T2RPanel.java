@@ -261,8 +261,9 @@ public class T2RPanel extends JPanel implements MouseListener{
         Font origionalFont = new Font("Monospaced", Font.PLAIN, Math.abs((int)( 0.18947416762342135*getHeight() -  0.16991963260619977*getHeight())));
         Font font = new Font("Monospaced", Font.BOLD, Math.abs((int)( 0.784688995215311*getHeight() - 0.7488038277511961*getHeight())));
         g.setFont(font);
+        g.setColor(getCurrentPlayer().getColor());
         g.drawString("Player " + gameAccess.getPlayerTurn(), (int)(0.0074580484773151025*getWidth()), (int)(0.7284688995215312*getHeight()));
-        
+        g.setColor(Color.BLACK);
         //prints all the card images
         int cardWidth = Math.abs((int)(0.0764449968924798*getWidth() - 0.0074580484773151025*getWidth()));
         int cardHeight = Math.abs((int)( 0.9856459330143541*getHeight() -  0.7476076555023924*getHeight()));
@@ -1125,14 +1126,15 @@ public class T2RPanel extends JPanel implements MouseListener{
 
         g.setColor(Color.black);
         
+        g.setColor(gameAccess.getPlayers().get(0).getColor());
         g.drawString("Player "+1+" Points: "+gameAccess.getPlayers().get(0).getPoints(), (int) (0.76196*getWidth()), (int) (0.20630*getHeight()));
-                       
+        g.setColor(gameAccess.getPlayers().get(1).getColor());
         g.drawString("Player "+2+" Points: "+gameAccess.getPlayers().get(1).getPoints(), (int) (0.76196*getWidth()), (int) (0.27630*getHeight()));
-
+        g.setColor(gameAccess.getPlayers().get(2).getColor());
         g.drawString("Player "+3+" Points: "+gameAccess.getPlayers().get(2).getPoints(), (int) (0.76196*getWidth()), (int) (0.35239*getHeight()));
-
+        g.setColor(gameAccess.getPlayers().get(3).getColor());
         g.drawString("Player "+4+" Points: "+gameAccess.getPlayers().get(3).getPoints(), (int) (0.76196*getWidth()), (int) (0.42848*getHeight()));
-
+        g.setColor(Color.BLACK);
 
         //beginningOfTurnDisplay(g);
    
