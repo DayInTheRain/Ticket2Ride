@@ -439,11 +439,11 @@ public class T2RPanel extends JPanel implements MouseListener{
 
                  if (rectangularInBounds(x, y, (int)(0.9242*getWidth()) , (int)(0.9742*getWidth()), (int)(0.0931*getHeight()), (int)(0.1331*getHeight())) && !((claimRouteState == 3 && canPurchase()) || ((isDouble || isgrey) && claimRouteState == 3 && colorChosen)))
                      {
-                 System.out.println("go back button clicked");
+                 System.out.println("clear button clicked");
+                 
                  city1 = null;
                  city2 = null;
                  claimRouteState = 0;
-                 turnState = 0;
                  tunnel = false;
                  canPurchaseTunnel = false;
                  continueButtonClicked = false;
@@ -454,14 +454,16 @@ public class T2RPanel extends JPanel implements MouseListener{
                  hasOther = false;
                  repaint();
                  return;
+                 
                  }
             	
                 if (rectangularInBounds(x,y, (int) (0.9235550031075*getWidth()), (int) (0.97327532628*getWidth()), (int) ( 0.022727272727*getHeight()), (int) (0.0610047846*getHeight())) && !((claimRouteState == 3 && canPurchase()) || ((isDouble || isgrey) && claimRouteState == 3 && colorChosen))) // if (reset button clicked)
                 {
-                    System.out.println("clear button clicked");
+                    System.out.println("go back button clicked");
                     city1 = null;
                     city2 = null;
                     claimRouteState = 0;
+                    turnState = 0;
                     tunnel = false;
                     canPurchaseTunnel = false;
                     continueButtonClicked = false;
@@ -852,16 +854,6 @@ public class T2RPanel extends JPanel implements MouseListener{
              }
              else if(turnState == 3){
                 
-                int counter = 0;
-              
-                for(TrainCard t: gameAccess.getGrid()){
-                    if(t.getColor().equals("wild")){
-                        counter++;
-                    }
-                }
-                if(counter > 2){
-                    gameAccess.replaceGrid();
-                }
                 if(getCurrentPlayer().getCardsPicked().size() >= 2){
                     pickTrainCardState = 1;
                 }//stops at 2 cards picked
@@ -1200,10 +1192,10 @@ public class T2RPanel extends JPanel implements MouseListener{
          }
 
          g.drawRect((int) (0.9242*getWidth()), (int) (0.0231*getHeight()), (int) (getWidth()*0.05), (int) (getHeight()*0.04)); 
-         g.drawString("Clear",(int) (0.9342*getWidth()),(int) (0.0471*getHeight()));//draws clear button
+         g.drawString("Go Back",(int) (0.9262*getWidth()),(int) (0.0471*getHeight()));//draws clear button
 
          g.drawRect((int) (0.9242*getWidth()), (int) (0.0931*getHeight()), (int) (getWidth()*0.05), (int) (getHeight()*0.04)); 
-         g.drawString("Go back",(int) (0.9292*getWidth()),(int) (0.1171*getHeight()));//draws go back button
+         g.drawString("Clear",(int) (0.9292*getWidth()),(int) (0.1171*getHeight()));//draws go back button
 
 
          g.drawRect((int)(0.8154133001864512 * getWidth()) , (int)(0.777511961722488 * getHeight()), (int) (0.08 * getWidth()), (int) (0.125 * getHeight())) ;
@@ -1280,7 +1272,6 @@ public class T2RPanel extends JPanel implements MouseListener{
                 g.drawString("Can't Purchase! Click the button to end turn.", (int)(0.656308*getWidth()), (int)(0.57416*getHeight()));
             }
         }
-        System.out.println("COLOR HEREEEEEEEEEEEEEEEEEEEE " + color); 
         if(isDouble && invalidColor && color != null){
             g.drawString("Can't use this color, pick again", (int)(0.6625233064014916*getWidth()), (int)(0.3803827751196172*getHeight())); 
         } else if(hasOther || city1 != null && city2 != null && !canPurchase() && color != null && !color.equals("grey")){
@@ -1353,7 +1344,15 @@ public class T2RPanel extends JPanel implements MouseListener{
 
     public void pickTrainCardUI(Graphics g)
     {
-        
+        int counter = 0;
+        for(TrainCard t: gameAccess.getGrid()){
+            if(t.getColor().equals("wild")){
+                counter++;
+            }
+        }
+        if(counter > 2){
+            gameAccess.replaceGrid();
+        }
         g.setColor((Color.white));
         g.fillRect(getWidth()/10, getHeight()/10, (int)(getWidth()*0.8), (int)(getHeight()*0.8));
         g.drawImage(gameAccess.getTrainCardBack(), (int)(0.12927*getWidth()), (int)(0.18468*getHeight()), (int)((0.23741-0.12927)*getWidth()), (int)((0.56220-0.28468)*getHeight()), null);
