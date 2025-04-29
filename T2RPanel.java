@@ -1179,7 +1179,7 @@ public class T2RPanel extends JPanel implements MouseListener{
         if (city1 != null)
         {
             g.drawString( city1.getName(),(int) (0.70942*getWidth()), (int) (0.1605*getHeight()) );
-            g.setColor(Color.green);
+            g.setColor(setCurrentPlayerColor());
             g.fillOval( (int) (city1.getCoords()[0] * getWidth() * 0.6 * 205 / 154.792222) - (int)(getWidth()*0.025)/2, (int)(city1.getCoords()[1] * getHeight() * 0.7 * 172 / 133.694) - (int)(getHeight()* 0.04)/2, (int)(getWidth()*0.025), (int)(getHeight()* 0.04) );
             g.setColor(Color.black);
         }
@@ -1189,7 +1189,7 @@ public class T2RPanel extends JPanel implements MouseListener{
          if (city2 != null)
          {
             g.drawString( city2.getName(),(int) (0.70942*getWidth()), (int) (0.205*getHeight()) );        
-            g.setColor(Color.green);
+            g.setColor(setCurrentPlayerColor());
             g.fillOval( (int) (city2.getCoords()[0] * getWidth() * 0.6 * 205 / 154.792222) - (int)(getWidth()*0.025)/2, (int)(city2.getCoords()[1] * getHeight() * 0.7 * 172 / 133.694) - (int)(getHeight()* 0.04)/2, (int)(getWidth()*0.025), (int)(getHeight()* 0.04) );
             g.setColor(Color.black);
         }
@@ -1391,7 +1391,7 @@ public class T2RPanel extends JPanel implements MouseListener{
         if (buildStationCity != null)
         {
             g.drawString( buildStationCity.getName(), (int) (0.726041 * getWidth()), (int) (0.09784 * getHeight()));
-        g.setColor(Color.green);
+        g.setColor(setCurrentPlayerColor());
             g.fillOval( (int) (buildStationCity.getCoords()[0] * getWidth() * 0.6 * 205 / 154.792222) - (int)(getWidth()*0.025)/2, (int)(buildStationCity.getCoords()[1] * getHeight() * 0.7 * 172 / 133.694) - (int)(getHeight()* 0.04)/2, (int)(getWidth()*0.025), (int)(getHeight()* 0.04) );
             g.setColor(Color.black);
          }
@@ -1417,7 +1417,7 @@ public class T2RPanel extends JPanel implements MouseListener{
         {
            if (c.getStation() != 0)
            {
-               g.setColor(Color.green);
+               g.setColor( gameAccess.getPlayers().get(c.getStation()-1).getColor());
            g.fillOval( (int) (c.getCoords()[0] * getWidth() * 0.6 * 205 / 154.792222) - (int)(getWidth()*0.0125)/2, (int)(c.getCoords()[1] * getHeight() * 0.7 * 172 / 133.694) - (int)(getHeight()* 0.02)/2, (int)(getWidth()*0.0125), (int)(getHeight()* 0.02) );
            g.setColor(Color.black);
 
@@ -1558,5 +1558,10 @@ public class T2RPanel extends JPanel implements MouseListener{
     	g.drawString("breakdown",(int)(0.8344791666666667*getWidth()),(int)( 0.9120095693779905*getHeight()));
     	g.drawRect((int)(0.84000*getWidth()),(int)(0.9413875598086124*getHeight()),(int)(0.93324654*getWidth())-(int)(0.8400000*getWidth()),(int)(0.9900000*getHeight())-(int)(0.9413875598086124*getHeight()));
     	
+    }
+
+    public Color setCurrentPlayerColor()
+    {
+        return getCurrentPlayer().getColor();
     }
 }//class TR2PAnel
