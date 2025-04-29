@@ -31,6 +31,7 @@ public class T2RPanel extends JPanel implements MouseListener{
     boolean isDouble;
     boolean invalidColor;
     boolean colorChosen;
+    boolean hasOther;
 
     //pickTicket IVs
     int pickTicketState;
@@ -72,6 +73,7 @@ public class T2RPanel extends JPanel implements MouseListener{
         isDouble = false;
         invalidColor = false;
         colorChosen = false;
+        hasOther = false;
 
         ticketsOnScreen = new ArrayList<>();
         tunnelCards = new ArrayList<>();
@@ -294,7 +296,7 @@ public class T2RPanel extends JPanel implements MouseListener{
         Railroad railroad = gameAccess.getMap().getRailroad(city1, city2);
         int numWild = railroad.getNumWild();
         int num = railroad.getNumTrains();
-        if(color == null && !isDouble){
+        if(color == null && !railroad.isDouble()){
             color = railroad.getColor();
         }
         if(color != null && !color.equals("grey")){
@@ -446,6 +448,9 @@ public class T2RPanel extends JPanel implements MouseListener{
                  continueButtonClicked = false;
                  color = null;
                  isgrey = false;
+                 isDouble = false;
+                 colorChosen = false;
+                 hasOther = false;
                  repaint();
                  return;
                  }
@@ -453,6 +458,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                 if (rectangularInBounds(x,y, (int) (0.9235550031075*getWidth()), (int) (0.97327532628*getWidth()), (int) ( 0.022727272727*getHeight()), (int) (0.0610047846*getHeight()))) // if (reset button clicked)
                 {
                     System.out.println("clear button clicked");
+                    city1 = null;
                     city2 = null;
                     claimRouteState = 0;
                     tunnel = false;
@@ -460,6 +466,9 @@ public class T2RPanel extends JPanel implements MouseListener{
                     continueButtonClicked = false;
                     color = null;
                     isgrey = false;
+                    isDouble = false;
+                    colorChosen = false;
+                    hasOther = false;
                     repaint();
                     return;
                 }
@@ -501,15 +510,27 @@ public class T2RPanel extends JPanel implements MouseListener{
                      isDouble = railroad.isDouble();
                      if(railroad.getColor().equals("grey"))
                         isgrey = true;
+                    if(color != null && railroad.isDouble() && !isgrey){
+                        if(!railroad.getColor().equals(color))
+                            railroad = railroad.getSisterRailroad();
+                    } else if(color != null && railroad.isDouble()){
+                        if(railroad.getPlayer() != null){
+                            if(railroad.getSisterRailroad().getPlayer() == null){
+                                railroad = railroad.getSisterRailroad();
+                            }
+                        }
+                    }
                      int num = 0;
                      int numWild = 0;
-                     if(railroad.getPlayer()==null) {
+                     if(isDouble){
+                        hasOther = railroad.getSisterRailroad() != null && railroad.getSisterRailroad().getPlayer() != null && railroad.getSisterRailroad().getPlayer().equals(getCurrentPlayer());
+                     }
+                     if((railroad.getPlayer() == null || railroad.getSisterRailroad() != null && railroad.getSisterRailroad().getPlayer() == null) && !hasOther) {
+                        System.out.println("IS DOUBLE" + railroad.isDouble() + railroad.getColor());
                         if(color == null && !railroad.isDouble()){
                             color = railroad.getColor();
                         }
                         System.out.println("COLR" + color);
-                        
-                        System.out.println(color);
                         if(railroad.getColor().equals("grey") || isDouble) {
                             System.out.println("grey train or double");
                             if (colorPicked(x, y) != null)
@@ -517,7 +538,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                                 color = colorPicked(x, y);
                                 System.out.println("Color picked: " + color);
                             }
-                            if(color != null){
+                            if(color != null && !isgrey){
                                 colorChosen = true;
                                 if(isDouble){
                                     if(!railroad.getColor().equals(color) && !railroad.getSisterRailroad().getColor().equals(color)){
@@ -528,25 +549,25 @@ public class T2RPanel extends JPanel implements MouseListener{
                                         invalidColor = false;
                                         railroad = railroad.getSisterRailroad();
                                     }
-                                } //incomplete
+                                }
+                            } else if(color != null && isgrey && isDouble){
+                                invalidColor = false;
                             }
                             
                         }
                         if(!invalidColor && color != null){
-                            // DOESNT WORK YETTTT - i think it works now lol
                             numWild = railroad.getNumWild();
                             num = railroad.getNumTrains();
                             int numOfColor = getCurrentPlayer().getTrainCards().get(color);
                             System.out.println(""+numOfColor);
                             int numOfWild  = getCurrentPlayer() .getTrainCards().get("wild");
                             int numWildForUse = numOfWild-numWild;
-                            //colorChoosen = color;
                             
                             if (rectangularInBounds(x, y, (int)(0.8154133001864512 * getWidth()), (int)(0.8954133001864512 * getWidth()), (int)(0.777511961722488 * getHeight()), (int) (0.902511961722488 * getHeight())))
                             {
                                 System.out.println("Finish turn button clicked");
                                 
-                                if(railroad.getPlayer()==null) {
+                                if(true) {
                                     System.out.println("HERE");
                                     numWild = railroad.getNumWild();
                                     num = railroad.getNumTrains();
@@ -578,17 +599,19 @@ public class T2RPanel extends JPanel implements MouseListener{
                                             }
                                             getCurrentPlayer().getTrainCards().replace("wild", numWildForUse-numLeft);
                                         }
-                                
                                         getCurrentPlayer().addRailroad(railroad);
-                                        gameAccess.getMap().getRailroad(city1, city2).claim(getCurrentPlayer());
+                                        railroad.claim(getCurrentPlayer());
                                         getCurrentPlayer().addPoints(railroad.getPoints());
+                                        getCurrentPlayer().placetrains(railroad.getNumTrains());
                                         city1 = null;
                                         city2 = null;
                                         claimRouteState = 0;
                                         turnState = 0;
                                         color = null;
                                         isgrey = false;
+                                        isDouble = false;
                                         colorChosen = false;
+                                        hasOther = false;
                                         for(TrainCard t: cardsToDiscard)
                                             gameAccess.discardTrainCard(t); 
                                     }
@@ -601,19 +624,17 @@ public class T2RPanel extends JPanel implements MouseListener{
             
                      
              else if(claimRouteState == 3){
-                System.out.println("Claim route state 3");
-                Railroad railroad = gameAccess.getMap().getRailroad(city1, city2);
-                int num = 0;
-                int numWild = 0;
-                numWild = railroad.getNumWild();
-                num = railroad.getNumTrains();
-                if(color == null && !railroad.isDouble()){
-                    color = railroad.getColor();
-                }
-                        
-                if(railroad.getColor().equals("grey"))
-                    isgrey = true;
-                System.out.println("GREY: " + isgrey);
+                System.out.println("Claim route state 2");
+                	 Railroad railroad = gameAccess.getMap().getRailroad(city1, city2);
+                     isDouble = railroad.isDouble();
+                     if(railroad.getColor().equals("grey"))
+                        isgrey = true;
+                    if(color != null && railroad.isDouble()){
+                        if(!railroad.getColor().equals(color))
+                            railroad = railroad.getSisterRailroad();
+                    }
+                     int num = 0;
+                     int numWild = 0;
                 if(railroad.getColor().equals("grey")) {
                     System.out.println("grey train");
                     if (colorPicked(x, y) != null)
@@ -622,14 +643,46 @@ public class T2RPanel extends JPanel implements MouseListener{
                         
                     }
                 }
-                   int numOfColor = getCurrentPlayer().getTrainCards().get(color);
-                   System.out.println(""+numOfColor);
-                   int numOfWild  = getCurrentPlayer() .getTrainCards().get("wild");
-                   int numWildForUse = numOfWild-numWild;
+                if(color == null && !railroad.isDouble()){
+                    color = railroad.getColor();
+                }
+                System.out.println("COLR" + color);
+                if(railroad.getColor().equals("grey") || isDouble) {
+                    System.out.println("grey train or double");
+                    if (colorPicked(x, y) != null)
+                    {
+                        color = colorPicked(x, y);
+                        System.out.println("Color picked: " + color);
+                    }
+                    if(color != null){
+                        colorChosen = true;
+                        if(isDouble){
+                            if(!railroad.getColor().equals(color) && !railroad.getSisterRailroad().getColor().equals(color)){
+                                invalidColor = true;
+                            }else if(railroad.getColor().equals(color)){
+                                invalidColor = false;
+                            }else if(railroad.getSisterRailroad().getColor().equals(color)){
+                                invalidColor = false;
+                                railroad = railroad.getSisterRailroad();
+                            }
+                        }
+                    }
+                    
+                }
+                //    int numOfColor = getCurrentPlayer().getTrainCards().get(color);
+                //    System.out.println(""+numOfColor);
+                //    int numOfWild  = getCurrentPlayer() .getTrainCards().get("wild");
+                //    int numWildForUse = numOfWild-numWild;
                 
                 int counter = 0;
     
-                if(true){
+                if(!invalidColor && color != null){
+                    numWild = railroad.getNumWild();
+                            num = railroad.getNumTrains();
+                            int numOfColor = getCurrentPlayer().getTrainCards().get(color);
+                            System.out.println(""+numOfColor);
+                            int numOfWild  = getCurrentPlayer() .getTrainCards().get("wild");
+                            int numWildForUse = numOfWild-numWild;
                     for(TrainCard t: tunnelCards){
                         System.out.println(t.getColor());
                         if(t.getColor().equals(color) || t.getColor().equals("wild")){
@@ -652,8 +705,10 @@ public class T2RPanel extends JPanel implements MouseListener{
                     }
                     else if (rectangularInBounds(x, y, (int)(0.8154133001864512 * getWidth()), (int)(0.8954133001864512 * getWidth()), (int)(0.777511961722488 * getHeight()), (int) (0.902511961722488 * getHeight())) && continueButtonClicked)
                     {
-                       
-                        if(railroad.getPlayer()==null) {
+                        if(isDouble){
+                            hasOther = railroad.getSisterRailroad() != null && railroad.getSisterRailroad().getPlayer() != null && railroad.getSisterRailroad().getPlayer().equals(getCurrentPlayer());
+                        }
+                        if((railroad.getPlayer() == null || railroad.getSisterRailroad() != null && railroad.getSisterRailroad().getPlayer() == null) && !hasOther) {
                             System.out.println("numOfWild" + numOfWild + " numwild" + numWild + " numofcolor" + numOfColor + " num" + num);
                             if(numOfWild >= numWild && numOfColor >= num || numOfColor+numOfWild >= num) {
                                 ArrayList<TrainCard> cardsToDiscard = new ArrayList<>();
@@ -683,8 +738,9 @@ public class T2RPanel extends JPanel implements MouseListener{
                                 }
                         
                                 getCurrentPlayer().addRailroad(railroad);
-                                gameAccess.getMap().getRailroad(city1, city2).claim(getCurrentPlayer());
+                                railroad.claim(getCurrentPlayer());
                                 getCurrentPlayer().addPoints(railroad.getPoints());
+                                getCurrentPlayer().placetrains(railroad.getNumTrains());
                                 city1 = null;
                                 city2 = null;
                                 claimRouteState = 0;
@@ -709,8 +765,11 @@ public class T2RPanel extends JPanel implements MouseListener{
                             tunnelCards.clear();
                             canPurchaseTunnel = false;
                             continueButtonClicked = false;
+                            isDouble = false;
+                            colorChosen = false;
                             color = null;
                             isgrey = false;
+                            hasOther = false;
 
                         }
                     }
@@ -1215,15 +1274,15 @@ public class T2RPanel extends JPanel implements MouseListener{
                 g.drawString("Can't Purchase! Click the button to end turn.", (int)(0.656308*getWidth()), (int)(0.57416*getHeight()));
             }
         }
-        System.out.println("COLOR " + color); 
+        System.out.println("COLOR HEREEEEEEEEEEEEEEEEEEEE " + color); 
         if(isDouble && invalidColor && color != null){
             g.drawString("Can't use this color, pick again", (int)(0.6625233064014916*getWidth()), (int)(0.3803827751196172*getHeight())); 
-        } else if(colorChosen && city1 != null && city2 != null && !canPurchase() && color != null && !color.equals("grey")){
+        } else if(hasOther || city1 != null && city2 != null && !canPurchase() && color != null && !color.equals("grey")){
             g.drawString("You can't afford this, choose something else", (int)(0.6625233064014916*getWidth()), (int)(0.3803827751196172*getHeight())); 
             //claimRouteState = 1;    //change this to something else (maybe make a new claimroutestate)	
             color = null;
             isgrey = false; //this whole thing needs to reset everything
-        }else if(city1 != null && city2 != null && color != null && gameAccess.getMap().getRailroad(city1, city2).getPlayer() != null && !colorChosen){ //needs to use railroad(str, str, str (color))
+        }else if(city1 != null && city2 != null && color != null && gameAccess.getMap().getRailroad(city1, city2).getPlayer() != null && !colorChosen && (!isgrey && !isDouble)){ //needs to use railroad(str, str, str (color))
             g.drawString("This route is taken, choose something else", (int)(0.6625233064014916*getWidth()), (int)(0.3803827751196172*getHeight())); 
         } else if(city1 != null && city2 != null && (!gameAccess.getMap().getRailroad(city1, city2).isTunnel() && canPurchase()) && !invalidColor && color != null){
             g.drawString("Can purchase!", (int)(0.6625233064014916*getWidth()), (int)(0.3803827751196172*getHeight())); 
