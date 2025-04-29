@@ -54,6 +54,9 @@ public class T2RPanel extends JPanel implements MouseListener{
    
     //ending game
     boolean isEnd;
+    boolean isLast;
+    int lastTurn;
+    boolean firstlast;
     
 
     Font origionalFont;
@@ -110,6 +113,9 @@ public class T2RPanel extends JPanel implements MouseListener{
         boolean destinationTicket2Selected = false;
         boolean destinationTicket3Selected = false;
         isEnd = false;
+        isLast = false;
+        lastTurn = -1;
+        firstlast = false;
     }
 
     public void generateTicketsOnScreen(){
@@ -254,7 +260,7 @@ public class T2RPanel extends JPanel implements MouseListener{
         
     }//screen where they can see their tickets
 
-    public void incrementTicket(boolean f){
+    public void incrementTicket(boolean f) {
         gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).rotateTickets(f);
     }//helper method for viewing tickets
 
@@ -411,6 +417,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                     if(gameAccess.getPlayerTurn() == 4){
                         turnState = 0;
                     }
+                   
                     gameAccess.incrementTurn();
                     generateTicketsOnScreen();
                 }
@@ -636,6 +643,21 @@ public class T2RPanel extends JPanel implements MouseListener{
                                         isDouble = false;
                                         colorChosen = false;
                                         hasOther = false;
+                                        
+                                        System.out.println("EHUWHHS");
+                                   	 if(gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getNumTrains() <=2) {
+                                        	isLast = true;
+                                        	System.out.println("lastTurn");
+                                        	lastTurn = 0;
+                                        }
+                                   	 if(isLast) {
+                                   		 lastTurn++;
+                                   		 System.out.println("players last turn" + lastTurn);
+                                   	 }
+                                   	 if(isLast && lastTurn >= 4) {
+                                        		gameState = -2;
+                                        		System.out.println("end game");
+                                        }
                                         gameAccess.incrementTurn();
                                         for(TrainCard t: cardsToDiscard)
                                             gameAccess.discardTrainCard(t); 
@@ -796,6 +818,20 @@ public class T2RPanel extends JPanel implements MouseListener{
                             color = null;
                             isgrey = false;
                             hasOther = false;
+                            System.out.println("EHUWHHS");
+                       	 if(gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getNumTrains() <=2) {
+                            	isLast = true;
+                            	System.out.println("lastTurn");
+                            	lastTurn = 0;
+                            }
+                       	 if(isLast) {
+                       		 lastTurn++;
+                       		 System.out.println("players last turn"+lastTurn);
+                       	 }
+                            	if(isLast && lastTurn >= 4) {
+                            		gameState = -2;
+                            		System.out.println("end game");
+                            }
                             gameAccess.incrementTurn();
 
                         }
@@ -866,6 +902,21 @@ public class T2RPanel extends JPanel implements MouseListener{
                         destinationTicket1 = null;
                         destinationTicket2 = null;
                         destinationTicket3 = null;
+                        
+                        System.out.println("EHUWHHS");
+                   	 if(gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getNumTrains() <=2) {
+                        	isLast = true;
+                        	System.out.println("lastTurn");
+                        	lastTurn = 0;
+                        }
+                   	 if(isLast) {
+                   		 lastTurn++;
+                   		 System.out.println("players last turn"+lastTurn);
+                   	 }
+                        	if(isLast && lastTurn >= 4) {
+                        		gameState = -2;
+                        		System.out.println("end game");
+                        }
                         gameAccess.incrementTurn();
 
                     }
@@ -905,6 +956,20 @@ public class T2RPanel extends JPanel implements MouseListener{
                     getCurrentPlayer().clearCardsPicked();
                     turnState = 0;
                     pickTrainCardState = 0;
+                    System.out.println("EHUWHHS");
+               	 if(gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getNumTrains() <=2) {
+                    	isLast = true;
+                    	System.out.println("lastTurn");
+                    	lastTurn = 0;
+                    }
+               	 if(isLast) {
+               		 lastTurn++;
+               		 System.out.println("players last turn"+lastTurn);
+               	 }
+                    	if(isLast && lastTurn >= 4) {
+                    		gameState = -2;
+                    		System.out.println("end game");
+                    }
                     gameAccess.incrementTurn();
                 }
              }//pick train card
@@ -1061,7 +1126,23 @@ public class T2RPanel extends JPanel implements MouseListener{
                     }
                     ColorsPicked.clear();
                     getCurrentPlayer().decrementTrainStations();
-
+                    
+                    System.out.println("EHUWHHS");
+               	 if(gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getNumTrains() <=2 ) {
+                    	isLast = true;
+                    	System.out.println("lastTurn");
+                    	if(!firstlast) {
+                    	lastTurn = 0;
+                    	firstlast = true;}                    	
+                    }
+               	 if(isLast) {
+               		 lastTurn++;
+               		 System.out.println("players last turn"+lastTurn);
+               	 }
+                    	if(isLast && lastTurn >= 4) {
+                    		gameState = -2;
+                    		System.out.println("end game");
+                    }
                     gameAccess.incrementTurn();
                     }
                 }
