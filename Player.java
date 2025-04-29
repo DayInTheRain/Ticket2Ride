@@ -7,6 +7,8 @@ public class Player {
     private boolean hasEuropeanExpress;
     private ArrayList<TrainCard> cardsPicked;
     private ArrayList<Railroad> railroads;
+    private ArrayList<City> stations;
+
     
 
     public Player(int num){
@@ -122,6 +124,7 @@ public class Player {
         // 3 = pick ticket card
         // 4 = build train Station
     }
+
     public int getchoice() {
         return turnState;
     }
@@ -153,5 +156,9 @@ public class Player {
     public void decrementTrainStations()
     {
         trainStations = trainStations -1;
+    }
+
+    public void addStation(City c){
+        stations.add(c);
     }
 }//class Player

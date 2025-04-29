@@ -131,13 +131,15 @@ public class T2RPanel extends JPanel implements MouseListener{
        
         if(viewingTickets){
             paintViewingTickets(g);
-        } else { //basically saying if it's not showing the tickets print other stuff cause the tickets rnt included in the gamestate
+        }
+        else  { //basically saying if it's not showing the tickets print other stuff cause the tickets rnt included in the gamestate
             if (gameState ==0){    
                 g.drawImage(trainBG, 0, 0, getWidth(), getHeight(), null);
             }
                 
             else if(gameState == -1) {
                 g.drawImage(rules1, 0, 0, getWidth(), getHeight(), null);
+                
             }
             else if(gameState == -2) {
                 g.drawImage(rules2, 0, 0, getWidth(), getHeight(), null);
@@ -343,18 +345,36 @@ public class T2RPanel extends JPanel implements MouseListener{
                   //turnState = -10;
                     repaint();
                 }
+                
 
               //rules button            
-              if (rectangularInBounds(x, y,  0.13846153846*getWidth(), 0.32307692307*getWidth(), 0.34285714285*getHeight(),  0.51234434*getHeight()))
+              if (rectangularInBounds(x, y, (int)( 0.13846153846*getWidth()),(int)( 0.32307692307*getWidth()), (int)(0.34285714285*getHeight()), (int)( 0.51234434*getHeight())))
               {
                   System.out.println("rules screen");
                   gameState = -1;
+                  repaint();
               }
+            
 
             
             }  
-        }//gamestate == 0
-
+        }
+       else if(gameState == -1)  {   	  
+     	   if(rectangularInBounds(x,y,0.8744561839651958*getWidth(),0.988755980861244 *getWidth(),0.888755980861244*getHeight(), 0.9760765550239234*getHeight()))
+     	   { System.out.println("clicked next page");
+     	   // clicked next page
+     	   gameState = -2;}
+        }
+        else if(gameState == -2) {
+     	   if(rectangularInBounds(x,y,0.8744561839651958*getWidth(),0.988755980861244 *getWidth(),0.888755980861244*getHeight(), 0.9760765550239234*getHeight())) {
+     		   System.out.println("go back to home screen");
+     	   gameState = 0;}
+     	   if(rectangularInBounds(x,y,0.7414543194530765*getWidth(),0.8297078931013051 *getWidth(),0.8588516746411483*getHeight(),  0.9389952153110048*getHeight())) {
+     		   System.out.println("g previous page");
+     		   gameState = -1;
+     	   }
+ 
+        } repaint();
         if(viewingTickets){
             if(rectangularInBounds(x, y, (int)(0.73834*getWidth()), (int)(0.81106*getWidth()), (int)( 0.41387*getHeight()), (int)( 0.55502*getHeight()))){
                 incrementTicket(true);
@@ -1038,7 +1058,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                         {
                             System.out.println("We're going to mark " + c.getName());
                             System.out.println("The current player turn is " + gameAccess.getPlayerTurn());
-                            c.setStationID(gameAccess.getPlayerTurn());
+                            c.placeStation(getCurrentPlayer());
                         }
                     }
                     buildStationCity = null;
@@ -1435,9 +1455,9 @@ public class T2RPanel extends JPanel implements MouseListener{
            if (c.getStation() != 0)
            {
                g.setColor( gameAccess.getPlayers().get(c.getStation()-1).getColor());
-           g.fillOval( (int) (c.getCoords()[0] * getWidth() * 0.6 * 205 / 154.792222) - (int)(getWidth()*0.0125)/2, (int)(c.getCoords()[1] * getHeight() * 0.7 * 172 / 133.694) - (int)(getHeight()* 0.02)/2, (int)(getWidth()*0.0125), (int)(getHeight()* 0.02) );
+           g.fillOval( (int) (c.getCoords()[0] * getWidth() * 0.6 * 205 / 153.792222) - (int)(getWidth()*0.015)/2, (int)(c.getCoords()[1] * getHeight() * 0.7 * 172 / 132.694) - (int)(getHeight()* 0.024)/2, (int)(getWidth()*0.015), (int)(getHeight()* 0.024) );
            g.setColor(Color.black);
-
+           //(int)(getWidth()*0.0125)/2; - (int)(getHeight()* 0.02)/2
            }
        }
     } 
