@@ -247,6 +247,7 @@ public class Game {
     		trainCards.push(x);
     		discard.pop();
     	}
+        System.out.println("\nreshuffled deck\n");
     Collections.shuffle((LinkedList<TrainCard>) trainCards);
     }//redoDeck
 
