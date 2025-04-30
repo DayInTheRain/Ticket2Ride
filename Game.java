@@ -91,7 +91,7 @@ public class Game {
         if(hasDiscard())
             return discard.peek();
         else
-            return null;
+        return null;
     } 
     public boolean hasDiscard() { return discard.size() > 0;}
 
