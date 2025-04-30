@@ -36,6 +36,7 @@ public class Player {
         cardsPicked = new ArrayList<>();
         hasEuropeanExpress = false;
         railroads = new ArrayList<>();
+        stations = new ArrayList<City>();
     }
 
     public int getPlayerNum(){ return playerNum; }
