@@ -300,6 +300,9 @@ public class T2RPanel extends JPanel implements MouseListener{
         for(int i = 0; i < 5; i++){
             g.drawImage(gameAccess.getGrid().get(i).getImage(), (int)((0.67060 + cardWidth*i)*getWidth()), (int)((0.00598)*getHeight()), (int)(cardWidth*getWidth()), (int)(cardHeight*getHeight()), null);
         }
+        g.drawString("Discard Pile", (int)(0.62274704*getWidth()), (int)(0.2344497*getHeight()));
+        if(gameAccess.hasDiscard())
+            g.drawImage(gameAccess.getDiscardCard().getImage(), (int)(0.62274704*getWidth()), (int)(0.2344497*getHeight()), (int)(cardWidth*getWidth()), (int)(cardHeight*getHeight()), null);
     }
 
     public boolean canPurchase(){

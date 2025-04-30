@@ -87,6 +87,13 @@ public class Game {
     public Image getEuropeanExpress() {return europeanExpressCard;}
     public boolean hasTickets() { return !tickets.isEmpty(); }
     public boolean hasTrainCards() { return !trainCards.isEmpty(); }
+    public TrainCard getDiscardCard() { 
+        if(hasDiscard())
+            return discard.peek();
+        else
+            return null;
+    } 
+    public boolean hasDiscard() { return discard.size() > 0;}
 
 
     private void trainCardGenerator(){
