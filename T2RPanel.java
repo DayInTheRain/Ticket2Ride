@@ -32,6 +32,7 @@ public class T2RPanel extends JPanel implements MouseListener{
     boolean invalidColor;
     boolean colorChosen;
     boolean hasOther;
+    boolean taken;
 
     //pickTicket IVs
     int pickTicketState;
@@ -81,6 +82,7 @@ public class T2RPanel extends JPanel implements MouseListener{
         colorChosen = false;
         hasOther = false;
         ableToPurchase = false;
+        taken = false;
 
         ticketsOnScreen = new ArrayList<>();
         tunnelCards = new ArrayList<>();
@@ -306,6 +308,9 @@ public class T2RPanel extends JPanel implements MouseListener{
         for(int i = 0; i < 5; i++){
             g.drawImage(gameAccess.getGrid().get(i).getImage(), (int)((0.67060 + cardWidth*i)*getWidth()), (int)((0.00598)*getHeight()), (int)(cardWidth*getWidth()), (int)(cardHeight*getHeight()), null);
         }
+        g.drawString("Discard Pile", (int)(0.62274704*getWidth()), (int)(0.2344497*getHeight()));
+        if(gameAccess.hasDiscard())
+            g.drawImage(gameAccess.getDiscardCard().getImage(), (int)(0.62274704*getWidth()), (int)(0.2344497*getHeight()), (int)(cardWidth*getWidth()), (int)(cardHeight*getHeight()), null);
     }
 
     public boolean canPurchase(){
@@ -486,6 +491,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                  isDouble = false;
                  colorChosen = false;
                  hasOther = false;
+                 taken = false;
                  repaint();
                  return;
                  
@@ -506,6 +512,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                     isDouble = false;
                     colorChosen = false;
                     hasOther = false;
+                    taken = false;
                     repaint();
                     return;
                 }
@@ -592,8 +599,13 @@ public class T2RPanel extends JPanel implements MouseListener{
                             }
                             
                         }
+                        if(colorChosen && gameAccess.getMap().getRailroad(city1, city2, color).getPlayer() != null){
+                            taken = true;
+                        }else{
+                            taken = false;
+                        }
                         System.out.println("\nInvalidColor: " + invalidColor +"\nColor: " + color + "\n");
-                        if(!invalidColor && color != null){
+                        if(!invalidColor && color != null && !taken){
                             numWild = railroad.getNumWild();
                             num = railroad.getNumTrains();
                             int numOfColor = getCurrentPlayer().getTrainCards().get(color);
@@ -650,6 +662,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                                         isDouble = false;
                                         colorChosen = false;
                                         hasOther = false;
+                                        taken = false;
                                         
                                         System.out.println("EHUWHHS");
                                    	 if(gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getNumTrains() <=2) {
@@ -724,10 +737,6 @@ public class T2RPanel extends JPanel implements MouseListener{
                     }
                     
                 }
-                //    int numOfColor = getCurrentPlayer().getTrainCards().get(color);
-                //    System.out.println(""+numOfColor);
-                //    int numOfWild  = getCurrentPlayer() .getTrainCards().get("wild");
-                //    int numWildForUse = numOfWild-numWild;
                 
                 int counter = 0;
     
@@ -808,7 +817,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                                 claimRouteState = 0;
                                 turnState = 0; 
                                 tunnel = false;
-                                tunnelCards.clear();
+                                clearTunnelCards();
                                 canPurchaseTunnel = false;
                         
                             }
@@ -817,7 +826,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                             claimRouteState = 0;
                             turnState = 0;
                             tunnel = false;
-                            tunnelCards.clear();
+                            clearTunnelCards();
                             canPurchaseTunnel = false;
                             continueButtonClicked = false;
                             isDouble = false;
@@ -1395,9 +1404,9 @@ public class T2RPanel extends JPanel implements MouseListener{
             //claimRouteState = 1;    //change this to something else (maybe make a new claimroutestate)	
             color = null;
             isgrey = false; //this whole thing needs to reset everything
-        }else if(city1 != null && city2 != null && color != null && gameAccess.getMap().getRailroad(city1, city2).getPlayer() != null && !colorChosen && (!isgrey && !isDouble)){ //needs to use railroad(str, str, str (color))
+        }else if(taken ||(city1 != null && city2 != null && color != null && gameAccess.getMap().getRailroad(city1, city2).getPlayer() != null && !colorChosen && (!isgrey && !isDouble))){ //needs to use railroad(str, str, str (color))
             g.drawString("This route is taken, choose something else", (int)(0.6625233064014916*getWidth()), (int)(0.3803827751196172*getHeight())); 
-        } else if(city1 != null && city2 != null && (!gameAccess.getMap().getRailroad(city1, city2).isTunnel() && canPurchase()) && !invalidColor && color != null){
+        } else if(city1 != null && city2 != null && (!gameAccess.getMap().getRailroad(city1, city2).isTunnel() && canPurchase()) && !invalidColor && color != null && !taken){
             g.drawString("Can purchase!", (int)(0.6625233064014916*getWidth()), (int)(0.3803827751196172*getHeight())); 
         }
     }
@@ -1406,6 +1415,11 @@ public class T2RPanel extends JPanel implements MouseListener{
             for(int i = 0; i < 3; i++)
                 tunnelCards.add(gameAccess.drawTrainCard());
         System.out.println("CAN PURCHASE?" + canPurchase());
+    }
+    public void clearTunnelCards(){
+        for(TrainCard t: tunnelCards)
+            gameAccess.discardTrainCard(t);
+        tunnelCards.clear();
     }
 
     public void pickTicketUI(Graphics g)
