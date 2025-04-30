@@ -56,6 +56,13 @@ public class MainTesting {
         // int maxOfPlayer0 = mapT.longestRailroadOfPlayer(game.getPlayers().get(0));
         // System.out.println(maxOfPlayer0);
 
+        System.out.println("trying to see in a railroad is claimed");
+        boolean isClaimed= mapT.searchIfClaimed(mapT.getCity("BeR"), mapT.getCity("dan"), game.getPlayers().get(0));
+        System.out.println("Did player 1 claim this? " + isClaimed);
+        isClaimed= mapT.searchIfClaimed(mapT.getCity("BeR"), mapT.getCity("dan"), game.getPlayers().get(1));
+        System.out.println("Did player 1 claim this? " + isClaimed);
+
+
         System.out.println();
         System.out.println("trying to get other railroad");
         Railroad dr1 = mapT.getRailroad(mapT.getCity("PAM"), mapT.getCity("PAR"));

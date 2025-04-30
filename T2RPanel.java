@@ -348,7 +348,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                 {
                     System.out.println("start game");
                     gameState = 1;
-                  //turnState = -10;
+                  turnState = -10;
                     repaint();
                 }
                 
