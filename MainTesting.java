@@ -69,6 +69,20 @@ public class MainTesting {
         Railroad dr2 = dr1.getSisterRailroad();
         System.out.println(dr1);
         System.out.println(dr2);
+
+        System.out.println();
+        System.out.println("Trying to shuffle deck");
+        while(!game.getTrainCards().isEmpty()){
+            game.drawTrainCard();
+        }
+
+        while(game.getPlayers().get(game.getPlayerTurn() - 1 ).getTrainCards().isEmpty() == false){
+            //TrainCard t = game.getPlayers().get(game.getPlayerTurn() - 1 ).getTrainCards();
+        }
+        System.out.println(game.getDiscardCard());
+        System.out.println(game.drawTrainCard());
+        System.out.println(game.getTrainCards());
+
     }//main ends
 }//class ends
 
