@@ -142,6 +142,8 @@ public class T2RPanel extends JPanel implements MouseListener{
                 );
         }
 
+        System.out.println("the # of railroads I currently have " +getCurrentPlayer().getRailroadList().size());
+
         g = f;
         super.paint(g);
        
@@ -657,7 +659,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                                             }
                                             getCurrentPlayer().getTrainCards().replace("wild", numWildForUse-numLeft);
                                         }
-                                        getCurrentPlayer().addRailroad(railroad);
+                                        //getCurrentPlayer().addRailroad(railroad);
                                         railroad.claim(getCurrentPlayer());
                                         getCurrentPlayer().addPoints(railroad.getPoints());
                                         getCurrentPlayer().placetrains(railroad.getNumTotalTrains());
@@ -814,7 +816,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                                     getCurrentPlayer().getTrainCards().replace("wild", numOfWild-numLeft);
                                 }
                         
-                                getCurrentPlayer().addRailroad(railroad);
+                                //getCurrentPlayer().addRailroad(railroad);
                                 railroad.claim(getCurrentPlayer());
                                 getCurrentPlayer().addPoints(railroad.getPoints());
                                 getCurrentPlayer().placetrains(railroad.getNumTotalTrains());

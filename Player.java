@@ -15,7 +15,7 @@ public class Player {
         playerNum = num;
         points = 0;
         trainStations = 3;
-        trains = 5;
+        trains = 15;
         turnStatus = 0;
         turnState = 0;
 
@@ -206,16 +206,42 @@ public class Player {
                 System.out.println("The railroad I'm considering adding is " + r);
                 System.out.println(ticket.getFirstCity());
                 System.out.println(r.getFirst());
+                System.out.println("the first size is " + startingRoads.size());
                 if (ticket.getFirstCity().equals(r.getFirst()) || ticket.getFirstCity().equals(r.getSecond()))
                 {
                     startingRoads.add(r);
-                    System.out.println(startingRoads.size());
+                    System.out.println("if statement changes to size" + startingRoads.size());
+                    
                 }
+
+               
             }
-            System.out.println("Starting road " + startingRoads);
 
 
             
+            System.out.println("Starting road " + startingRoads);
+            ArrayList<Railroad> toBeAdded = new ArrayList<Railroad>();
+            for (Railroad p: railroads)
+            {
+
+                for (Railroad q : startingRoads)
+                if (p.getFirst().equals(q.getFirst()) || p.getFirst().equals(q.getSecond()))
+                {
+                    if ( startingRoads.contains(p))
+                    {
+                        System.out.println("already added");
+                    }
+                    else
+                    {
+                    toBeAdded.add(p);
+                    }
+                    
+                }
+
+            }
+            startingRoads.addAll(toBeAdded);
+            System.out.println("starting roads is of size" + startingRoads.size());
+            System.out.println(startingRoads.toString());
             /* 
         getRailroadList().get(0);
         HashSet<City> cityNetwork = new HashSet<City>();
