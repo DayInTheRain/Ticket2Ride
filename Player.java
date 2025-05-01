@@ -15,7 +15,7 @@ public class Player {
         playerNum = num;
         points = 0;
         trainStations = 3;
-        trains = 45;
+        trains = 15;
         turnStatus = 0;
         turnState = 0;
 
@@ -162,4 +162,90 @@ public class Player {
     public void addStation(City c){
         stations.add(c);
     }
+
+
+    
+
+        public boolean areConnected(Railroad start, Railroad target) {
+            if (start == null || target == null) return false;
+            if (start == target) return true;
+    
+            Set<Railroad> visited = new HashSet<>();
+            Queue<Railroad> queue = new LinkedList<>();
+            queue.add(start);
+            visited.add(start);
+    
+            while (!queue.isEmpty()) {
+                Railroad current = queue.poll();
+    
+                for (Railroad neighbor : current.getNeighbors()) {
+                        if (this.railroads.contains(neighbor))
+                           { 
+                            if (neighbor == target) {
+                                return true;
+                            }
+                            if (!visited.contains(neighbor)) {
+                                visited.add(neighbor);
+                                queue.add(neighbor);
+                            }
+                        }
+                }
+            }
+    
+            return false;
+        }
+    
+
+        public void TicketCompleted(Ticket ticket)
+        {
+            ticket.getFirstCity();
+
+            ArrayList<Railroad> startingRoads = new ArrayList<Railroad>();
+            for (Railroad r : railroads)
+            {
+                System.out.println("The railroad I'm considering adding is " + r);
+                System.out.println(ticket.getFirstCity());
+                System.out.println(r.getFirst());
+                System.out.println("the first size is " + startingRoads.size());
+                if (ticket.getFirstCity().equals(r.getFirst()) || ticket.getFirstCity().equals(r.getSecond()))
+                {
+                    startingRoads.add(r);
+                    System.out.println("if statement changes to size" + startingRoads.size());
+                    
+                }
+
+               
+            }
+
+
+            
+            System.out.println("Starting road " + startingRoads);
+            ArrayList<Railroad> toBeAdded = new ArrayList<Railroad>();
+            for (Railroad p: railroads)
+            {
+
+                for (Railroad q : startingRoads)
+                if (p.getFirst().equals(q.getFirst()) || p.getFirst().equals(q.getSecond()))
+                {
+                    if ( startingRoads.contains(p))
+                    {
+                        System.out.println("already added");
+                    }
+                    else
+                    {
+                    toBeAdded.add(p);
+                    }
+                    
+                }
+
+            }
+            startingRoads.addAll(toBeAdded);
+            System.out.println("starting roads is of size" + startingRoads.size());
+            System.out.println(startingRoads.toString());
+            /* 
+        getRailroadList().get(0);
+        HashSet<City> cityNetwork = new HashSet<City>();
+                */
+
+        }
 }//class Player
