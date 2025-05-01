@@ -42,4 +42,9 @@ public class Ticket {
     public String getFirstCity(){ return firstCity; }
     public String getSecondCity(){ return secondCity; }
     public Image getImage(){ return image; }
+    public String toString()
+    {
+        String s = "from " + firstCity + " to " + secondCity;
+        return s;
+    }
 }

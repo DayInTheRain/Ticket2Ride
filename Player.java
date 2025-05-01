@@ -15,7 +15,7 @@ public class Player {
         playerNum = num;
         points = 0;
         trainStations = 3;
-        trains = 45;
+        trains = 5;
         turnStatus = 0;
         turnState = 0;
 
@@ -162,4 +162,64 @@ public class Player {
     public void addStation(City c){
         stations.add(c);
     }
+
+
+    
+
+        public boolean areConnected(Railroad start, Railroad target) {
+            if (start == null || target == null) return false;
+            if (start == target) return true;
+    
+            Set<Railroad> visited = new HashSet<>();
+            Queue<Railroad> queue = new LinkedList<>();
+            queue.add(start);
+            visited.add(start);
+    
+            while (!queue.isEmpty()) {
+                Railroad current = queue.poll();
+    
+                for (Railroad neighbor : current.getNeighbors()) {
+                        if (this.railroads.contains(neighbor))
+                           { 
+                            if (neighbor == target) {
+                                return true;
+                            }
+                            if (!visited.contains(neighbor)) {
+                                visited.add(neighbor);
+                                queue.add(neighbor);
+                            }
+                        }
+                }
+            }
+    
+            return false;
+        }
+    
+
+        public void TicketCompleted(Ticket ticket)
+        {
+            ticket.getFirstCity();
+
+            ArrayList<Railroad> startingRoads = new ArrayList<Railroad>();
+            for (Railroad r : railroads)
+            {
+                System.out.println("The railroad I'm considering adding is " + r);
+                System.out.println(ticket.getFirstCity());
+                System.out.println(r.getFirst());
+                if (ticket.getFirstCity().equals(r.getFirst()) || ticket.getFirstCity().equals(r.getSecond()))
+                {
+                    startingRoads.add(r);
+                    System.out.println(startingRoads.size());
+                }
+            }
+            System.out.println("Starting road " + startingRoads);
+
+
+            
+            /* 
+        getRailroadList().get(0);
+        HashSet<City> cityNetwork = new HashSet<City>();
+                */
+
+        }
 }//class Player

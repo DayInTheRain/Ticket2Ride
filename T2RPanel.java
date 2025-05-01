@@ -134,6 +134,14 @@ public class T2RPanel extends JPanel implements MouseListener{
 
     public void paint(Graphics f)
     {
+        if (getCurrentPlayer().getTickets().size() >0)
+        {
+            System.out.println( getCurrentPlayer().getTickets().get(0));
+            getCurrentPlayer().TicketCompleted(
+                getCurrentPlayer().getTickets().get(0)
+                );
+        }
+
         g = f;
         super.paint(g);
        
