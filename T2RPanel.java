@@ -142,6 +142,8 @@ public class T2RPanel extends JPanel implements MouseListener{
                 );
         }
 
+        System.out.println("the # of railroads I currently have " +getCurrentPlayer().getRailroadList().size());
+
         g = f;
         super.paint(g);
        
@@ -680,9 +682,15 @@ public class T2RPanel extends JPanel implements MouseListener{
                                         	
                                         	System.out.println("lastTurn");
                                         	if(!firstlast) {
+<<<<<<< HEAD
                                                 lastTurn = 0;
                                                 firstlast = true;
                                                 System.out.println("first person has reached last");
+=======
+                                        	lastTurn = -1;
+                                        	firstlast = true;
+                                        	System.out.println("first person has reached last");
+>>>>>>> 362d1735d592b14975cfbeeaf1f415b9434c69fa
                                         	}
                                         }
                                    	 if(isLast) {
@@ -690,8 +698,13 @@ public class T2RPanel extends JPanel implements MouseListener{
                                    		 System.out.println("players last turn" + lastTurn);
                                    	 }
                                    	 if(isLast && lastTurn >= 4) {
+<<<<<<< HEAD
                                    		 	turnState = 10;
                                         		//gameState = 2;
+=======
+                                   		 	//turnState = 10;
+                                        		gameState = 2;
+>>>>>>> 362d1735d592b14975cfbeeaf1f415b9434c69fa
                                         		System.out.println("end game");
                                         }
                                         gameAccess.incrementTurn();
@@ -817,7 +830,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                                     getCurrentPlayer().getTrainCards().replace("wild", numOfWild-numLeft);
                                 }
                         
-                                getCurrentPlayer().addRailroad(railroad);
+                                //getCurrentPlayer().addRailroad(railroad);
                                 railroad.claim(getCurrentPlayer());
                                 getCurrentPlayer().addPoints(railroad.getPoints());
                                 getCurrentPlayer().placetrains(railroad.getNumTotalTrains());
@@ -866,8 +879,13 @@ public class T2RPanel extends JPanel implements MouseListener{
                        		 System.out.println("players last turn" + lastTurn);
                        	 }
                        	 if(isLast && lastTurn >= 4) {
+<<<<<<< HEAD
                             		//gameState = 2;
                        		 turnState = 10;
+=======
+                            		gameState = 2;
+                       		// turnState = 10;
+>>>>>>> 362d1735d592b14975cfbeeaf1f415b9434c69fa
                             		System.out.println("end game");
                             }
                             gameAccess.incrementTurn();
@@ -950,8 +968,13 @@ public class T2RPanel extends JPanel implements MouseListener{
                    		 System.out.println("players last turn" + lastTurn);
                    	 }
                    	 if(isLast && lastTurn >= 4) {
+<<<<<<< HEAD
                         		//gameState = 2;
                    		 turnState = 10;
+=======
+                        		gameState = 2;
+                   		 //turnState = 10;
+>>>>>>> 362d1735d592b14975cfbeeaf1f415b9434c69fa
                         		System.out.println("end game");
                         }
                         gameAccess.incrementTurn();
@@ -1019,8 +1042,13 @@ public class T2RPanel extends JPanel implements MouseListener{
             		 System.out.println("players last turn" + lastTurn);
             	 }
             	 if(isLast && lastTurn >= 4) {
+<<<<<<< HEAD
                  		//gameState = 2;
             		 turnState = 10;
+=======
+                 		gameState = 2;
+            		 //turnState = 10;
+>>>>>>> 362d1735d592b14975cfbeeaf1f415b9434c69fa
                  		System.out.println("end game");
                  }
                  gameAccess.incrementTurn();
@@ -1203,8 +1231,13 @@ public class T2RPanel extends JPanel implements MouseListener{
             		 System.out.println("players last turn" + lastTurn);
             	 }
             	 if(isLast && lastTurn >= 4) {
+<<<<<<< HEAD
                  		//gameState = 2;
             		 turnState = 10;
+=======
+                 		gameState = 2;
+            		 //turnState = 10;
+>>>>>>> 362d1735d592b14975cfbeeaf1f415b9434c69fa
                  		System.out.println("end game");
                  }
                  gameAccess.incrementTurn();
@@ -1688,6 +1721,16 @@ public class T2RPanel extends JPanel implements MouseListener{
     	
     	ArrayList<Player> plays = new ArrayList<>();
     	plays.addAll(gameAccess.getPlayers());
+    	
+    	for(Player x : plays) {
+    		x.addPoints(x.getNumTrainStations()*4);
+    	 // needs to check destination tickets
+    		if(x.hasEuropeanExpress())
+    			x.addPoints(10);
+    		
+    	System.out.println("Player "+x.getPlayerNum()+":"+x.getPoints());
+    	}
+    	
     	ArrayList<Integer> places = new ArrayList<>();
     	int p1points = gameAccess.getPlayers().get(0).getPoints();
     	int p2points = gameAccess.getPlayers().get(1).getPoints();
