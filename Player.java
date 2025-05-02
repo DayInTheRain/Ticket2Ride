@@ -223,16 +223,17 @@ public class Player {
             ArrayList<Railroad> toBeAdded = new ArrayList<Railroad>();
             for (Railroad p: railroads)
             {
-
+                System.out.println("The player's railroad is " + p);
                 for (Railroad q : startingRoads)
                 if (p.getFirst().equals(q.getFirst()) || p.getFirst().equals(q.getSecond()))
                 {
                     if ( startingRoads.contains(p))
                     {
-                        System.out.println("already added");
+                        System.out.println(p + " was already added");
                     }
                     else
                     {
+                        System.out.println("we are doing toBeAdded " + p);
                     toBeAdded.add(p);
                     }
                     
@@ -252,6 +253,14 @@ public class Player {
                     citiesVisited.add(r.getFirst());
                     citiesVisited.add(r.getSecond());
                 }
+                System.out.println("Cities that have been visited:");
+                for (String s: citiesVisited)
+                {
+                    System.out.println(s);
+                }
+
+                System.out.println("cities that we want:" + ticket.getFirstCity() +" " +ticket.getSecondCity());
+
                 if (citiesVisited.contains(ticket.getFirstCity()) && citiesVisited.contains(ticket.getSecondCity()))
                 {
                     return true;
