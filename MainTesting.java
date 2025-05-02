@@ -56,12 +56,33 @@ public class MainTesting {
         // int maxOfPlayer0 = mapT.longestRailroadOfPlayer(game.getPlayers().get(0));
         // System.out.println(maxOfPlayer0);
 
+        System.out.println("trying to see in a railroad is claimed");
+        boolean isClaimed= mapT.searchIfClaimed(mapT.getCity("BeR"), mapT.getCity("dan"), game.getPlayers().get(0));
+        System.out.println("Did player 1 claim this? " + isClaimed);
+        isClaimed= mapT.searchIfClaimed(mapT.getCity("BeR"), mapT.getCity("dan"), game.getPlayers().get(1));
+        System.out.println("Did player 1 claim this? " + isClaimed);
+
+
         System.out.println();
         System.out.println("trying to get other railroad");
         Railroad dr1 = mapT.getRailroad(mapT.getCity("PAM"), mapT.getCity("PAR"));
         Railroad dr2 = dr1.getSisterRailroad();
         System.out.println(dr1);
         System.out.println(dr2);
+
+        System.out.println();
+        System.out.println("Trying to shuffle deck");
+        while(!game.getTrainCards().isEmpty()){
+            game.drawTrainCard();
+        }
+
+        while(game.getPlayers().get(game.getPlayerTurn() - 1 ).getTrainCards().isEmpty() == false){
+            //TrainCard t = game.getPlayers().get(game.getPlayerTurn() - 1 ).getTrainCards();
+        }
+        System.out.println(game.getDiscardCard());
+        System.out.println(game.drawTrainCard());
+        System.out.println(game.getTrainCards());
+
     }//main ends
 }//class ends
 

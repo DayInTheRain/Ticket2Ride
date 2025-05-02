@@ -194,6 +194,7 @@ public class MapGraph {
         return maxTrainNum;
     }//dfSearch
 		
+	*/
 
 	public boolean searchIfClaimed(City fCity, City sCity, Player p) {
 		boolean claimed = false;
@@ -205,10 +206,19 @@ public class MapGraph {
 				System.out.println(railroads.get(exists).getPlayer());
 				claimed = true;
 			}
+		}else{
+			exists = railroads.get(exists).getSisterRailroad().getID();
+			if(!exists.equals("false")){
+				if(railroads.get(exists).getPlayer().getPlayerNum() == p.getPlayerNum()){
+					System.out.println(railroads.get(exists).getPlayer());
+					claimed = true;
+				}
+			}
 		}
 		return claimed;
 	}
-	*/
+	
+	
 	
 
 	public String railroadExists(City fCity, City sCity){

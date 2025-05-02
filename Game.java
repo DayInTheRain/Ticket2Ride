@@ -89,6 +89,16 @@ public class Game {
     public boolean hasTrainCards() { return !trainCards.isEmpty(); }
 
 
+    public TrainCard getDiscardCard() { 
+        if(hasDiscard())
+            return discard.peek();
+        else
+        return null;
+    } 
+    
+    public boolean hasDiscard() { return discard.size() > 0;}
+
+
     private void trainCardGenerator(){
         try {
 		    // Load card names from the jar resource
@@ -229,22 +239,35 @@ public class Game {
     }//drawTicket
 
     public TrainCard drawTrainCard(){
-    	if(trainCards.isEmpty()) {
+
+    	if(trainCards == null || trainCards.size() == 0 || trainCards.isEmpty()) {
+            System.out.println("I am here! I'm shuffling!");
     		redoDeck();
     	}
+        System.out.println(trainCards.peek().getColor());
+
         return trainCards.pop();
     }//drawTrainCard
 
     public void redoDeck() {
+        System.out.println(discard);
     	for(TrainCard x: discard) {
     		trainCards.push(x);
     		discard.pop();
     	}
+
+        // trainCards.addAll(discard);
+        System.out.println("All traincards from discard");
+        System.out.println(trainCards);
+        // discard.removeAll(discard);
+        System.out.println("Discard pile should be empty now");
+        System.out.println(discard);
+
     Collections.shuffle((LinkedList<TrainCard>) trainCards);
     }//redoDeck
 
     public void discardTrainCard(TrainCard card){
-        discard.push(card);
+        discard.offer(card);
     }//discardTrainCard
 
     public ArrayList<Player> getPlayers(){ return players; }
@@ -262,6 +285,10 @@ public class Game {
 
     public ArrayList<Railroad> getRailroads(){
         return railroadList;
+    }
+
+    public  Deque<TrainCard> getTrainCards(){
+        return trainCards;
     }
 
 }//end of class
