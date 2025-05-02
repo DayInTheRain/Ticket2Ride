@@ -1005,11 +1005,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                     turnState = 0;
                     pickTrainCardState = 0;
                     System.out.println("EHUWHHS");
-               	 if(gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getNumTrains() <=2) {
-                    	isLast = true;
-                    	System.out.println("lastTurn");
-                    	lastTurn = 0;
-                    }
+               	
                	 if(gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getNumTrains() <=2) {
                  	isLast = true;
                  	
@@ -1187,13 +1183,8 @@ public class T2RPanel extends JPanel implements MouseListener{
                     getCurrentPlayer().decrementTrainStations();
                     
                     System.out.println("EHUWHHS");
-               	 if(gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getNumTrains() <=2 ) {
-                    	isLast = true;
-                    	System.out.println("lastTurn");
-                    	if(!firstlast) {
-                    	lastTurn = 0;
-                    	firstlast = true;}                    	
-                    }
+                                   	
+                   
                	 if(gameAccess.getPlayers().get(gameAccess.getPlayerTurn()-1).getNumTrains() <=2) {
                  	isLast = true;
                  	
