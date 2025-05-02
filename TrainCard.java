@@ -34,4 +34,8 @@ public class TrainCard {
             return -1;
         }
     }
+
+    public String toString(){
+        return color;
+    }
 } //end of class

@@ -144,7 +144,7 @@ public class Player {
                 c = new Color(176, 26, 26); //red
                 return  c;
             case 3:
-                c = new Color(232, 195, 9); //yellow
+                c = new Color(212, 159, 0); //yellow
                 return  c;
             case 4:
                 c = new Color(31, 31, 171); // blue
