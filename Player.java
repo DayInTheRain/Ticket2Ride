@@ -196,7 +196,7 @@ public class Player {
         }
     
 
-        public void TicketCompleted(Ticket ticket)
+        public boolean TicketCompleted(Ticket ticket)
         {
             ticket.getFirstCity();
 
@@ -246,6 +246,16 @@ public class Player {
         getRailroadList().get(0);
         HashSet<City> cityNetwork = new HashSet<City>();
                 */
-
+                HashSet<String> citiesVisited = new HashSet<String>();
+                for (Railroad r : startingRoads)
+                {
+                    citiesVisited.add(r.getFirst());
+                    citiesVisited.add(r.getSecond());
+                }
+                if (citiesVisited.contains(ticket.getFirstCity()) && citiesVisited.contains(ticket.getSecondCity()))
+                {
+                    return true;
+                }
+                return false;
         }
 }//class Player
