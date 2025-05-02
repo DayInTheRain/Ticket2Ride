@@ -144,6 +144,14 @@ public class T2RPanel extends JPanel implements MouseListener{
 
         System.out.println("the # of railroads I currently have " +getCurrentPlayer().getRailroadList().size());
 
+        System.out.println("The tickets completed by the current player:");
+        {
+            for (Ticket t : getCurrentPlayer().getTickets())
+            {
+                System.out.println(getCurrentPlayer().TicketCompleted(t));
+            }
+        }
+
         g = f;
         super.paint(g);
        
