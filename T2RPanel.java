@@ -682,9 +682,13 @@ public class T2RPanel extends JPanel implements MouseListener{
                                         	
                                         	System.out.println("lastTurn");
                                         	if(!firstlast) {
+                                                lastTurn = 0;
+                                                firstlast = true;
+                                                System.out.println("first person has reached last");
                                         	lastTurn = -1;
                                         	firstlast = true;
                                         	System.out.println("first person has reached last");
+
                                         	}
                                         }
                                    	 if(isLast) {
