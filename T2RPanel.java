@@ -1689,6 +1689,13 @@ public class T2RPanel extends JPanel implements MouseListener{
     	for(Player x : plays) {
     		x.addPoints(x.getNumTrainStations()*4);
     	 // needs to check destination tickets
+    		for(Ticket y: x.getTickets()) {
+    			if(x.checkTickets(y)) {
+    				x.addPoints(y.getPointValue());
+    			}
+    			else 
+    				x.addPoints(-y.getPointValue());
+    		}
     		if(x.hasEuropeanExpress())
     			x.addPoints(10);
     		
