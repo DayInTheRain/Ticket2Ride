@@ -195,7 +195,7 @@ public class T2RPanel extends JPanel implements MouseListener{
 
     public void paint(Graphics f)
     {
-        System.out.println("dt1 selected? " +destinationTicket1Selected);
+        //System.out.println("dt1 selected? " +destinationTicket1Selected);
         f.drawImage(woodenBg, 0, 0, getWidth(), getHeight(), null);
        
         System.out.println("the # of railroads I currently have " +getCurrentPlayer().getRailroadList().size());
@@ -981,7 +981,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                 {
                     System.out.println("left DT clicked");
                     destinationTicket1Selected = ! destinationTicket1Selected;
-                    time1 = 0;
+                    
                     
                 }
 
@@ -999,6 +999,11 @@ public class T2RPanel extends JPanel implements MouseListener{
                     destinationTicket3Selected = ! destinationTicket3Selected;
 
                    
+                }
+
+                if (! (destinationTicket1Selected || destinationTicket2Selected || destinationTicket3Selected))
+                {
+                    time1 = 0;
                 }
 
                 else if ( rectangularInBounds(x, y, (int) (getWidth() * 0.7383), (int) (getWidth() * 0.8986), (int) (getHeight() * 0.7416), (int) (getHeight() * 0.9007)))
@@ -1582,7 +1587,7 @@ public class T2RPanel extends JPanel implements MouseListener{
             {
                // g.setColor(Color.green);
                // g.drawRect( (int) (getWidth() * 0.2), (int) (getHeight()*0.3), (int)(getWidth() * 0.144), (int) (getHeight() * 0.16));
-                System.out.println("ticket 1 is selected");
+            //    System.out.println("ticket 1 is selected");
                 g.setColor(Color.black);
                 rotatingDestinationTicket(g, destinationTicket1, -0.2227, -0.102857, time1); 
                 
@@ -1592,7 +1597,7 @@ public class T2RPanel extends JPanel implements MouseListener{
             {
                 
                // g.drawRect( (int) (getWidth() * 0.6), (int) (getHeight()*0.3), (int)(getWidth() * 0.14), (int) (getHeight() * 0.16));
-                System.out.println("ticket 2 is selected");
+          //      System.out.println("ticket 2 is selected");
 
                 
                 rotatingDestinationTicket(g, destinationTicket2, +0.1727, -0.122857, time1); 
@@ -1602,7 +1607,7 @@ public class T2RPanel extends JPanel implements MouseListener{
             {
              //   g.setColor(Color.green);
                // g.drawRect( (int) (getWidth() * 0.4), (int) (getHeight()*0.6), (int)(getWidth() * 0.14), (int) (getHeight() * 0.16));
-                System.out.println("ticket 3 is selected");
+            //    System.out.println("ticket 3 is selected");
                 rotatingDestinationTicket(g, destinationTicket3, -0.03, 0.20, time1); 
 
             }
@@ -1615,7 +1620,7 @@ public class T2RPanel extends JPanel implements MouseListener{
     {
         
              heading = 0 - Math.toRadians((((double) tim)/4)/200 * 180 - 10);
-             System.out.println("heading: " + heading);
+             //System.out.println("heading: " + heading);
          pitch = 3.0;// Math.toRadians( -(time/4 -100)*(time/4 - 100)*0.003+30);
          headingTransform = new Matrix3(new double[] {
                  Math.cos(heading), 0, -Math.sin(heading),
