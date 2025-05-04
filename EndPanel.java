@@ -5,6 +5,7 @@ import java.util.*;
 import javax.swing.*;
 
 public class EndPanel extends JPanel implements MouseListener{
+	private T2RFrame frame;
 	Image endscreen;
 	JButton startbutton;
     JButton rulesbutton;
@@ -22,7 +23,7 @@ public class EndPanel extends JPanel implements MouseListener{
     
     public EndPanel(Game x) {
     	gameAccess = x;
-    	 endscreen = ImageLoader.get("/Images/end screen.jpg");
+    	endscreen = ImageLoader.get("/Images/end screen.jpg");
     }
     
     public void paint(Graphics g) {
@@ -30,7 +31,7 @@ public class EndPanel extends JPanel implements MouseListener{
     }
     
  public void endGame(Graphics g) {
-    	
+    	g.drawImage(endscreen, 0, 0, getWidth(), getHeight(), null);
     	Player first = null;
     	Player second = null;
     	Player third = null;
@@ -172,6 +173,14 @@ public class EndPanel extends JPanel implements MouseListener{
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void setFrame(T2RFrame f){
+		frame = f;
+	}
+
+	public T2RFrame getFrame(){
+		return frame;
 	}
 
 }

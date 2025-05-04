@@ -68,6 +68,9 @@ public class T2RPanel extends JPanel implements MouseListener{
 
     Graphics g;
     ArrayList<String> ColorsPicked;
+
+    T2RFrame frame;
+
     public T2RPanel()
     {
         gameAccess = new Game();
@@ -1696,6 +1699,7 @@ public class T2RPanel extends JPanel implements MouseListener{
 
     public void endGame(Graphics g) 
     {
+        this.getFrame().endScreen(gameAccess); //this should make the game end and switch to the new endscreen
     	Player first = null;
     	Player second = null;
     	Player third = null;
@@ -1896,5 +1900,11 @@ public class T2RPanel extends JPanel implements MouseListener{
         // }
     }//pickStationRoutesUI
 
+    public void setFrame(T2RFrame f){
+        frame = f;
+    }
 
+    public T2RFrame getFrame(){
+        return frame;
+    }
 }//class TR2PAnel
