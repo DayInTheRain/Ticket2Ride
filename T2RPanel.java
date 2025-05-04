@@ -169,6 +169,10 @@ public class T2RPanel extends JPanel implements MouseListener{
                 g.drawImage(t2r_map, 0, 0, (int)(getWidth() * 0.6), (int)(getHeight()  * 0.7) ,null);
                 paintClaimedRailroads(g); //paints the claimed railroads in the color of the player
                 paintPlayerHand(g); //paints the player whos turn it is
+                if (firstlast)
+                {
+                    paintSkipButton(g);
+                }
                 if (turnState ==0)
                 {
                     beginTurnUI(g);
@@ -413,6 +417,17 @@ public class T2RPanel extends JPanel implements MouseListener{
         if (gameState == 1 && !viewingTickets)
         {
 
+            g.fillRoundRect((int)(0.82711*getWidth()), (int)(0.740000*getHeight()),(int)( 0.1*getWidth()), (int)(0.05*getHeight()), (int)(0.01*getWidth()), (int)(0.1*getWidth()));
+            if ( firstlast  &&  rectangularInBounds(x, y,(int)(0.82711*getWidth()), (int)(0.92711*getWidth()), (int)(0.740000*getHeight()), (int)(0.790000*getHeight())) )
+            {
+                System.out.println("player skipped turn");
+                
+                lastTurn++; // i think there's some stuff missing here to add
+                
+                gameAccess.incrementTurn();
+            }
+            
+            
             //if user clicks to view tickets
             if(rectangularInBounds(x, y, (int)(0.62834*getWidth()), (int)(0.69484*getWidth()), (int)( 0.74880*getHeight()), (int)( 0.98205*getHeight())) && turnState != -10){
                 System.out.println("view tickets was clicked");
@@ -1890,6 +1905,12 @@ public class T2RPanel extends JPanel implements MouseListener{
         //     g.drawString("Can purchase!", (int)(0.6625233064014916*getWidth()), (int)(0.3803827751196172*getHeight())); 
         // }
     }//pickStationRoutesUI
-
+    public void paintSkipButton(Graphics g)
+    {
+        g.setColor(Color.orange);
+        g.fillRoundRect((int)(0.82711*getWidth()), (int)(0.740000*getHeight()),(int)( 0.1*getWidth()), (int)(0.05*getHeight()), (int)(0.01*getWidth()), (int)(0.1*getWidth()));
+        g.setColor(Color.black);
+        g.drawString("skip", (int) (0.86311*getWidth() ), (int) (0.774*getHeight()));
+    }
 
 }//class TR2PAnel
