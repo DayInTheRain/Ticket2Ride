@@ -196,75 +196,41 @@ public class Player {
         }
     
 
-        public boolean TicketCompleted(Ticket ticket)
-        {
-            ticket.getFirstCity();
-
-            ArrayList<Railroad> startingRoads = new ArrayList<Railroad>();
-            for (Railroad r : railroads)
-            {
-                System.out.println("The railroad I'm considering adding is " + r);
-                System.out.println(ticket.getFirstCity());
-                System.out.println(r.getFirst());
-                System.out.println("the first size is " + startingRoads.size());
-                if (ticket.getFirstCity().equals(r.getFirst()) || ticket.getFirstCity().equals(r.getSecond()))
-                {
-                    startingRoads.add(r);
-                    System.out.println("if statement changes to size" + startingRoads.size());
-                    
-                }
-
-               
-            }
 
 
-            
-            System.out.println("Starting road " + startingRoads);
-            ArrayList<Railroad> toBeAdded = new ArrayList<Railroad>();
-            for (Railroad p: railroads)
-            {
-                System.out.println("The player's railroad is " + p);
-                for (Railroad q : startingRoads)
-                if (p.getFirst().equals(q.getFirst()) || p.getFirst().equals(q.getSecond()))
-                {
-                    if ( startingRoads.contains(p))
-                    {
-                        System.out.println(p + " was already added");
-                    }
-                    else
-                    {
-                        System.out.println("we are doing toBeAdded " + p);
-                    toBeAdded.add(p);
-                    }
-                    
-                }
 
-            }
-            startingRoads.addAll(toBeAdded);
-            System.out.println("starting roads is of size" + startingRoads.size());
-            System.out.println(startingRoads.toString());
-            /* 
-        getRailroadList().get(0);
-        HashSet<City> cityNetwork = new HashSet<City>();
-                */
-                HashSet<String> citiesVisited = new HashSet<String>();
-                for (Railroad r : startingRoads)
-                {
-                    citiesVisited.add(r.getFirst());
-                    citiesVisited.add(r.getSecond());
-                }
-                System.out.println("Cities that have been visited:");
-                for (String s: citiesVisited)
-                {
-                    System.out.println(s);
-                }
 
-                System.out.println("cities that we want:" + ticket.getFirstCity() +" " +ticket.getSecondCity());
 
-                if (citiesVisited.contains(ticket.getFirstCity()) && citiesVisited.contains(ticket.getSecondCity()))
-                {
-                    return true;
-                }
-                return false;
+    public boolean isTicketCompleted(Ticket t) {
+        String startCity = t.getFirstCity();
+        String endCity = t.getSecondCity();
+        Map<String, List<String>> graph = new HashMap<>();
+
+        for (Railroad railroad : railroads) {
+            graph.computeIfAbsent(railroad.getFirst(), k -> new ArrayList<>()).add(railroad.getSecond());
+            graph.computeIfAbsent(railroad.getSecond(), k -> new ArrayList<>()).add(railroad.getFirst());
         }
+
+        Set<String> visited = new HashSet<>();
+        Queue<String> queue = new LinkedList<>();
+        queue.add(startCity);
+
+        while (!queue.isEmpty()) {
+            String current = queue.poll();
+            if (current.equals(endCity)) return true;
+
+            visited.add(current);
+
+            for (String neighbor : graph.getOrDefault(current, Collections.emptyList())) {
+                if (!visited.contains(neighbor)) {
+                    queue.add(neighbor);
+                }
+            }
+        }
+
+        return false;
+    }
+    
 }//class Player
+
+
