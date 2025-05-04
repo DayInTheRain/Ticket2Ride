@@ -1,7 +1,11 @@
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.util.*;
+import java.util.Timer;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class T2RPanel extends JPanel implements MouseListener{
@@ -71,6 +75,27 @@ public class T2RPanel extends JPanel implements MouseListener{
 
     T2RFrame frame;
 
+    Timer timer1;
+    int time1;
+
+    Timer timer2;
+    int time2;
+
+    Timer timer3;
+    int time3;
+
+
+    double heading;
+	double pitch;
+
+    Matrix3 headingTransform;
+	 Matrix3 pitchTransform;
+	 Matrix3 transform;
+
+
+     Square DestinationCardBackSquare;
+
+     BufferedImage DestinationCardBack;
     public T2RPanel()
     {
         gameAccess = new Game();
@@ -120,13 +145,44 @@ public class T2RPanel extends JPanel implements MouseListener{
         //colorChoosen = "";
         buildStationColor = null;
         ColorsPicked = new ArrayList<String>();
-        boolean destinationTicket1Selected = false;
-        boolean destinationTicket2Selected = false;
-        boolean destinationTicket3Selected = false;
+        
+        
         isEnd = false;
         isLast = false;
         lastTurn = -1;
         firstlast = false;
+
+        timer1 = new Timer();
+        timer1.scheduleAtFixedRate(new TimerTask() {
+            
+            @Override
+            public void run() {
+               
+                if (destinationTicket1Selected || destinationTicket2Selected || destinationTicket3Selected) {
+                   
+                    time1 += 4;
+                    SwingUtilities.invokeLater(() -> repaint());
+                }
+            }
+        }, 0, 10);
+
+        
+
+           try {
+        	  DestinationCardBack = ImageIO.read(T2RPanel.class.getResource("/Images/CardBacks/TicketBack.jpg"));
+        	  
+          }
+          
+          catch(Exception E)
+          {
+        	  System.out.println("Exception Error");
+        	  return;
+          }
+        new Vertex(0,0,0);
+        DestinationCardBackSquare = new Square(new Vertex(0,0,0), new Vertex (DestinationCardBack.getWidth(),0,0), new Vertex(DestinationCardBack.getWidth(), DestinationCardBack.getHeight(), 0), new Vertex(0,DestinationCardBack.getHeight(),0), Color.black);
+          
+
+
     }//end of constructor
 
     public void generateTicketsOnScreen(){
@@ -139,6 +195,7 @@ public class T2RPanel extends JPanel implements MouseListener{
 
     public void paint(Graphics f)
     {
+        System.out.println("dt1 selected? " +destinationTicket1Selected);
         f.drawImage(woodenBg, 0, 0, getWidth(), getHeight(), null);
        
         System.out.println("the # of railroads I currently have " +getCurrentPlayer().getRailroadList().size());
@@ -907,8 +964,9 @@ public class T2RPanel extends JPanel implements MouseListener{
                 if (getCurrentPlayer().getTickets().size() >0)
                 {
                     System.out.println("Please be true god " +  getCurrentPlayer().getTickets().get(0));
+                    for (Ticket t: getCurrentPlayer().getTickets())
                    System.out.println( getCurrentPlayer().isTicketCompleted(
-                        getCurrentPlayer().getTickets().get(0)
+                        t
                         ));
                 }
         
@@ -923,7 +981,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                 {
                     System.out.println("left DT clicked");
                     destinationTicket1Selected = ! destinationTicket1Selected;
-                    
+                    time1 = 0;
                     
                 }
 
@@ -1508,47 +1566,163 @@ public class T2RPanel extends JPanel implements MouseListener{
         g.setColor(Color.black);
         
         
-        g.drawString("Pick at least one ticket to keep. You must select at least one ticket.", (int)(0.30640149*getWidth()), (int)(0.16507 * getHeight()));
+        g.drawString("Pick at least one ticket to keep. You must select at least one ticket. Selected tickets spin.", (int)(0.30640149*getWidth()), (int)(0.16507 * getHeight()));
         g.drawRect((int)(0.738020833 * getWidth()) , (int) (0.7413962635201573 * getHeight()), (int) (0.16 * getWidth()), (int) (0.16 * getHeight()));
         g.drawString("End Turn", (int) (0.763206 * getWidth()), (int) (getHeight() * 0.76794));
-        if(destinationTicket1 != null)
+        if(destinationTicket1 != null && !destinationTicket1Selected)
             g.drawImage(destinationTicket1.getImage(), (int) (getWidth() * 0.2), (int) (getHeight()*0.3), null);
-        if(destinationTicket2 != null)
+        if(destinationTicket2 != null && !destinationTicket2Selected)
             g.drawImage(destinationTicket2.getImage(), (int) (getWidth() * 0.6), (int) (getHeight()*0.3), null);
-        if(destinationTicket3 != null)
+        if(destinationTicket3 != null && !destinationTicket3Selected)
             g.drawImage(destinationTicket3.getImage(), (int) (getWidth() * 0.4), (int) (getHeight()*0.6), null);
 
        
         
             if (destinationTicket1Selected)
             {
-                g.setColor(Color.green);
-                g.drawRect( (int) (getWidth() * 0.2), (int) (getHeight()*0.3), (int)(getWidth() * 0.144), (int) (getHeight() * 0.16));
+               // g.setColor(Color.green);
+               // g.drawRect( (int) (getWidth() * 0.2), (int) (getHeight()*0.3), (int)(getWidth() * 0.144), (int) (getHeight() * 0.16));
                 System.out.println("ticket 1 is selected");
                 g.setColor(Color.black);
-
+                rotatingDestinationTicket(g, destinationTicket1, -0.2227, -0.102857, time1); 
+                
             }
 
              if (destinationTicket2Selected)
             {
-                g.setColor(Color.green);
-                g.drawRect( (int) (getWidth() * 0.6), (int) (getHeight()*0.3), (int)(getWidth() * 0.14), (int) (getHeight() * 0.16));
+                
+               // g.drawRect( (int) (getWidth() * 0.6), (int) (getHeight()*0.3), (int)(getWidth() * 0.14), (int) (getHeight() * 0.16));
                 System.out.println("ticket 2 is selected");
 
-                g.setColor(Color.black);
-
+                
+                rotatingDestinationTicket(g, destinationTicket2, +0.1727, -0.122857, time1); 
             }
 
              if (destinationTicket3Selected)
             {
-                g.setColor(Color.green);
-                g.drawRect( (int) (getWidth() * 0.4), (int) (getHeight()*0.6), (int)(getWidth() * 0.14), (int) (getHeight() * 0.16));
+             //   g.setColor(Color.green);
+               // g.drawRect( (int) (getWidth() * 0.4), (int) (getHeight()*0.6), (int)(getWidth() * 0.14), (int) (getHeight() * 0.16));
                 System.out.println("ticket 3 is selected");
-                
+                rotatingDestinationTicket(g, destinationTicket3, -0.03, 0.20, time1); 
 
             }
     }//pickTicketUI
 
+
+
+
+    public void rotatingDestinationTicket(Graphics g, Ticket t, double xshift, double yshift, int tim)
+    {
+        
+             heading = 0 - Math.toRadians((((double) tim)/4)/200 * 180 - 10);
+             System.out.println("heading: " + heading);
+         pitch = 3.0;// Math.toRadians( -(time/4 -100)*(time/4 - 100)*0.003+30);
+         headingTransform = new Matrix3(new double[] {
+                 Math.cos(heading), 0, -Math.sin(heading),
+                 0, 1, 0,
+                 Math.sin(heading), 0, Math.cos(heading)
+             });
+         
+         pitchTransform = new Matrix3(new double[] {
+                 1, 0, 0,
+                 0, Math.cos(pitch), Math.sin(pitch),
+                 0, -Math.sin(pitch), Math.cos(pitch)
+             });
+         transform = headingTransform.multiply(pitchTransform);
+        
+         BufferedImage img = 
+         	    new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
+         Square s = DestinationCardBackSquare;
+
+             
+     	 Vertex v1 = transform.transform(s.a);
+     	 Vertex v2 = transform.transform(s.b);
+          Vertex v3 = transform.transform(s.c);
+          Vertex v4 = transform.transform(s.d);
+     	 
+          Vertex ab = new Vertex(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z);
+          Vertex ac = new Vertex(v1.x - v4.x, v1.y - v4.y, v1.z - v4.z);
+          Vertex norm = new Vertex(
+                  ab.y * ac.z - ab.z * ac.y,
+                  ab.z * ac.x - ab.x * ac.z,
+                  ab.x * ac.y - ab.y * ac.x
+             );
+             double normalLength =
+                 Math.sqrt(norm.x * norm.x + norm.y * norm.y + norm.z * norm.z);
+             norm.x /= normalLength;
+             norm.y /= normalLength;
+             norm.z /= normalLength;
+         
+             double angleCos = Math.abs(norm.z);
+             Vertex transformedV;
+             
+             BufferedImage flippedT = flipImageHorizontally((BufferedImage)(t.getImage()));
+             for (int y = Math.max(-DestinationCardBack.getHeight()/2, -((BufferedImage)t.getImage()).getHeight()/2); y < Math.min(DestinationCardBack.getHeight()/2, ((BufferedImage)t.getImage()).getHeight()/2); y++)
+             {
+                for (int x = 
+                Math.max(-DestinationCardBack.getWidth()/2, -((BufferedImage)t.getImage()).getWidth()/2);
+                x < Math.min(DestinationCardBack.getWidth()/2, ((BufferedImage)t.getImage()).getWidth()/2) ; x++)
+            	 {
+            		 transformedV = transform.transform(new Vertex(x, y ,0));
+            		 int actualy = (int) transformedV.y + getHeight()/2;
+            		 int actualx = (int) transformedV.x + getWidth()/2 ;
+            		// transformedV = transform.transform(new Vertex(actualx, actualy, 1000));
+            		 //System.out.println("actualx :" + actualx + " actualy: " + actualy);
+            		 
+            		 if (actualx < getWidth() && 0 < actualx  && actualy  < getHeight() && 0 < actualy )
+            		 {
+            			
+            			
+            			if (norm.z > 0)
+            				 img.setRGB( (int) (actualx),
+                             (int) ( actualy ), 
+                             getShade((new Color(DestinationCardBack.getRGB(x + DestinationCardBack.getWidth()/2, y + DestinationCardBack.getHeight()/2), true)), angleCos).getRGB());
+            			 else
+            				 img.setRGB( (int) (actualx), 
+                             (int) ( actualy), 
+                             getShade((new Color(((BufferedImage) flippedT).getRGB(x + ((BufferedImage) t.getImage()).getWidth()/2, 
+                             y +  + ((BufferedImage) flippedT).getHeight()/2), true)), angleCos).getRGB());
+            				 
+            		 }	 
+            		 
+            		 
+            	 }
+            	 
+            	 
+             }
+
+             g.drawImage(img, (int)(xshift*getWidth()), (int)(yshift*getHeight()) ,null);
+    }
+
+    public static Color getShade(Color color, double shade) {
+        double redLinear = Math.pow(color.getRed(), 2.4) * shade;
+          double greenLinear = Math.pow(color.getGreen(), 2.4) * shade;
+          double blueLinear = Math.pow(color.getBlue(), 2.4) * shade;
+
+          int red = (int) Math.pow(redLinear, 1/2.4);
+          int green = (int) Math.pow(greenLinear, 1/2.4);
+          int blue = (int) Math.pow(blueLinear, 1/2.4);
+
+          return new Color(red, green, blue);
+  }
+
+  public BufferedImage flipImageHorizontally(BufferedImage original) {
+    int width = original.getWidth();
+    int height = original.getHeight();
+
+    BufferedImage flipped = new BufferedImage(width, height, original.getType());
+    Graphics2D g = flipped.createGraphics();
+
+    // Reflect across the horizontal axis
+    AffineTransform transform = AffineTransform.getScaleInstance(1, -1);
+    transform.translate(0, -height);
+
+    g.drawImage(original, transform, null);
+    g.dispose();
+
+    return flipped;
+}
+    
     public void pickTrainCardUI(Graphics g)
     {
         int counter = 0;
@@ -1919,5 +2093,9 @@ public class T2RPanel extends JPanel implements MouseListener{
 
     public T2RFrame getFrame(){
         return frame;
+    }
+
+    public void setFrame(T2RFrame f){
+        frame = f;
     }
 }//class TR2PAnel
