@@ -44,7 +44,7 @@ public class EndPanel extends JPanel implements MouseListener{
     		x.addPoints(x.getNumTrainStations()*4);
     	 // needs to check destination tickets
     		for(Ticket y: x.getTickets()) {
-    			if(x.checkTickets(y)) {
+    			if(x.isTicketCompleted(y)) {
     				x.addPoints(y.getPointValue());
     			}
     			else 
