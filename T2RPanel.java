@@ -232,7 +232,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                 g.drawImage(t2r_map, 0, 0, (int)(getWidth() * 0.6), (int)(getHeight()  * 0.7) ,null);
                 paintClaimedRailroads(g); //paints the claimed railroads in the color of the player
                 paintPlayerHand(g); //paints the player whos turn it is
-                if (firstlast)
+                if (firstlast && turnState == 0)
                 {
                     paintSkipButton(g);
                 }
@@ -481,7 +481,7 @@ public class T2RPanel extends JPanel implements MouseListener{
         {
 
             g.fillRoundRect((int)(0.82711*getWidth()), (int)(0.740000*getHeight()),(int)( 0.1*getWidth()), (int)(0.05*getHeight()), (int)(0.01*getWidth()), (int)(0.1*getWidth()));
-            if ( firstlast  &&  rectangularInBounds(x, y,(int)(0.82711*getWidth()), (int)(0.92711*getWidth()), (int)(0.740000*getHeight()), (int)(0.790000*getHeight())) )
+            if ( turnState == 0 && firstlast  &&  rectangularInBounds(x, y,(int)(0.82711*getWidth()), (int)(0.92711*getWidth()), (int)(0.740000*getHeight()), (int)(0.790000*getHeight())) )
             {
                 System.out.println("player skipped turn");
                 
