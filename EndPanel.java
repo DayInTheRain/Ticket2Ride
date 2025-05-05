@@ -150,17 +150,17 @@ public class EndPanel extends JPanel implements MouseListener{
 
 		//go back button
 
-		g.setColor(Color.white);
+	/*	g.setColor(Color.white);
 		g.fillRect(0,0, (int)(0.2*getWidth()), (int) (0.1*getHeight()));
 
 		g.setColor(Color.black);
-		g.drawString("Back to map", (int)(0.025*getWidth()), (int) (0.05*getHeight()));
+		g.drawString("Back to map", (int)(0.025*getWidth()), (int) (0.05*getHeight()));  */
     }
 
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		double x = e.getX();
+/* 		double x = e.getX();
 		int y = e.getY();
 		System.out.println("x: " + x);
 		System.out.println("y: " + y);
@@ -170,9 +170,9 @@ public class EndPanel extends JPanel implements MouseListener{
 			gamePanel.setIsLookingAtMap(true);
 			this.getFrame().gameScreen();
 		}
-
+ 
 		repaint();
-		
+		*/
 	}
 
 	@Override
