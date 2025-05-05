@@ -687,11 +687,28 @@ public class T2RPanel extends JPanel implements MouseListener{
                             }
                             
                         }
-                        if(colorChosen && gameAccess.getMap().getRailroad(city1, city2, color).getPlayer() != null){
-                            taken = true;
-                        }else{
-                            taken = false;
+                        Railroad r1 = gameAccess.getMap().getRailroad(city1, city2);
+                        Railroad r2 = null;
+                        if(r1.getSisterRailroad() != null){
+                            r2 = r1.getSisterRailroad();
+                            if(r1.getColor().equals(color)){
+                                if(colorChosen && r1.getPlayer() != null){
+                                    taken = true;
+                                } 
+                            }
+                            else if (r2.getColor().equals(color)){
+                                if(colorChosen && r2.getPlayer() != null){
+                                    taken = true;
+                                } 
+                            } else {
+                                taken = false;
+                            }
                         }
+                        // if(colorChosen && gameAccess.getMap().getRailroad(city1, city2, color).getPlayer() != null){
+                        //     taken = true;
+                        // }else{
+                        //     taken = false;
+                        // }
                         System.out.println("\nInvalidColor: " + invalidColor +"\nColor: " + color + "\n");
                         if(!invalidColor && color != null && !taken){
                             numWild = railroad.getNumWild();
@@ -1543,7 +1560,7 @@ public class T2RPanel extends JPanel implements MouseListener{
             //claimRouteState = 1;    //change this to something else (maybe make a new claimroutestate)	
             color = null;
             isgrey = false; //this whole thing needs to reset everything
-        }else if(taken ||(city1 != null && city2 != null && color != null && gameAccess.getMap().getRailroad(city1, city2).getPlayer() != null && !colorChosen && (!isgrey && !isDouble))){ //needs to use railroad(str, str, str (color))
+        }else if(taken || (city1 != null && city2 != null && color != null && gameAccess.getMap().getRailroad(city1, city2, color).getPlayer() != null && !colorChosen && (!isgrey && !isDouble))){ //needs to use railroad(str, str, str (color))
             g.drawString("This route is taken, choose something else", (int)(0.6625233064014916*getWidth()), (int)(0.3803827751196172*getHeight())); 
         } else if(city1 != null && city2 != null && (!gameAccess.getMap().getRailroad(city1, city2).isTunnel() && canPurchase()) && !invalidColor && color != null && !taken){
             g.drawString("Can purchase!", (int)(0.6625233064014916*getWidth()), (int)(0.3803827751196172*getHeight())); 
