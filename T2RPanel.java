@@ -718,7 +718,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                         //     taken = false;
                         // }
                         System.out.println("\nInvalidColor: " + invalidColor +"\nColor: " + color + "\n");
-                        if(!invalidColor && color != null && !taken){
+                        if(!invalidColor && color != null && !taken && (city1 != null && city2 != null && color != null && getCurrentPlayer().getNumTrains() >= gameAccess.getMap().getRailroad(city1, city2, color).getNumTotalTrains())){
                             numWild = railroad.getNumWild();
                             num = railroad.getNumTrains();
                             int numOfColor = getCurrentPlayer().getTrainCards().get(color);
@@ -865,7 +865,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                 
                 int counter = 0;
     
-                if(!invalidColor && color != null){
+                if(!invalidColor && color != null && (city1 != null && city2 != null && color != null && getCurrentPlayer().getNumTrains() >= gameAccess.getMap().getRailroad(city1, city2, color).getNumTotalTrains())){
                     numWild = railroad.getNumWild();
                             num = railroad.getNumTrains();
                             int numOfColor = getCurrentPlayer().getTrainCards().get(color);
@@ -1563,7 +1563,7 @@ public class T2RPanel extends JPanel implements MouseListener{
         }
         if(isDouble && invalidColor && color != null){
             g.drawString("Can't use this color, pick again", (int)(0.6625233064014916*getWidth()), (int)(0.3803827751196172*getHeight())); 
-        } else if(hasOther || city1 != null && city2 != null && !canPurchase() && color != null && !color.equals("grey")){
+        } else if((city1 != null && city2 != null && color != null && getCurrentPlayer().getNumTrains() < gameAccess.getMap().getRailroad(city1, city2, color).getNumTotalTrains()) || hasOther || city1 != null && city2 != null && !canPurchase() && color != null && !color.equals("grey")){
             g.drawString("You can't afford this, choose something else", (int)(0.6625233064014916*getWidth()), (int)(0.3803827751196172*getHeight())); 
             //claimRouteState = 1;    //change this to something else (maybe make a new claimroutestate)	
             color = null;
