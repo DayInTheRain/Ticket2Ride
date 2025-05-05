@@ -91,7 +91,7 @@ public class Game {
 
     public TrainCard getDiscardCard() { 
         if(hasDiscard())
-            return discard.peek();
+            return discard.peekLast();
         else
         return null;
     } 
@@ -272,6 +272,10 @@ public class Game {
 
     public ArrayList<Player> getPlayers(){ return players; }
     public ArrayList<TrainCard> getTCFiles(){ return trainCardFiles; }
+
+    public Deque<TrainCard> getDiscardPile(){
+        return discard;
+    }
 
 
     public ArrayList<City> getCities()
