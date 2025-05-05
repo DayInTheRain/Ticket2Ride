@@ -96,6 +96,9 @@ public class T2RPanel extends JPanel implements MouseListener{
      Square DestinationCardBackSquare;
 
      BufferedImage DestinationCardBack;
+
+
+     private boolean isLookingAtMap;
     public T2RPanel()
     {
         gameAccess = new Game();
@@ -181,7 +184,7 @@ public class T2RPanel extends JPanel implements MouseListener{
         new Vertex(0,0,0);
         DestinationCardBackSquare = new Square(new Vertex(0,0,0), new Vertex (DestinationCardBack.getWidth(),0,0), new Vertex(DestinationCardBack.getWidth(), DestinationCardBack.getHeight(), 0), new Vertex(0,DestinationCardBack.getHeight(),0), Color.black);
           
-
+          isLookingAtMap = false;
 
     }//end of constructor
 
@@ -271,7 +274,7 @@ public class T2RPanel extends JPanel implements MouseListener{
             }
             else if(gameState == 2) {
             // endscreen
-            	g.drawImage(endscreen, 0, 0, (int)(getWidth()), (int)(getHeight()), null);
+            	//g.drawImage(endscreen, 0, 0, (int)(getWidth()), (int)(getHeight()), null);
             	endGame(g);
             	
             }
@@ -1910,7 +1913,8 @@ public class T2RPanel extends JPanel implements MouseListener{
 
     public void endGame(Graphics g) 
     {
-        this.getFrame().endScreen(gameAccess); //this should make the game end and switch to the new endscreen
+        if(!isLookingAtMap)
+            this.getFrame().endScreen(gameAccess); //this should make the game end and switch to the new endscreen
     	// Player first = null;
     	// Player second = null;
     	// Player third = null;
@@ -2124,5 +2128,10 @@ public class T2RPanel extends JPanel implements MouseListener{
 
     public void setFrame(T2RFrame f){
         frame = f;
+    }
+
+    public void setIsLookingAtMap(boolean b)
+    {
+        isLookingAtMap = b;
     }
 }//class TR2PAnel
