@@ -8,6 +8,7 @@ public class Player {
     private ArrayList<TrainCard> cardsPicked;
     private ArrayList<Railroad> railroads;
     private ArrayList<City> stations;
+    private int stationsClaimed;
 
     
 
@@ -18,6 +19,7 @@ public class Player {
         trains = 1;
         turnStatus = 0;
         turnState = 0;
+        stationsClaimed = 0;
 
         //Initialize all cards (starting at 0)
         trainCards = new HashMap<>();
@@ -42,6 +44,9 @@ public class Player {
     public int getPlayerNum(){ return playerNum; }
     public int getPoints(){ return points; }
     public int getNumTrainStations(){ return trainStations; }
+    public int getNumStationsClaimed() { return stationsClaimed; }
+    public void incrementStationsClaimed(){ stationsClaimed++; }
+    public int getNumStationsUsed(){ return 3-trainStations; }
     public HashMap<String, Integer> getTrainCards(){ return trainCards; }
     public ArrayList<Ticket> getTickets(){ return tickets; }
     public boolean hasEuropeanExpress(){ return hasEuropeanExpress; }
@@ -161,6 +166,9 @@ public class Player {
 
     public void addStation(City c){
         stations.add(c);
+    }
+    public void removeStation(City c){
+        stations.remove(c);
     }
 
 
