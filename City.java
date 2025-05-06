@@ -75,4 +75,9 @@ public void placeStation(Player p) {
 	p.addStation(this);
 }
 
+public void removeStation(Player p){
+	stationID = 0;
+	p.removeStation(this);
+}
+
 }

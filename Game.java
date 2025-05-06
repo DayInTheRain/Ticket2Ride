@@ -225,6 +225,10 @@ public class Game {
         if(playerTurn == 5)
             playerTurn = 1;
     }//incrementTurn
+    public void setTurn(int i){
+        playerTurn = i-1;
+        incrementTurn();
+    }
      
     public Ticket drawTicket(){
         if(tickets.size() > 0)

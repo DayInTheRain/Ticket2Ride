@@ -20,10 +20,14 @@ public class EndPanel extends JPanel implements MouseListener{
     Font origionalFont;
 
     Graphics g;
+
+	T2RPanel gamePanel;
     
-    public EndPanel(Game x) {
+    public EndPanel(Game x, T2RPanel p) {
     	gameAccess = x;
     	endscreen = ImageLoader.get("/Images/end screen.jpg");
+		gamePanel = p;
+		addMouseListener(this);
     }
     
     public void paint(Graphics g) {
@@ -147,13 +151,33 @@ public class EndPanel extends JPanel implements MouseListener{
     	g.drawString("breakdown",(int)(0.8344791666666667*getWidth()),(int)( 0.9120095693779905*getHeight()));
     	g.drawRect((int)(0.84000*getWidth()),(int)(0.9413875598086124*getHeight()),(int)(0.93324654*getWidth())-(int)(0.8400000*getWidth()),(int)(0.9900000*getHeight())-(int)(0.9413875598086124*getHeight()));
     	
+
+
+		//go back button
+
+	/*	g.setColor(Color.white);
+		g.fillRect(0,0, (int)(0.2*getWidth()), (int) (0.1*getHeight()));
+
+		g.setColor(Color.black);
+		g.drawString("Back to map", (int)(0.025*getWidth()), (int) (0.05*getHeight()));  */
     }
 
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+/* 		double x = e.getX();
+		int y = e.getY();
+		System.out.println("x: " + x);
+		System.out.println("y: " + y);
+		if (rectangularInBounds(x, y, 0, (int)(0.2*getWidth()), 0, (int)(0.1*getHeight())))
+		{
+			System.out.println("in bounds----------------------------");
+			gamePanel.setIsLookingAtMap(true);
+			this.getFrame().gameScreen();
+		}
+ 
+		repaint();
+		*/
 	}
 
 	@Override
@@ -187,5 +211,20 @@ public class EndPanel extends JPanel implements MouseListener{
 	public T2RFrame getFrame(){
 		return frame;
 	}
+
+	public boolean rectangularInBounds(double x, double y, double minX, double maxX, double minY, double maxY)
+    {
+        if ( minX < x && x < maxX)
+        {
+            if (minY < y && y < maxY)
+            {
+                return true;
+            }
+        }
+        return false;
+
+
+    }//rectangularInBounds
+
 
 }

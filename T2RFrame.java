@@ -29,7 +29,7 @@ public class T2RFrame extends JFrame{
 
     public void endScreen(Game g){
         System.out.println("Ending the game");
-        endJPanel = new EndPanel(g);
+        endJPanel = new EndPanel(g, gamePanel);
         endJPanel.setFrame(this);
         mainP.add("END_PANEL", endJPanel);
         cl.show(mainP, "END_PANEL");
