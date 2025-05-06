@@ -2206,5 +2206,6 @@ public class T2RPanel extends JPanel implements MouseListener{
     public void setIsLookingAtMap(boolean b)
     {
         isLookingAtMap = b;
+        System.out.println(isLookingAtMap);
     }
 }//class TR2PAnel
