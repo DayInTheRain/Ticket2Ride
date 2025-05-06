@@ -36,9 +36,9 @@ public class T2RFrame extends JFrame{
     }
 
     public void gameScreen(){
+        
         System.out.println("gameScreen");
         cl.show(mainP, "GAME_PANEL");
-
     }
 
 }//class

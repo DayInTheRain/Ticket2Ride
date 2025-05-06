@@ -29,6 +29,11 @@ public class EndPanel extends JPanel implements MouseListener{
     public void paint(Graphics g) {
     	endGame(g);
     }
+
+	// public void go2MapButton(Graphics g){
+	// 	g.setColor(getBackground());
+	// 	g.drawRoundRect(ALLBITS, ABORT, WIDTH, HEIGHT, WIDTH, HEIGHT);
+	// }
     
  public void endGame(Graphics g) {
     	g.drawImage(endscreen, 0, 0, getWidth(), getHeight(), null);
