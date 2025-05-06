@@ -213,9 +213,18 @@ public class T2RPanel extends JPanel implements MouseListener{
         System.out.println("Discard Pile RN: " + gameAccess.getDiscardPile());
         //for(TrainCard train : gameAccess.getDiscardPile()){System.out.println(train.getColor());}
 
-       
         g = f;
         super.paint(g);
+
+        //this doesn't work yet
+        if(isLookingAtMap){
+            System.out.println(gameAccess.getPlayers());
+            gameState = -3;
+            g.drawImage(woodenBg, 0, 0, getWidth(), getHeight(), null);
+            g.drawImage(t2r_map, 0, 0, (int)(getWidth() * 0.6), (int)(getHeight()  * 0.7) ,null);
+            paintClaimedRailroads(g);
+            drawStations(g);
+        }
        
         if(viewingTickets){
             paintViewingTickets(g);
@@ -1373,7 +1382,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                     }
                     gameAccess.incrementTurn();
                 }
-                if (stationState == 0)
+                if (stationState == 0 && getCurrentPlayer().getNumStationsUsed() > 0)
                 {
                  city1 = CityDetector(x, y);
                      if (city1 != null)
@@ -1385,13 +1394,14 @@ public class T2RPanel extends JPanel implements MouseListener{
                 {
                     city2 = CityDetector(x, y);
                     
-                    if (city2 != null && !gameAccess.getMap().railroadExists(city1, city2).equals("false"))
+                    if (city2 != null && !gameAccess.getMap().railroadExists(city1, city2).equals("false") && (city1 != null && city2 != null && (city1.getStation() == getCurrentPlayer().getPlayerNum() || city2.getStation() == getCurrentPlayer().getPlayerNum())))
                     {
                         stationState = 2;
                     }
-                    else
+                    else{
                     	city2 = null;
                     	System.out.println("Cities are not connected");
+                    }   
 
                 }
                 if(stationState == 2){
