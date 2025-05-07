@@ -72,7 +72,7 @@ public class Game {
 
     public void fillGrid(){
         while(grid.size() < 5){
-            grid.add(trainCards.pop());
+            grid.add(drawTrainCard());
         }
     }//deals with the five cards on screen (aka grid)
     public void replaceGrid(){
@@ -248,16 +248,34 @@ public class Game {
             System.out.println("I am here! I'm shuffling!");
     		redoDeck();
     	}
-        System.out.println(trainCards.peek().getColor());
+       // System.out.println(trainCards.peek().getColor());
+       ArrayList<TrainCard> randomSet = new ArrayList<TrainCard>();
+       randomSet.add(new TrainCard("red"));
+       randomSet.add(new TrainCard("orange"));
+       
+       randomSet.add(new TrainCard("yellow"));
+       randomSet.add(new TrainCard("green"));
+       randomSet.add(new TrainCard("blue"));
+       randomSet.add(new TrainCard("black"));
+       randomSet.add(new TrainCard("white"));
+       randomSet.add(new TrainCard("pink"));
 
+       randomSet.add(new TrainCard("wild"));
+       
+        int x = (int) ( Math.random()*9);
+        if (trainCards.isEmpty())
+        {
+            System.out.println("The game would otherwise break=====================================================================");
+            trainCards.add(randomSet.get(x));
+        }
         return trainCards.pop();
     }//drawTrainCard
 
     public void redoDeck() {
         System.out.println(discard);
-    	for(TrainCard x: discard) {
-    		trainCards.push(x);
-    		discard.pop();
+    	while(discard.size() > 0) {
+    		trainCards.push(discard.pop());
+    		
     	}
 
         // trainCards.addAll(discard);
