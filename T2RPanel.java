@@ -213,9 +213,18 @@ public class T2RPanel extends JPanel implements MouseListener{
         System.out.println("Discard Pile RN: " + gameAccess.getDiscardPile());
         //for(TrainCard train : gameAccess.getDiscardPile()){System.out.println(train.getColor());}
 
-       
         g = f;
         super.paint(g);
+
+        //this doesn't work yet
+        if(isLookingAtMap){
+            System.out.println(gameAccess.getPlayers());
+            gameState = -3;
+            g.drawImage(woodenBg, 0, 0, getWidth(), getHeight(), null);
+            g.drawImage(t2r_map, 0, 0, (int)(getWidth() * 0.6), (int)(getHeight()  * 0.7) ,null);
+            paintClaimedRailroads(g);
+            drawStations(g);
+        }
        
         if(viewingTickets){
             paintViewingTickets(g);
@@ -1373,7 +1382,7 @@ public class T2RPanel extends JPanel implements MouseListener{
                     }
                     gameAccess.incrementTurn();
                 }
-                if (stationState == 0)
+                if (stationState == 0 && getCurrentPlayer().getNumStationsUsed() > 0)
                 {
                  city1 = CityDetector(x, y);
                      if (city1 != null)
@@ -1385,13 +1394,14 @@ public class T2RPanel extends JPanel implements MouseListener{
                 {
                     city2 = CityDetector(x, y);
                     
-                    if (city2 != null && !gameAccess.getMap().railroadExists(city1, city2).equals("false"))
+                    if (city2 != null && !gameAccess.getMap().railroadExists(city1, city2).equals("false") && (city1 != null && city2 != null && (city1.getStation() == getCurrentPlayer().getPlayerNum() || city2.getStation() == getCurrentPlayer().getPlayerNum())))
                     {
                         stationState = 2;
                     }
-                    else
+                    else{
                     	city2 = null;
                     	System.out.println("Cities are not connected");
+                    }   
 
                 }
                 if(stationState == 2){
@@ -1873,9 +1883,16 @@ public class T2RPanel extends JPanel implements MouseListener{
         g.drawString("Pick two train cards. If chosen a wild, only one.", (int)(0.30640149*getWidth()), (int)(0.16507 * getHeight()));
         g.drawRect((int)(0.738020833 * getWidth()) , (int) (0.7413962635201573 * getHeight()), (int) (0.16 * getWidth()), (int) (0.16 * getHeight()));
         g.drawString("End Turn", (int) (0.763206 * getWidth()), (int) (getHeight() * 0.76794));
-        for(int i = 0; i < 5; i++){
-            g.drawImage(gameAccess.getGrid().get(i).getImage(), (int)((0.23741 + (0.23741-0.12927)*i)*getWidth()), (int)(0.18468*getHeight()), (int)((0.23741-0.12927)*getWidth()), (int)((0.56220-0.28468)*getHeight()), null);
-        }
+         if (gameAccess.getTrainCards().isEmpty())
+         {
+            gameAccess.redoDeck();
+         }
+                for(int i = 0; i < 5; i++)
+                {
+                    
+                    g.drawImage(gameAccess.getGrid().get(i).getImage(), (int)((0.23741 + (0.23741-0.12927)*i)*getWidth()), (int)(0.18468*getHeight()), (int)((0.23741-0.12927)*getWidth()), (int)((0.56220-0.28468)*getHeight()), null);
+                }
+        
         for(int i = 0; i < getCurrentPlayer().getCardsPicked().size(); i++){
             g.drawImage(getCurrentPlayer().getCardsPicked().get(i).getImage(), (int)((0.21379 + (0.23741-0.12927)*i)*getWidth()), (int)(0.52870*getHeight()), (int)((0.23741-0.12927)*getWidth()), (int)((0.56220-0.28468)*getHeight()), null);
         }
@@ -2206,5 +2223,6 @@ public class T2RPanel extends JPanel implements MouseListener{
     public void setIsLookingAtMap(boolean b)
     {
         isLookingAtMap = b;
+        System.out.println(isLookingAtMap);
     }
 }//class TR2PAnel
