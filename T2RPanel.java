@@ -224,6 +224,9 @@ public class T2RPanel extends JPanel implements MouseListener{
             g.drawImage(t2r_map, 0, 0, (int)(getWidth() * 0.6), (int)(getHeight()  * 0.7) ,null);
             paintClaimedRailroads(g);
             drawStations(g);
+            g.setColor(Color.black);
+            g.drawRect((int) (0.9242*getWidth()), (int) (0.0231*getHeight()), (int) (getWidth()*0.05), (int) (getHeight()*0.04)); 
+            g.drawString("Go Back",(int) (0.9262*getWidth()),(int) (0.0471*getHeight()));//draws clear button
         }
        
         if(viewingTickets){
@@ -444,7 +447,13 @@ public class T2RPanel extends JPanel implements MouseListener{
         System.out.println((x/getWidth()) + " , " + (y/getHeight()));
         System.out.println();
         
-
+        if(isLookingAtMap){
+            if (rectangularInBounds(x,y, (int) (0.9235550031075*getWidth()), (int) (0.97327532628*getWidth()), (int) ( 0.022727272727*getHeight()), (int) (0.0610047846*getHeight())) && !((claimRouteState == 3 && canPurchase()) || ((isDouble || isgrey) && claimRouteState == 3 && colorChosen))) // if (reset button clicked)
+            {
+                isLookingAtMap = false;
+                endGame(g);
+            }
+        }
        if(gameState == 0)
         {
             //start button   

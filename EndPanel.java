@@ -15,7 +15,7 @@ public class EndPanel extends JPanel implements MouseListener{
     boolean isLast;
     int lastTurn;
     boolean firstlast;
-    
+    static boolean isFirst = false;
 
     Font origionalFont;
 
@@ -23,10 +23,31 @@ public class EndPanel extends JPanel implements MouseListener{
 
 	T2RPanel gamePanel;
     
-    public EndPanel(Game x, T2RPanel p) {
-    	gameAccess = x;
+    public EndPanel(Game M, T2RPanel p) {
+    	gameAccess = M;
     	endscreen = ImageLoader.get("/Images/end screen.jpg");
 		gamePanel = p;
+		if(!isFirst){
+			isFirst = true;
+			ArrayList<Player> plays = new ArrayList<>();
+			plays.addAll(gameAccess.getPlayers());
+			for(Player x : plays) {
+				x.addPoints(x.getNumTrainStations()*4);
+			 // needs to check destination tickets
+				for(Ticket y: x.getTickets()) {
+					if(x.isTicketCompleted(y)) {
+						x.addPoints(y.getPointValue());
+					}
+					else 
+						x.addPoints(-y.getPointValue());
+				}
+				if(x.hasEuropeanExpress())
+					x.addPoints(10);
+				
+			System.out.println("Player "+x.getPlayerNum()+":"+x.getPoints());
+			}
+		}
+
 		addMouseListener(this);
     }
     
@@ -46,9 +67,8 @@ public class EndPanel extends JPanel implements MouseListener{
     	Player third = null;
     	Player fourth = null;
     	
-    	ArrayList<Player> plays = new ArrayList<>();
-    	plays.addAll(gameAccess.getPlayers());
     	
+    	/*
     	for(Player x : plays) {
     		x.addPoints(x.getNumTrainStations()*4);
     	 // needs to check destination tickets
@@ -64,7 +84,7 @@ public class EndPanel extends JPanel implements MouseListener{
     		
     	System.out.println("Player "+x.getPlayerNum()+":"+x.getPoints());
     	}
-    	
+    	*/
     	ArrayList<Integer> places = new ArrayList<>();
     	int p1points = gameAccess.getPlayers().get(0).getPoints();
     	int p2points = gameAccess.getPlayers().get(1).getPoints();
