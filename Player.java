@@ -16,7 +16,7 @@ public class Player {
         playerNum = num;
         points = 0;
         trainStations = 3;
-        trains = 45;
+        trains =  45;
         turnStatus = 0;
         turnState = 0;
         stationsClaimed = 0;

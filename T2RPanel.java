@@ -515,11 +515,22 @@ public class T2RPanel extends JPanel implements MouseListener{
                 System.out.println("player skipped turn");
                 
                  // i think there's some stuff missing here to add
-                if (lastTurn >4)
-                {
-                    //gameState = 2; //UNCOMMENT THIS
+                // if (lastTurn >4)
+                // {
+                //     //gameState = 2; //UNCOMMENT THIS
+                // }
+                // lastTurn++;
+                if(isLast) {
+                    lastTurn++;
+                    System.out.println("players last turn" + lastTurn);
                 }
-                lastTurn++;
+                if(isLast && lastTurn >= 4) {
+                        //gameState = 2;
+                    turnState = 10;
+                    // gameAccess.setturn(1);
+
+                        System.out.println("end game");
+                }
                 System.out.println("lastturn = " + lastTurn);
                 gameAccess.incrementTurn();
             }
@@ -2158,6 +2169,7 @@ public class T2RPanel extends JPanel implements MouseListener{
         if(theFirst){
             gameAccess.setTurn(1);
             theFirst = false;
+            repaint();
         }
       
         drawStations(g);
